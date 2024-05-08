@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="es">
       <body className="flex flex-col min-h-screen justify-between">
         <Navbar />
-        <ColumnCurso />
+        
         {children}
         <Footer />
       </body>
