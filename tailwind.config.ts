@@ -9,6 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        image:"#747474",
+        whiteColumn:"#FFFFFF",
         purpleMain: "#563073",
         purpleMainLight: "#C09AE6",
         purpleMainLighter: "#D8C2F0",
