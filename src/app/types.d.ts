@@ -29,3 +29,9 @@ export interface IRegisterErrorForm {
   confirmPassword?: string;
   [key: string?]: string;
 }
+
+export interface ICategory {
+  id?: number;
+  name: string;
+  image: string;
+}
