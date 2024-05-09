@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {images:{
+    remotePatterns: [
+        {hostname: "19604448.fs1.hubspotusercontent-na1.net",},
+        {hostname: "bairesdev.mo.cloudinary.net",},
+        ]}
+}
 
 export default nextConfig;
