@@ -1,7 +1,7 @@
 const columnCurso: React.FC = (): JSX.Element => {
   return (
-    <div className=" justify-center items-center grid grid-cols-6">
-      <div className="h-screen w-80 bg-purpleMainLight col-start-2 col-span-4 pl-10 pr-10">
+    <div className=" justify-center items-center grid grid-cols-6  ">
+      <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 pl-10 pr-10">
         <div className="bg-whiteColumn  my-5 py-3 mt-10 flex flex-nowrap">
           <div className=" bg-image w-12 h-12 rounded-full ml-3 "></div>
           
