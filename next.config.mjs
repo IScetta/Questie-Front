@@ -6,6 +6,8 @@ const nextConfig = {
       { hostname: "bairesdev.mo.cloudinary.net" },
       { hostname: "images.unsplash.com" },
       { hostname: "source.unsplash.com" },
+      { hostname: "e7.pngegg.com" },
+      
     ],
   },
 };
