@@ -3,10 +3,8 @@ import { MdArticle } from "react-icons/md";
 import { FaCoins } from "react-icons/fa6";
 import { IoIosPhonePortrait } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-
-import FeaturedCarousel from "../components/featured/featured-carousel";
 import HeaderCurse from "../components/curse/header-curse";
-import ColumnCurso from "../components/columnCurso";
+import ColumnCurso from "../components/column-curso";
 import Image from "next/image";
 import ModuleCurseCard from "../components/curse/module-curse-card";
 import FeaturedCard from "../components/featured/featured-card";
@@ -90,7 +88,9 @@ const CurseReview = () => {
         </div>
 
         <div className="flex  flex-col  m-6 py-2 w-auto h-[370px] ">
-              <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">Cursos relacionados</h2>
+          <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
+            Cursos relacionados
+          </h2>
           <div className="flex flex-wrap justify-between  ">
             <FeaturedCard />
             <FeaturedCard />
@@ -99,7 +99,9 @@ const CurseReview = () => {
         </div>
 
         <div className="flex  flex-col   m-6 py-2 w-auto h-[370px] ">
-              <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">Cursos valorados</h2>
+          <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
+            Cursos valorados
+          </h2>
           <div className="flex flex-wrap justify-between  ">
             <FeaturedCard />
             <FeaturedCard />
