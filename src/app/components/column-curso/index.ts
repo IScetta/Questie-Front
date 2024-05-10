@@ -1,1 +1,1 @@
-export { default } from "./ColumnCurso";
+export { default } from "./ColumCurso";
