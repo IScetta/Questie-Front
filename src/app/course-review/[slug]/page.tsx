@@ -3,14 +3,16 @@ import { MdArticle } from "react-icons/md";
 import { FaCoins } from "react-icons/fa6";
 import { IoIosPhonePortrait } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import HeaderCurse from "../../components/curse/header-curse";
+
 import ColumnCurso from "../../components/column-curso";
 import Image from "next/image";
-import ModuleCurseCard from "../../components/curse/module-curse-card";
+
 import FeaturedCard from "../../components/featured/featured-card";
 
 import { curso } from "@/helpers/categoriesPreLoad";
 import { getCourseDB } from "@/helpers/course.helpers";
+import HeaderCourse from "@/app/components/course/header-course";
+import ModuleCourseCard from "@/app/components/course/module-course-card";
 
  const secciones = [
   { titulo: "titulo", modulo: "Titulo de la leccion" },
@@ -31,7 +33,7 @@ const CurseReview = async ({params}:{params: any}) => {
         <ColumnCurso />
       </div>
       <div className="pb-4">
-        <HeaderCurse infoCurse={curso[id].infoGenral} />
+        <HeaderCourse />
         <div className="flex flex-row w-full h-auto ">
           <div className=" w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
             <h2 className="text-[22px] leading-6 p-2 ">Descripcion</h2>
@@ -65,7 +67,7 @@ const CurseReview = async ({params}:{params: any}) => {
 
 
         <div className="m-6 py-4 rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
-          <ModuleCurseCard curso={curso} id={id}/>
+          <ModuleCourseCard curso={curso} id={id}/>
         </div>
 
 
