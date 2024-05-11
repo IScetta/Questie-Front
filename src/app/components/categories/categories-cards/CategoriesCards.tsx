@@ -1,10 +1,13 @@
-import { categoriesPreLoad } from "@/helpers/categoriesPreLoad";
 import CategoryCard from "../category-card";
+import categoriesPreLoad from "@/helpers/categoriesPreLoad.json";
 
-const CategoriesCards: React.FC = (): JSX.Element => {
+const CategoriesCards: React.FC = async (): Promise<JSX.Element> => {
+  // const categories = (await getCategoriesDB()) || [];
+  const categories = categoriesPreLoad;
+  const limitedCategories = categories.slice(0, 8);
   return (
     <div className="grid grid-cols-4 justify-items-center w-full h-auto gap-10">
-      {categoriesPreLoad.map((category, index) => (
+      {limitedCategories.map((category, index) => (
         <CategoryCard key={index} {...category} />
       ))}
     </div>
