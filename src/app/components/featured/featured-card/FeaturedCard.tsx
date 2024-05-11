@@ -2,8 +2,9 @@ import Image from "next/image";
 
 const FeaturedCard = () => {
   return (
-    <div className="mx-2 w-[250px] h-[250px] ">
-      <Image
+    <div className=" mx-2 w-[250px] h-[250px] ml-20 mr20 lg:w-40  ">
+      <div className=" my-11">
+<Image
         src="https://19604448.fs1.hubspotusercontent-na1.net/hubfs/19604448/JavaScript%20un%20lenguaje%20de%20programaci%C3%B3n.jpg"
         alt="js"
         width={250}
@@ -17,6 +18,9 @@ const FeaturedCard = () => {
           Programacion
         </h4>
       </div>
+
+      </div>
+      
     </div>
   );
 };

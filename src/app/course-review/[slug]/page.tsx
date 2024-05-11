@@ -23,8 +23,8 @@ import ModuleCourseCard from "@/app/components/course/module-course-card";
 
 const CurseReview = async ({params}:{params: any}) => {
   const {slug} = params;
-  const courses = getCourseDB()
-  console.log(courses)
+ //const courses = getCourseDB()
+ // console.log(courses)
   const id = slug;
   
   return (
