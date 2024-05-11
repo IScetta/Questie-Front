@@ -1,11 +1,11 @@
 import { GoArrowUp } from "react-icons/go";
-import ColumnCurso from "../components/column-curso";
+import ColumnCourse from "../components/column-course";
 
 function Module() {
   return (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
-        <ColumnCurso />
+        <ColumnCourse />
       </div>
 
       <div className="ml-10 w-full flex flex-col justify-center items-center">

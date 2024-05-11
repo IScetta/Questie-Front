@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 
-const ModuleCurseCard = ({ items }: any) => {
+const ModuleCourseCard = ({ items }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="relative ">
@@ -54,4 +54,4 @@ const ModuleCurseCard = ({ items }: any) => {
     </div>
   );
 };
-export default ModuleCurseCard;
+export default ModuleCourseCard;
