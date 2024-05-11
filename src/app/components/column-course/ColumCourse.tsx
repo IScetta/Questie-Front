@@ -1,4 +1,4 @@
-const ColumnCurso: React.FC = (): JSX.Element => {
+const ColumnCourse: React.FC = (): JSX.Element => {
   return (
     <div className=" justify-center items-center grid grid-cols-1  ">
       <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 pl-10 pr-10">
@@ -28,4 +28,4 @@ const ColumnCurso: React.FC = (): JSX.Element => {
   );
 };
 
-export default ColumnCurso;
+export default ColumnCourse;

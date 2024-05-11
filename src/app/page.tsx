@@ -3,7 +3,7 @@ import Carousel from "./components/carousel";
 import CategoriesCards from "./components/categories/categories-cards/CategoriesCards";
 import FeaturedCarousel from "./components/featured/featured-carousel";
 
-export default function Home() {
+const Home: React.FC = (): JSX.Element => {
   return (
     <div className="flex flex-col justify-center items-center mx-[11.5rem]">
       <div className="flex flex-row justify-center items-center mt-10 gap-14">
@@ -25,4 +25,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;

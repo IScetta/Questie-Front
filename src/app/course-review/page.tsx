@@ -1,0 +1,139 @@
+import { IoNewspaper } from "react-icons/io5";
+import { MdArticle } from "react-icons/md";
+import { FaCoins } from "react-icons/fa6";
+import { IoIosPhonePortrait } from "react-icons/io";
+import { AiFillSafetyCertificate } from "react-icons/ai";
+<<<<<<<< HEAD:src/app/curse-review/[slug]/page.tsx
+import HeaderCurse from "../../components/curse/header-curse";
+import ColumnCurso from "../../components/column-curso";
+import Image from "next/image";
+import ModuleCurseCard from "../../components/curse/module-curse-card";
+import FeaturedCard from "../../components/featured/featured-card";
+========
+import HeaderCourse from "../components/course/header-course";
+import ColumnCurso from "../components/column-course";
+import Image from "next/image";
+import ModuleCourseCard from "../components/course/module-course-card";
+import FeaturedCard from "../components/featured/featured-card";
+>>>>>>>> 845989bbcc387c04d42f5871c6ef478971d89650:src/app/course-review/page.tsx
+
+import { curso } from "@/helpers/categoriesPreLoad";
+import { getCourseDB } from "@/helpers/course.helpers";
+
+ const secciones = [
+  { titulo: "titulo", modulo: "Titulo de la leccion" },
+  { titulo: "titulo", modulo: "Titulo de la leccion" },
+  { titulo: "titulo", modulo: "Titulo de la leccion" },
+  { titulo: "titulo", modulo: "Titulo de la leccion" },
+];
+
+const CurseReview = async ({params}:{params: any}) => {
+  const {slug} = params;
+  const courses = getCourseDB()
+  // console.log(courses)
+  const id = slug;
+  
+  return (
+    <div className="flex flex-row justify-between  mx-[11.5rem] ">
+      <div className="flex flex-grow-0">
+        <ColumnCurso />
+      </div>
+      <div className="pb-4">
+<<<<<<<< HEAD:src/app/curse-review/[slug]/page.tsx
+        <HeaderCurse infoCurse={curso[id].infoGenral} />
+========
+        <HeaderCourse />
+>>>>>>>> 845989bbcc387c04d42f5871c6ef478971d89650:src/app/course-review/page.tsx
+        <div className="flex flex-row w-full h-auto ">
+          <div className=" w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
+            <h2 className="text-[22px] leading-6 p-2 ">Descripcion</h2>
+            <p>
+              {curso[0].infoGenral.descriptionText}
+            </p>
+          </div>
+
+          <div className="w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
+            <h2 className="text-[22px] leading-6 ">Este curso incluye:</h2>
+            <h3 className="p-2 flex items-center">
+              <IoNewspaper className="w-10 h-10 text-purpleMain p-2" /> {curso[id].infoGenral.task} Tareas
+            </h3>
+            <h3 className="p-2 flex items-center">
+              <MdArticle className="w-10 h-10 text-purpleMain p-2" /> {curso[id].infoGenral.article} artículos
+            </h3>
+            <h3 className="p-2 flex items-center">
+              <FaCoins className="w-10 h-10 text-purpleMain p-2" /> {curso[id].infoGenral.coins} puntos
+            </h3>
+            <h3 className="p-2 flex items-center">
+              <IoIosPhonePortrait className="w-10 h-10 text-purpleMain p-2" />{" "}
+              Acceso en dispositivos móviles
+            </h3>
+            <h3 className="p-2 flex items-center">
+              <AiFillSafetyCertificate className="w-10 h-10 text-purpleMain p-2" />{" "}
+              Certificado de finalización
+            </h3>
+          </div>
+        </div>
+
+
+
+        <div className="m-6 py-4 rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
+<<<<<<<< HEAD:src/app/curse-review/[slug]/page.tsx
+          <ModuleCurseCard curso={curso} id={id}/>
+========
+          <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
+            <div className="flex items-center p-8 border-b-2  border-red-900">
+              <Image
+                className=" rounded-full"
+                src="https://e7.pngegg.com/pngimages/73/928/png-clipart-web-development-logo-computer-programming-design-trademark-logo-thumbnail.png"
+                alt="program"
+                width={50}
+                height={50}
+              />
+              <h2 className="text-[22px] leading-6 p-2 cursor-pointer">
+                {secciones[0].titulo}
+              </h2>
+            </div>
+            <div className="flex flex-wrap w-[80%]">
+              {secciones.map((seccion, index) => (
+                <h3 className="p-2 mx-8 text-[18px]" key={index}>
+                  {" "}
+                  {seccion.modulo}{" "}
+                </h3>
+              ))}
+            </div>
+          </div>
+          <ModuleCourseCard items={secciones} />
+>>>>>>>> 845989bbcc387c04d42f5871c6ef478971d89650:src/app/course-review/page.tsx
+        </div>
+
+
+
+        <div className="flex  flex-col  m-6 py-2 w-auto h-[370px] ">
+          <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
+            Cursos relacionados
+          </h2>
+          <div className="flex flex-wrap justify-between  ">
+            <FeaturedCard />
+            <FeaturedCard />
+            <FeaturedCard />
+          </div>
+        </div>
+
+        <div className="flex  flex-col   m-6 py-2 w-auto h-[370px] ">
+          <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
+            Cursos valorados
+          </h2>
+          <div className="flex flex-wrap justify-between  ">
+            <FeaturedCard />
+            <FeaturedCard />
+            <FeaturedCard />
+          </div>
+        </div>
+
+        {/* <FeaturedCarousel/> */}
+      </div>
+    </div>
+  );
+};
+
+export default CurseReview;
