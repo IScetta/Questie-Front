@@ -4,7 +4,7 @@ import { FaCoins } from "react-icons/fa6";
 import { IoIosPhonePortrait } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 
-import ColumnCurso from "../../components/column-curso";
+import ColumnCurso from "../../components/column-course";
 import Image from "next/image";
 
 import FeaturedCard from "../../components/featured/featured-card";
@@ -24,7 +24,7 @@ import ModuleCourseCard from "@/app/components/course/module-course-card";
 const CurseReview = async ({params}:{params: any}) => {
   const {slug} = params;
   const courses = getCourseDB()
-  // console.log(courses)
+  console.log(courses)
   const id = slug;
   
   return (

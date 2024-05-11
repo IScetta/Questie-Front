@@ -4,11 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 
-<<<<<<< HEAD:src/app/components/curse/module-curse-card/ModuleCurseCard.tsx
-const ModuleCurseCard = ({ curso , id }: any) => {
-=======
-const ModuleCourseCard = ({ items }: any) => {
->>>>>>> 845989bbcc387c04d42f5871c6ef478971d89650:src/app/components/course/module-course-card/ModuleCourseCard.tsx
+const ModuleCourseCard = ({ curso , id }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="relative ">
