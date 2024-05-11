@@ -1,11 +1,12 @@
 import Image from "next/image";
 
-const HeaderCurse = () => {
+const HeaderCurse = ({infoCurse}:any) => {
+  // console.log(infoCurse.title)
   return (
     <div className="">
     <div className="flex flex-row bg-[url(https://blog.cronapp.io/wp-content/uploads/2020/09/javascript-1.jpg)] ">
       <div className="flex flex-col m-4 text-white">
-        <h1 className="text-5xl m-4 backdrop-blur-sm">JavaScript Avansado - qweqwe qweqwe</h1>
+        <h1 className="text-5xl m-4 backdrop-blur-sm">{infoCurse.title}</h1>
         <p className="text-lg ml-6">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Accur soluta,
           dolor ipsa cupiditate ut beatae.
