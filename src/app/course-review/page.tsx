@@ -3,10 +3,10 @@ import { MdArticle } from "react-icons/md";
 import { FaCoins } from "react-icons/fa6";
 import { IoIosPhonePortrait } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import HeaderCurse from "../components/curse/header-curse";
-import ColumnCurso from "../components/column-curso";
+import HeaderCourse from "../components/course/header-course";
+import ColumnCurso from "../components/column-course";
 import Image from "next/image";
-import ModuleCurseCard from "../components/curse/module-curse-card";
+import ModuleCourseCard from "../components/course/module-course-card";
 import FeaturedCard from "../components/featured/featured-card";
 
 const secciones = [
@@ -23,7 +23,7 @@ const CurseReview = () => {
         <ColumnCurso />
       </div>
       <div className="pb-4">
-        <HeaderCurse />
+        <HeaderCourse />
         <div className="flex flex-row w-full h-auto ">
           <div className=" w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
             <h2 className="text-[22px] leading-6 p-2 ">Descripcion</h2>
@@ -84,7 +84,7 @@ const CurseReview = () => {
               ))}
             </div>
           </div>
-          <ModuleCurseCard items={secciones} />
+          <ModuleCourseCard items={secciones} />
         </div>
 
         <div className="flex  flex-col  m-6 py-2 w-auto h-[370px] ">
