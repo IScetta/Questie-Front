@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 
 function Categorys() {
   return (
-    <div className="flex mx-[11.5rem] justify-center">
+    <div className="flex mx-[11.5rem] justify-center ">
       <div className="flex flex-grow-0">
         <ColumnFilter />
       </div>

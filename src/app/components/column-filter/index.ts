@@ -1,1 +1,1 @@
-export {default} from "./columnFilter"
+export {default} from "./ColumnFilter"
