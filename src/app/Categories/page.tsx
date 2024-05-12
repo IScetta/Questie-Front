@@ -85,24 +85,24 @@ function Categories() {
             >
               <SwiperSlide>
                 {" "}
-                <FeaturedCard />{" "}
+                <FeaturedCard idCourse={0}/>{" "}
               </SwiperSlide>
               <SwiperSlide>
                 {" "}
-                <FeaturedCard />{" "}
+                <FeaturedCard idCourse={1}/>{" "}
               </SwiperSlide>
               <SwiperSlide>
                 {" "}
-                <FeaturedCard />{" "}
+                <FeaturedCard idCourse={2}/>{" "}
               </SwiperSlide>
 
               <SwiperSlide>
                 {" "}
-                <FeaturedCard />{" "}
+                <FeaturedCard idCourse={0}/>{" "}
               </SwiperSlide>
               <SwiperSlide>
                 {" "}
-                <FeaturedCard />{" "}
+                <FeaturedCard idCourse={1}/>{" "}
               </SwiperSlide>
             </Swiper>
           </div>

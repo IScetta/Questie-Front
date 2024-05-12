@@ -6,7 +6,7 @@ import { AiFillSafetyCertificate } from "react-icons/ai";
 import ColumnModule from "../../components/column-module";
 import Image from "next/image";
 import FeaturedCard from "../../components/featured/featured-card";
-import { curso } from "@/helpers/categoriesPreLoad";
+import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
 import { getCourseDB } from "@/helpers/course.helpers";
 import HeaderCourse from "@/app/components/course/header-course";
 import ModuleCourseCard from "@/app/components/course/module-course-card";
@@ -23,7 +23,7 @@ const secciones = [
 const CurseReview = async ({params}:{params: any}) => {
   const {slug} = params;
   const courses = await getCourseDB()
-
+  const curso = DatoNuevoCurso;
   // console.log(courses)
   const id = slug;
 
@@ -33,11 +33,11 @@ const CurseReview = async ({params}:{params: any}) => {
         <ColumnModule />
       </div>
       <div className="pb-4">
-        <HeaderCourse />
+        <HeaderCourse course={curso[id]}/>
         <div className="flex flex-row w-full h-auto ">
           <div className=" w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
             <h2 className="text-[22px] leading-6 p-2 ">Descripcion</h2>
-            <p>{curso[0].infoGenral.descriptionText}</p>
+            <p>{curso[id].infoGenral.descriptionText}</p>
           </div>
 
           <div className="w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
@@ -73,10 +73,11 @@ const CurseReview = async ({params}:{params: any}) => {
           <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
             Cursos relacionados
           </h2>
-          <div className="flex flex-wrap justify-between  ">
-            <FeaturedCard />
-            <FeaturedCard />
-            <FeaturedCard />
+          <div className="flex flex-wrap justify-between   ">
+            <FeaturedCard idCourse={0}/>
+            <FeaturedCard idCourse={1}/>
+            <FeaturedCard idCourse={2}/>
+            
           </div>
         </div>
 
@@ -85,9 +86,9 @@ const CurseReview = async ({params}:{params: any}) => {
             Cursos valorados
           </h2>
           <div className="flex flex-wrap justify-between  ">
-            <FeaturedCard />
-            <FeaturedCard />
-            <FeaturedCard />
+            <FeaturedCard idCourse={1}/>
+            <FeaturedCard idCourse={2}/>
+            <FeaturedCard idCourse={0}/>
           </div>
         </div>
 
