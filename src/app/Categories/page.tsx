@@ -3,14 +3,20 @@ import { GoArrowUp } from "react-icons/go";
 import ColumnFilter from "../components/column-filter";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Mousewheel, Navigation, Pagination, Zoom } from "swiper/modules";
+import {
+  Autoplay,
+  Mousewheel,
+  Navigation,
+  Pagination,
+  Zoom,
+} from "swiper/modules";
 import FeaturedCard from "@/app/components/featured/featured-card";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-function Categorys() {
+function Categories() {
   return (
     <div className="flex mx-[11.5rem] justify-center ">
       <div className="flex flex-grow-0">
@@ -39,15 +45,14 @@ function Categorys() {
         <div className="container flex flex-col gap-[25px] h-auto max-h-screen overflow-hidden">
           <div className="swiperContainer overflow-x-hidden mt-[25px] py-[2rem]  shadow-2xl lg:w-62">
             <div className="bg-purpleMainLight ">Cursos destacados:</div>
-            <Swiper 
+            <Swiper
               className=""
-              modules={[Autoplay, Navigation,Mousewheel]}
+              modules={[Autoplay, Navigation, Mousewheel]}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
               }}
               navigation={true}
-             
               // centeredSlides={true}
 
               slidesPerView={1}
@@ -78,19 +83,6 @@ function Categorys() {
                 },
               }}
             >
-                <SwiperSlide>
-                {" "}
-                <FeaturedCard />{" "}
-              </SwiperSlide>
-                <SwiperSlide>
-                {" "}
-                <FeaturedCard />{" "}
-              </SwiperSlide>
-                <SwiperSlide>
-                {" "}
-                <FeaturedCard />{" "}
-              </SwiperSlide>
-                
               <SwiperSlide>
                 {" "}
                 <FeaturedCard />{" "}
@@ -99,7 +91,19 @@ function Categorys() {
                 {" "}
                 <FeaturedCard />{" "}
               </SwiperSlide>
-              
+              <SwiperSlide>
+                {" "}
+                <FeaturedCard />{" "}
+              </SwiperSlide>
+
+              <SwiperSlide>
+                {" "}
+                <FeaturedCard />{" "}
+              </SwiperSlide>
+              <SwiperSlide>
+                {" "}
+                <FeaturedCard />{" "}
+              </SwiperSlide>
             </Swiper>
           </div>
           <div className="pagination flex justify-center items-center m-2" />
@@ -119,12 +123,9 @@ function Categorys() {
           <div className="bg-purpleMainLight">a</div>
         </div>
       </div>
-      <div>
-
-        
-      </div>
+      <div></div>
     </div>
   );
 }
 
-export default Categorys;
+export default Categories;
