@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaCaretDown } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
+import ButtonCategoryNavbar from "./button-category-navbar";
 
 const Navbar: React.FC = (): JSX.Element => {
   return (
@@ -9,12 +10,7 @@ const Navbar: React.FC = (): JSX.Element => {
         <h1 className="text-white text-4xl font-medium">Questie</h1>
       </Link>
       <div className="flex items-center justify-between w-56">
-        <div className="justify-center items-center inline-flex cursor-pointer">
-          <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
-            Categorias
-          </p>
-          <FaCaretDown className="text-white w-4 h-auto cursor-pointer" />
-        </div>
+        <ButtonCategoryNavbar/>
         <div className="justify-center items-center inline-flex cursor-pointer">
           <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
             Comunidad

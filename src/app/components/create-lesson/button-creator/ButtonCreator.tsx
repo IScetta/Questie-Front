@@ -27,7 +27,6 @@ const DynamicComponent = ({element}:any) => {
         ))}
       </div>
     </div>
-    
   );
 };
 
