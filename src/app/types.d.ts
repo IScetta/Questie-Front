@@ -35,3 +35,15 @@ export interface ICategory {
   name: string;
   image: string;
 }
+
+export interface IModules {
+  id: string;
+  title: string;
+  course: string;
+  lessons: [string];
+}
+
+export interface IModuleById {
+  id: string;
+  title: string;
+}
