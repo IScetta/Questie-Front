@@ -21,14 +21,15 @@ import ModuleCourseCard from "@/app/components/course/module-course-card";
   { titulo: "titulo", modulo: "Titulo de la leccion" },
 ];
 
+
 const CurseReview = async ({params}:{params: any}) => {
   const {slug} = params;
-  const courses = getCourseDB()
-  console.log(courses)
+  const courses = await getCourseDB()
+  // console.log(courses)
   const id = slug;
   
   return (
-    <div className="flex flex-row justify-between  mx-[11.5rem] ">
+    <div className="flex flex-row mx-[11.5rem] ">
       <div className="flex flex-grow-0">
         <ColumnCurso />
       </div>
