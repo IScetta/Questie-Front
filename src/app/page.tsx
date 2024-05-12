@@ -7,7 +7,7 @@ const Home: React.FC = (): JSX.Element => {
   return (
     <div className="flex flex-col justify-center items-center mx-[11.5rem]">
       <div className="flex flex-row justify-center items-center mt-10 gap-14">
-        <div className="flex items-center justify-center w-[32.5rem] h-[40.5rem] bg-gray-100 px-9 py-7">
+        <div className="flex items-center justify-center w-[32.5rem] h-[40.5rem] bg-blue-gray-50 px-9 py-7">
           <Carousel />
         </div>
         <Login />
@@ -15,7 +15,7 @@ const Home: React.FC = (): JSX.Element => {
       <div className="flex flex-col items-center justify-center w-full h-auto mt-16">
         <FeaturedCarousel />
       </div>
-      <div className="flex flex-col items-center justify-center w-full h-auto mt-10 mb-10 px-8 py-8 bg-gray-50">
+      <div className="flex flex-col items-center justify-center w-full h-auto mt-10 mb-10 px-8 py-8 bg-blue-gray-50">
         <div className="w-full mb-6">
           <h1 className="text-black text-start font-medium text-xl">
             Categorías Principales
