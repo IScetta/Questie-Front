@@ -1,18 +1,18 @@
 import { GoArrowUp } from "react-icons/go";
-import ColumnCourse from "../components/column-course";
+import ColumnLesson from "../components/column-lesson";
 
-function Module() {
+const Lesson: React.FC = (): JSX.Element => {
   return (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
-        <ColumnCourse />
+        <ColumnLesson />
       </div>
 
       <div className="ml-10 w-full flex flex-col justify-center items-center">
         <button className="bg-yellowMain rounded-full w-12 h-12 mt-8 mb-6 hover:w-18 h-18 flex justify-center items-center sticky top-6">
           <GoArrowUp className="w-8 h-8" />
         </button>
-        <h1 className="text-5xl mt-18 ">Titulo del modulo</h1>
+        <h1 className="text-5xl mt-18 ">Titulo de la Lección</h1>
         <div className=" text-sm mt-8">
           {" "}
           <p className="">
@@ -38,7 +38,7 @@ function Module() {
           </p>
         </div>
         <div className="bg-image text-sm mt-9 w-11/12 h-80"></div>
-        <h3 className="text-5xl mt-8 mb-4">Titulo del modulo</h3>
+        <h3 className="text-5xl mt-8 mb-4">Titulo de la Lección</h3>
         <div className=" text-sm mt-8">
           {" "}
           <p className="">
@@ -51,7 +51,7 @@ function Module() {
           <div className="bg-image w-60 h-60"></div>
           <div className="bg-image w-60 h-60"></div>
         </div>
-        <h3 className="text-5xl mt-8 mb-4">Titulo del modulo</h3>
+        <h3 className="text-5xl mt-8 mb-4">Titulo de la Lección</h3>
         <div className="text-sm mt-8">
           {" "}
           <p className="">
@@ -62,11 +62,11 @@ function Module() {
         </div>
         <div className="bg-image text-sm max-w-prose mt-9 w-11/12 h-80"></div>
         <button className="bg-yellowMain  text-lg w-25 h-15 mt-8 mb-8 pl-4 pr-4">
-          Siguiente modulo
+          Siguiente Lección
         </button>
       </div>
     </div>
   );
-}
+};
 
-export default Module;
+export default Lesson;
