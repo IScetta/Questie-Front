@@ -1,1 +1,1 @@
-import {default} from "./ButtonCreator"
+export {default} from "./ButtonCreator"
