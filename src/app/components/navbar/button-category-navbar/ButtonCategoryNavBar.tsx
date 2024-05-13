@@ -20,28 +20,28 @@ const ButtonCategoryNavBar = () => {
           className="flex flex-row justify-center items-center text-white text-base font-medium hover:text-yellowMain cursor-pointer"
         >
           Categorias
-        
-        {isOpen ? (
-          <FaCaretUp className="text-white w-4 h-auto cursor-pointer" />
-        ) : (
-          <FaCaretDown className="text-white w-4 h-auto cursor-pointer" />
-        )}
+          {isOpen ? (
+            <FaCaretUp className="text-white w-4 h-auto cursor-pointer" />
+          ) : (
+            <FaCaretDown className="text-white w-4 h-auto cursor-pointer" />
+          )}
         </button>
       </div>
 
       <div>
         {isOpen && (
           <div
-            className="bg-white origin-top-right absolute right-0 w-[220px] h-auto mt-[4px] rounded-md bg-text border-2 border-terciary ring-1 ring-white ring-opacity-5 focus:outline-none z-10 shadow-[0_5px_15px_0px_#00000042]"
+            className="bg-white origin-top-right absolute right-0 w-[220px] h-auto mt-[4px] rounded-md bg-text border-2 border-terciary ring-1 ring-white ring-opacity-5 focus:outline-none z-10 shadow-[0_5px_15px_0px_#00000042] px-2"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
             <Link href={"/Categories"} onClick={toggleDropdown}>
-              <h3 className="m-4 p-2 border-b-2 border-black hover:rounded-lg hover:bg-purpleMainLighter">
+              <h3 className="m-4 p-2 hover:rounded-lg hover:bg-purpleMainLighter">
                 Todos los cursos
               </h3>
             </Link>
+            <div className="w-full h-0.5 bg-black"></div>
 
             {categoriesPreLoad.map((item, index) => (
               <Link href={"/Categories"} onClick={toggleDropdown} key={index}>
