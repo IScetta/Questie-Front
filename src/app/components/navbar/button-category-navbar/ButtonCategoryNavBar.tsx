@@ -36,7 +36,7 @@ const ButtonCategoryNavBar = () => {
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            <Link href={"/Categories"} onClick={toggleDropdown}>
+            <Link href={"/categories"} onClick={toggleDropdown}>
               <h3 className="m-4 p-2 hover:rounded-lg hover:bg-purpleMainLighter">
                 Todos los cursos
               </h3>
