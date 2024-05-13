@@ -7,52 +7,49 @@ import ColumnModule from "../../components/column-module";
 import Image from "next/image";
 import FeaturedCard from "../../components/featured/featured-card";
 import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
-import { getCourseDB } from "@/helpers/course.helpers";
+import { getCourseByIdDB, getCoursesDB} from "@/helpers/course.helpers";
 import HeaderCourse from "@/app/components/course/header-course";
 import ModuleCourseCard from "@/app/components/course/module-course-card";
+import { course } from "@/app/types";
 
-const secciones = [
-  { titulo: "titulo", modulo: "Titulo de la leccion" },
-  { titulo: "titulo", modulo: "Titulo de la leccion" },
-  { titulo: "titulo", modulo: "Titulo de la leccion" },
-  { titulo: "titulo", modulo: "Titulo de la leccion" },
-];
 
 
 
 const CurseReview = async ({params}:{params: any}) => {
   const {slug} = params;
-  const courses = await getCourseDB()
+ const courses = await getCoursesDB()
+  // const id=slug
+
+  const course = await getCourseByIdDB(slug)
   const curso = DatoNuevoCurso;
-  // console.log(courses)
-  const id = slug;
+  // console.log(course)
 
   return (
     <div className="flex flex-row mx-[11.5rem] ">
       <div className="flex flex-grow-0">
-        <ColumnModule />
+        <ColumnModule course={course}/>
       </div>
-      <div className="pb-4">
-        <HeaderCourse course={curso[id]}/>
+      <div className=" pb-4 justify-center">
+        <HeaderCourse course={course}/>
         <div className="flex flex-row w-full h-auto ">
           <div className=" w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
             <h2 className="text-[22px] leading-6 p-2 ">Descripcion</h2>
-            <p>{curso[id].infoGenral.descriptionText}</p>
+            <p>{course.description}</p>
           </div>
 
           <div className="w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
             <h2 className="text-[22px] leading-6 ">Este curso incluye:</h2>
             <h3 className="p-2 flex items-center">
               <IoNewspaper className="w-10 h-10 text-purpleMain p-2" />{" "}
-              {curso[id].infoGenral.task} Tareas
+              {curso[0].infoGenral.task} Tareas
             </h3>
             <h3 className="p-2 flex items-center">
               <MdArticle className="w-10 h-10 text-purpleMain p-2" />{" "}
-              {curso[id].infoGenral.article} artículos
+              {curso[0].infoGenral.article} artículos
             </h3>
             <h3 className="p-2 flex items-center">
               <FaCoins className="w-10 h-10 text-purpleMain p-2" />{" "}
-              {curso[id].infoGenral.coins} puntos
+              {curso[0].infoGenral.coins} puntos
             </h3>
             <h3 className="p-2 flex items-center">
               <IoIosPhonePortrait className="w-10 h-10 text-purpleMain p-2" />{" "}
@@ -66,17 +63,17 @@ const CurseReview = async ({params}:{params: any}) => {
         </div>
 
         <div className="m-6 py-4 rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
-          <ModuleCourseCard curso={curso} id={id} />
+          <ModuleCourseCard course={course} />
         </div>
 
         <div className="flex  flex-col  m-6 py-2 w-auto h-[370px] ">
           <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
             Cursos relacionados
           </h2>
-          <div className="flex flex-wrap justify-between   ">
-            <FeaturedCard idCourse={0}/>
-            <FeaturedCard idCourse={1}/>
-            <FeaturedCard idCourse={2}/>
+          <div className="flex flex-wrap justify-between mb-6  ">
+            <FeaturedCard course={courses[0]}/>
+            <FeaturedCard course={courses[1]}/>
+            <FeaturedCard course={courses[2]}/>
             
           </div>
         </div>
@@ -86,9 +83,9 @@ const CurseReview = async ({params}:{params: any}) => {
             Cursos valorados
           </h2>
           <div className="flex flex-wrap justify-between  ">
-            <FeaturedCard idCourse={1}/>
-            <FeaturedCard idCourse={2}/>
-            <FeaturedCard idCourse={0}/>
+            <FeaturedCard course={courses[0]}/>
+            <FeaturedCard course={courses[1]}/>
+            <FeaturedCard course={courses[2]}/>
           </div>
         </div>
 
