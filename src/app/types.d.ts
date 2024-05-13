@@ -36,39 +36,63 @@ export interface ICategory {
   image: string;
 }
 
-export interface IModules {
+export interface IModule {
   id: string;
   title: string;
-  course: string;
-  lessons: [string];
+  slug: string;
+  image: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  lessons: [
+    {
+      id: string;
+      title: string;
+    }
+  ];
 }
 
-export interface IModuleById {
+export interface ILesson {
   id: string;
   title: string;
+  order: number;
+  xp: number;
+  coins: number;
+  slug: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  module: {
+    id: string;
+    course: {
+      id: string;
+    };
+  };
+  contents: [string];
 }
 
-export interface module{
-  id:string;
-  title:string;
-  lessons:lesson[]
-}
-
-export interface lesson{
-  id:string;
-  title:string;
-}
-
-export interface course{
+export interface ICourse {
   id: string;
   title: string;
   slug: string;
   headline: string;
   description: string;
   image: string;
-  bg_image:string;
-  create_at:string;
-  updated_at:string;
-  deleted_at:null;
-  modules: module[]
+  bg_image: string;
+  create_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  modules: [
+    {
+      id: string;
+      title: string;
+      lessons: [
+        {
+          id: string;
+          title: string;
+        }
+      ];
+    }
+  ];
 }
