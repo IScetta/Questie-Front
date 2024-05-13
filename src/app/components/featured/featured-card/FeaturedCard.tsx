@@ -11,7 +11,7 @@ const FeaturedCard = ({course}:any) => {
     <Link href={`/course-review/${course.id}`}>
       <div className=" mx-2 w-[250px] h-[250px] ml-20 mr20 lg:w-40 duration-200 transform ease-in-out hover:scale-110 ">
         <div className=" my-11">
-          <Image
+          <Image className="w-[250] h-[130]"
             src={course.image}
             alt="js"
             width={250}

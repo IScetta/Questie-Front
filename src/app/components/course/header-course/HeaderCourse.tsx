@@ -1,6 +1,7 @@
 import { course } from "@/app/types";
 import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
 import Image from "next/image";
+import Link from "next/link";
 
 
 
@@ -16,9 +17,9 @@ const HeaderCourse = ({course}:any) => {
           <p className="text-lg my-2 ml-6">
             {course.headline}
           </p>
-          <button className="bg-yellowMain text-purpleMain text-base font-semibold cursor-pointer px-4 py-2 rounded-lg">
+          <Link  href={`/module/${course.modules[0].id}`} className="flex justify-center bg-yellowMain text-purpleMain text-base font-semibold cursor-pointer px-4 py-2 rounded-lg">
             Iniciar Curso
-          </button>
+          </Link>
         </div>
         <div className="flex justify-center items-center p-4">
           <Image
