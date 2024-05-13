@@ -14,7 +14,7 @@ const getCourseByIdDB = async (id: string): Promise<ICourse> => {
     return res.data;
   } catch (error) {
     console.log(error);
-    throw new Error("Error al obtener todos los cursos");
+    throw new Error("Error al obtener el curso por id");
   }
 };
 
@@ -27,7 +27,7 @@ const getCoursesDB = async (): Promise<ICourse[]> => {
     return res.data;
   } catch (error) {
     console.log(error);
-    throw new Error("Error al obtener el curso por id");
+    throw new Error("Error al obtener todos los cursos");
   }
 };
 
