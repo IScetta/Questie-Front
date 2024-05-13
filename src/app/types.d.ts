@@ -51,6 +51,9 @@ export interface IModule {
       title: string;
     }
   ];
+  course: {
+    id: string;
+  };
 }
 
 export interface ILesson {
