@@ -1,40 +1,45 @@
-import axios from "axios";
+import { ILesson } from "@/app/types";
+import axios, { AxiosResponse } from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const getLessons = async (): Promise<any> => {
+const getLessons = async (): Promise<ILesson[]> => {
   try {
-    const res = await axios.get(`${API_URL}lessons`, {
+    const res: AxiosResponse<ILesson[]> = await axios.get(`${API_URL}lessons`, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MmZmNjUxLTc1NWYtNGNmYi1iYjVjLTRlYTJkYzJiM2I4NSIsImVtYWlsIjoiam9obkRvZUBnbWFpbC5jb20iLCJpc0FkbWluIjoiYWRtaW4iLCJzdWIiOiI3OTJmZjY1MS03NTVmLTRjZmItYmI1Yy00ZWEyZGMyYjNiODUiLCJpYXQiOjE3MTU2MzM0MzUsImV4cCI6MTcxNTY0MDYzNX0.8vjA7M01iXuYubegkLR_dqrEi-S9svwYZ642xIgb_Do`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MmZmNjUxLTc1NWYtNGNmYi1iYjVjLTRlYTJkYzJiM2I4NSIsImVtYWlsIjoiam9obkRvZUBnbWFpbC5jb20iLCJpc0FkbWluIjoiYWRtaW4iLCJzdWIiOiI3OTJmZjY1MS03NTVmLTRjZmItYmI1Yy00ZWEyZGMyYjNiODUiLCJpYXQiOjE3MTU2Mzk3NDMsImV4cCI6MTcxNTY0Njk0M30.n6W5E1JpjELzHoFMPwI30OpLannei0G5Nl1AQxxwq6U`,
       },
     });
     if (res.status !== 200) {
-      console.log("Error al traer las lecciones");
+      console.log(`Error status: ${res.status}`);
     }
     return res.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Error al obtener el módulo");
   }
 };
 
-const getLessonById = async (id: string, idmodule: string): Promise<any> => {
+const getLessonById = async (
+  id: string,
+  idmodule: string
+): Promise<ILesson> => {
   try {
-    const res = await axios.get(`${API_URL}lessons/${id}`, {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MmZmNjUxLTc1NWYtNGNmYi1iYjVjLTRlYTJkYzJiM2I4NSIsImVtYWlsIjoiam9obkRvZUBnbWFpbC5jb20iLCJpc0FkbWluIjoiYWRtaW4iLCJzdWIiOiI3OTJmZjY1MS03NTVmLTRjZmItYmI1Yy00ZWEyZGMyYjNiODUiLCJpYXQiOjE3MTU2MzM0MzUsImV4cCI6MTcxNTY0MDYzNX0.8vjA7M01iXuYubegkLR_dqrEi-S9svwYZ642xIgb_Do`,
-      },
-    });
+    const res: AxiosResponse<ILesson> = await axios.get(
+      `${API_URL}lessons/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MmZmNjUxLTc1NWYtNGNmYi1iYjVjLTRlYTJkYzJiM2I4NSIsImVtYWlsIjoiam9obkRvZUBnbWFpbC5jb20iLCJpc0FkbWluIjoiYWRtaW4iLCJzdWIiOiI3OTJmZjY1MS03NTVmLTRjZmItYmI1Yy00ZWEyZGMyYjNiODUiLCJpYXQiOjE3MTU2Mzk3NDMsImV4cCI6MTcxNTY0Njk0M30.n6W5E1JpjELzHoFMPwI30OpLannei0G5Nl1AQxxwq6U`,
+        },
+      }
+    );
     if (res.status !== 200) {
-      console.log("Error al traer la lección1");
+      console.log(`Error status: ${res.status}`);
     }
     if (res.data.module.id !== idmodule) {
-      console.log("Error al traer la lección");
+      console.log("Error al traer la lección, el modulo no coincide");
     }
     return res.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Error al obtener el módulo");
   }
 };

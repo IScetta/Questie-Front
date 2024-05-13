@@ -6,6 +6,9 @@ import { Carousel } from "@material-tailwind/react";
 const CarouselCustom: React.FC = (): JSX.Element => {
   return (
     <Carousel
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
       loop={true}
       autoplay={true}
       autoplayDelay={5000}
