@@ -47,3 +47,28 @@ export interface IModuleById {
   id: string;
   title: string;
 }
+
+export interface module{
+  id:string;
+  title:string;
+  lessons:lesson[]
+}
+
+export interface lesson{
+  id:string;
+  title:string;
+}
+
+export interface course{
+  id: string;
+  title: string;
+  slug: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image:string;
+  create_at:string;
+  updated_at:string;
+  deleted_at:null;
+  modules: module[]
+}

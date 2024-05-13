@@ -8,7 +8,8 @@ const nextConfig = {
       { hostname: "source.unsplash.com" },
       { hostname: "e7.pngegg.com" },
       { hostname: "www.maxcf.es"},
-      {hostname: "elestudiantedigital.com"}
+      {hostname: "elestudiantedigital.com"},
+      {hostname: "res.cloudinary.com"}
 
       
     ],
