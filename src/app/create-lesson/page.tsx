@@ -4,16 +4,19 @@
 
 // // import CreateLeesonText from "../components/create-lesson/create-lesson-text/CreateLessonText";
 
-// const CreateCourse = () => {
-//   return (
-//     <div className="flex flex-row mx-[11.5rem]">
-//       <div className="flex flex-grow-0">
-//         <ColumnCreateCourse />
-//       </div>
+const CreateCourse = () => {
+  return (
+    // <div className="flex flex-row mx-[11.5rem]">
+    //   <div className="flex flex-grow-0">
+    //     <ColumnCreateCourse />
+    //   </div>
 
-//       <ButtonCreator component={<LessonTextComponent />} />
-//     </div>
-//   );
-// };
+    //   <ButtonCreator component={<LessonTextComponent />} />
+    // </div>
+    <div>
+      <h1>Create Course</h1>
+    </div>
+  );
+};
 
-// export default CreateCourse;
+export default CreateCourse;
