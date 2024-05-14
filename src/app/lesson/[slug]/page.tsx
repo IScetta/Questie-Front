@@ -32,7 +32,9 @@ const Lesson = async ({
       ))
       </div> */}
 
-
+<button className="bg-yellowMain  text-lg w-25 h-15 mt-8 mb-8 pl-4 pr-4">
+          Siguiente Lección
+        </button>
 
     </div>
   );
