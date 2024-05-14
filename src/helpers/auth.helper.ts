@@ -3,13 +3,17 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const signin = async (input: ILoginForm): Promise<ILoginForm> => {
+const signin = async (input: ILoginForm) => {
   try {
     const res: AxiosResponse<ILoginForm> = await axios.post(
       `${API_URL}auth/signin`,
       input
     );
-    return res.data;
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      throw new Error("Failed to login");
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;

@@ -43,6 +43,7 @@ const Login: React.FC = (): JSX.Element => {
       if (!response) throw new Error(`Error al intentar iniciar sesión`);
     } catch (error) {
       console.error(error);
+      throw new Error("Error desconocido");
     }
   };
 
