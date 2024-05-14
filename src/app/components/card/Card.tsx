@@ -18,10 +18,14 @@ const Card = ({
   buttonLabel?: string;
 }) => {
   return (
-    <FlowbiteCard className="max-w-sm my-4" style={style}>
+    <FlowbiteCard className="max-w-sm my-4 select-none" style={style}>
       <div className="flex flex-col space-between h-full space-y-4">
         <div className="flex flex-col h-full space-y-4">
-          <img className="w-full h-1/2 object-cover" src={imgUrl} alt={title} />
+          <img
+            className="w-full h-1/2 object-cover rounded-md"
+            src={imgUrl}
+            alt={title}
+          />
           <h5 className="text-xl font-bold tracking-tight text-gray-900 truncate">
             {title}
           </h5>
@@ -29,11 +33,13 @@ const Card = ({
             {body}
           </p>
         </div>
-        <div>
-          <div className="flex justify-end">
+        <div className="w-full">
+          <div className="w-full">
             {buttonLink && buttonLabel && (
               <a href={buttonLink}>
-                <Button color="purple">{buttonLabel}</Button>
+                <button className="w-full bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg">
+                  {buttonLabel}
+                </button>
               </a>
             )}
           </div>
