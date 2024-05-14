@@ -42,7 +42,7 @@ const Slider = ({
   }
 
   return (
-    <div className="h-96 w-full">
+    <div className="w-full h-[26rem]">
       <Carousel slideInterval={5000}>
         {slides.map((slide, index) => (
           <div key={index}>{slide}</div>

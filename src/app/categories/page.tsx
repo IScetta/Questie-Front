@@ -11,13 +11,12 @@ async function Categories() {
       <div className="flex flex-grow-0">
         <ColumnFilter />
       </div>
-      <div className="ml-10 w-full flex flex-col justify-center items-center space-y-5">
+      <div className="ml-10 w-full flex flex-col justify-around items-center space-y-5">
         <div className="bg-purpleMain mt-8  ">
           <h1 className="text-5xl mt-18 text-center text-white mt-10">
             Titulo del moduloa
           </h1>
           <div className=" text-sm mt-8 text-center">
-            {" "}
             <p className="text-white text-center pb-5">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Asperiores, nesciunt fuga inventore deleniti nulla, amet
@@ -32,9 +31,9 @@ async function Categories() {
         </div>
 
         {/* <div className="container flex flex-col gap-[25px] h-auto max-h-screen overflow-x-hidden"> */}
-          {/* <CarouselFilter courses={courses}/> */}
-          <Slider data={courses} elementsPerSlide={3} />
-          {/* <div className="pagination flex justify-center items-center m-2" /> */}
+        {/* <CarouselFilter courses={courses}/> */}
+        <Slider data={courses} elementsPerSlide={3} />
+        {/* <div className="pagination flex justify-center items-center m-2" /> */}
         {/* </div> */}
 
         <div className=" text-sm mt-8"> </div>

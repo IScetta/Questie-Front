@@ -18,7 +18,7 @@ const Card = ({
   buttonLabel?: string;
 }) => {
   return (
-    <FlowbiteCard className="max-w-sm mb-4" style={style}>
+    <FlowbiteCard className="max-w-sm my-4" style={style}>
       <div className="flex flex-col space-between h-full space-y-4">
         <div className="flex flex-col h-full space-y-4">
           <img className="w-full h-1/2 object-cover" src={imgUrl} alt={title} />
