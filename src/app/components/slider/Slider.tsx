@@ -1,5 +1,8 @@
+"use client";
+
 import { ICourse } from "@/app/types";
 import { Carousel } from "flowbite-react";
+import Card from "../card/Card";
 
 const Slider = ({
   data,
@@ -12,31 +15,35 @@ const Slider = ({
     id: course.id,
     image: course.image,
     title: course.title,
+    description: course.description,
   }));
 
   const slides = [];
   for (let i = 0; i < formattedData.length; i += elementsPerSlide) {
     slides.push(
-      <div key={i} className="flex justify-evenly space-x-4">
+      <div key={i} className="flex items-center justify-around space-x-4">
         {formattedData.slice(i, i + elementsPerSlide).map((course) => (
-          <div
+          <Card
             key={course.id}
-            style={{ width: `calc(100%/${elementsPerSlide})` }}
-          >
-            <img
-              className="w-full h-full object-cover"
-              src={course.image}
-              alt={course.title}
-            />
-          </div>
+            title={course.title}
+            body={course.description}
+            imgUrl={course.image}
+            buttonLink={`/courses/${course.id}`}
+            buttonLabel="View Course"
+            style={{
+              width: `calc((100%/${elementsPerSlide}) - 1rem)`,
+              alignSelf: "normal",
+              display: "flex",
+            }}
+          />
         ))}
       </div>
     );
   }
 
   return (
-    <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
-      <Carousel draggable={false} slideInterval={5000}>
+    <div className="h-96 w-full">
+      <Carousel slideInterval={5000}>
         {slides.map((slide, index) => (
           <div key={index}>{slide}</div>
         ))}
