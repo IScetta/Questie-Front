@@ -12,6 +12,7 @@ const Module = async ({
   const moduleById = await getModuleById(slug);
   const lessonInModule = moduleById?.lessons.map((lesson) => lesson);
   const course = moduleById?.course.id;
+  console.log(slug)
 
   return (
     <div className="flex mx-[11.5rem] justify-center h-full">
