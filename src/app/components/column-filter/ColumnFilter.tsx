@@ -14,18 +14,19 @@ const ColumnFilter: React.FC = (): JSX.Element => {
   return (
     <div className="justify-center items-center grid grid-cols-1">
       <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 pl-10 pr-10">
-        <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-          Categories:
+        <h2 className="my-2 p-4 bg-purpleMainLighter rounded-xl text-lg font-semibold text-gray-900 dark:text-white">
+          Categorias:
         </h2>
         {data.map((category: any, index: number) => (
           <div key={index}>
-            <p>
-              {category.name}
-              <button onClick={() => handleToggle(index)}>
-                {isOpenArray[index] ? <FaCaretDown /> : <FaCaretUp />}
+            <p className=" bg-purpleMainLighter m-2 p-2">
+              
+              <button className="flex flex-row items-center" onClick={() => handleToggle(index)}>
+                {category.name}
+                {isOpenArray[index] ? <FaCaretUp /> : <FaCaretDown />}
               </button>
               {isOpenArray[index] && (
-                <div className="bg-white shadow-md w-full">
+                <div className="w-full ml-[20%] justify-center">
                   <p>{category.contenidos[0].contenido}</p>
                 </div>
               )}

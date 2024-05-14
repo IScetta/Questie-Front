@@ -36,7 +36,7 @@ const ButtonCategoryNavBar = () => {
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            <Link href={"/categories"} onClick={toggleDropdown}>
+            <Link href={"/categories/"} onClick={toggleDropdown}>
               <h3 className="m-4 p-2 hover:rounded-lg hover:bg-purpleMainLighter">
                 Todos los cursos
               </h3>
@@ -44,7 +44,7 @@ const ButtonCategoryNavBar = () => {
             <div className="w-full h-0.5 bg-black"></div>
 
             {categoriesPreLoad.map((item, index) => (
-              <Link href={"/Categories"} onClick={toggleDropdown} key={index}>
+              <Link href={`/categories/${item.name}`} onClick={toggleDropdown} key={index}>
                 <h3 className="m-4 p-2 rounded-lg hover:bg-purpleMainLighter">
                   {item.name}
                 </h3>
