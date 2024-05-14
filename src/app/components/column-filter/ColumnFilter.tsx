@@ -2,14 +2,30 @@
 import { useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import data from "@/helpers/categoriesPreLoad.json";
+import { useRouter } from "next/navigation";
 
 const ColumnFilter: React.FC = (): JSX.Element => {
-  const [isOpenArray, setIsOpenArray] = useState(new Array(data.length).fill(false));
+  const [checkboxStates, setCheckboxStates] = useState(Array(data.length).fill(false))
 
-  const handleToggle = (index: number) => {
-    const newIsOpenArray = isOpenArray.map((isOpen, i) => (i === index ? !isOpen : isOpen));
-    setIsOpenArray(newIsOpenArray);
-  };
+  const route = useRouter();
+
+  const handleCheckboxChange =
+    (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newCheckboxStates = [...checkboxStates]
+      newCheckboxStates[index] = event.target.checked
+      setCheckboxStates(newCheckboxStates)
+    }
+
+    const getCheckedNames = () => {
+      const list = data.filter((category, index) => checkboxStates[index]).map(category => category.name);
+      // Array de géneros
+      const encodedGenres = list.map(genre => encodeURIComponent(genre));
+      const formattedURL = encodedGenres.map(genre => `categorie%5B%5D=${genre}`).join('&');
+
+      route.push(`/categories/${formattedURL}`)
+
+      return list;
+    }
 
   return (
     <div className="justify-center items-center grid grid-cols-1">
@@ -20,19 +36,18 @@ const ColumnFilter: React.FC = (): JSX.Element => {
         {data.map((category: any, index: number) => (
           <div key={index}>
             <p className=" bg-purpleMainLighter m-2 p-2">
-              
-              <button className="flex flex-row items-center" onClick={() => handleToggle(index)}>
+              <label>
+                <input className="m-2"
+                  type="checkbox"
+                  checked={checkboxStates[index]}
+                  onChange={handleCheckboxChange(index)}
+                />
                 {category.name}
-                {isOpenArray[index] ? <FaCaretUp /> : <FaCaretDown />}
-              </button>
-              {isOpenArray[index] && (
-                <div className="w-full ml-[20%] justify-center">
-                  <p>{category.contenidos[0].contenido}</p>
-                </div>
-              )}
+              </label>
             </p>
           </div>
         ))}
+        <button onClick={getCheckedNames} className="my-2 p-4  justify-center items-center bg-purpleMainLighter rounded-xl text-lg font-semibold text-gray-900">Filtrar</button>
       </div>
     </div>
   );
