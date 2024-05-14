@@ -14,8 +14,9 @@ import {
   Zoom,
 } from "swiper/modules";
 import FeaturedCard from "@/app/components/featured/featured-card";
+import { ICourse } from "@/app/types";
 
-const CarouselFilter = ({courses}:any)=>{
+const CarouselFilter = ({courses}:{courses:ICourse[]})=>{
     return(
         <div>
              <div className="swiperContainer overflow-x-hidden mt-[25px] py-[2rem]  shadow-2xl lg:w-62">
@@ -58,7 +59,7 @@ const CarouselFilter = ({courses}:any)=>{
                 },
               }}
             >
-              {courses.map((course:any,index:any)=>(
+              {courses.map((course:ICourse,index:number)=>(
               <SwiperSlide key={index}>
               <FeaturedCard course={course}/>{" "}
             </SwiperSlide>
