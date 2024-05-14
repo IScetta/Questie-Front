@@ -1,11 +1,21 @@
 import { GoArrowUp } from "react-icons/go";
 import ColumnLesson from "../components/column-lesson";
+import { getLessonById } from "@/helpers/lesson.helper";
+import { getModuleById } from "@/helpers/module.helper";
 
-const Lesson: React.FC = (): JSX.Element => {
+
+
+const  Lesson = async ({params,}: {params: { slug: string };
+}): Promise<JSX.Element> => {
+ 
+ // const moduleById = await getModuleById(slug);
+  //const lessonInModule = moduleById?.lessons.map((lesson) => lesson);
+ // const course = moduleById?.course.id;
+
   return (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
-        <ColumnLesson />
+        
       </div>
 
       <div className="ml-10 w-full flex flex-col justify-center items-center">

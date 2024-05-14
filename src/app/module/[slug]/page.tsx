@@ -1,5 +1,4 @@
 import ColumnModule from "@/app/components/column-module";
-import { getLessonById } from "@/helpers/lesson.helper";
 import { getModuleById } from "@/helpers/module.helper";
 import Link from "next/link";
 
@@ -34,7 +33,7 @@ const Module = async ({
                 key={index}
                 className="w-full bg-blue-gray-50 my-4 text-start p-8"
               >
-                <Link href="/lesson">
+                <Link href={`/lesson/${lesson.id}`}>
                   <h2 className="text-lg font-semibold cursor-pointer hover:underline">
                     {lesson.title}
                   </h2>
