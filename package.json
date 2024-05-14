@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -17,7 +17,9 @@
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.9.0",
     "immutable": "^4.3.5",
+    "mercadopago": "^2.0.9",
     "next": "14.2.3",
+    "paypal-rest-sdk": "^1.8.1",
     "quill": "^2.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -30,6 +32,7 @@
     "@types/draftjs-to-html": "^0.8.4",
     "@types/html-to-draftjs": "^1.4.3",
     "@types/node": "^20",
+    "@types/paypal-rest-sdk": "^1.7.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-draft-wysiwyg": "^1.13.8",

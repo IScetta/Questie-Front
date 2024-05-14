@@ -99,3 +99,13 @@ export interface ICourse {
     }
   ];
 }
+
+export interface IProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  polymorphicEntityType?: string;
+  polymorphicEntityId?: string;
+}
