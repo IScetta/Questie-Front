@@ -1,12 +1,10 @@
-
-
 import { getCoursesDB } from "@/helpers/course.helpers";
 import ColumnFilter from "../components/column-filter";
 import CarouselFilter from "../components/filter-components/carousel-filter";
-
+import Slider from "../components/slider/Slider";
 
 async function Categories() {
-  const courses = await getCoursesDB()
+  const courses = await getCoursesDB();
 
   return (
     <div className="flex mx-[11.5rem] justify-center ">
@@ -34,7 +32,8 @@ async function Categories() {
         </div>
 
         <div className="container flex flex-col gap-[25px] h-auto max-h-screen overflow-hidden">
-         <CarouselFilter courses={courses}/>
+          {/* <CarouselFilter courses={courses}/> */}
+          <Slider data={courses} elementsPerSlide={3} />
           <div className="pagination flex justify-center items-center m-2" />
         </div>
 
