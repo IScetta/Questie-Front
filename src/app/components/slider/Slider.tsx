@@ -7,9 +7,13 @@ import Card from "../card/Card";
 const Slider = ({
   data,
   elementsPerSlide = 3,
+  cardButtonLink,
+  cardButtonLabel,
 }: {
   data: ICourse[];
   elementsPerSlide: number;
+  cardButtonLink: string;
+  cardButtonLabel: string;
 }) => {
   const formattedData = data.map((course) => ({
     id: course.id,
@@ -28,8 +32,8 @@ const Slider = ({
             title={course.title}
             body={course.description}
             imgUrl={course.image}
-            buttonLink={`/courses/${course.id}`}
-            buttonLabel="View Course"
+            buttonLink={`${cardButtonLink}/${course.id}`}
+            buttonLabel={cardButtonLabel}
             style={{
               width: `calc((100%/${elementsPerSlide}) - 1rem)`,
               alignSelf: "normal",

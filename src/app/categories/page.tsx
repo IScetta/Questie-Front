@@ -32,7 +32,12 @@ async function Categories() {
 
         {/* <div className="container flex flex-col gap-[25px] h-auto max-h-screen overflow-x-hidden"> */}
         {/* <CarouselFilter courses={courses}/> */}
-        <Slider data={courses} elementsPerSlide={3} />
+        <Slider
+          data={courses}
+          cardButtonLink="/course-review"
+          cardButtonLabel="View Course"
+          elementsPerSlide={3}
+        />
         {/* <div className="pagination flex justify-center items-center m-2" /> */}
         {/* </div> */}
 
