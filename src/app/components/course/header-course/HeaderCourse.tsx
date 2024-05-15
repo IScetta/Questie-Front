@@ -1,11 +1,11 @@
-import { course } from "@/app/types";
+import { ICourse } from "@/app/types";
 import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
 import Image from "next/image";
 import Link from "next/link";
 
 
 
-const HeaderCourse = ({course}:any) => {
+const HeaderCourse = ({course}:{course:ICourse}) => {
   
   return (
     <div className="">

@@ -1,13 +1,17 @@
 "use client";
 
-import { ILoginErrorForm, ILoginForm } from "@/app/types";
+import { ICourse, ILoginErrorForm, ILoginForm, IModule } from "@/app/types";
+import { signin } from "@/helpers/auth.helper";
 import { loginFormData } from "@/utils/formData";
 import { loginValidation } from "@/utils/formValidations";
+import axios, { AxiosResponse } from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
 
 const Login: React.FC = (): JSX.Element => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const initialState: ILoginForm = {
     username: "",
     password: "",
@@ -34,6 +38,13 @@ const Login: React.FC = (): JSX.Element => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    try {
+      const response = await signin(input);
+      if (!response) throw new Error(`Error al intentar iniciar sesión`);
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error desconocido");
+    }
   };
 
   return (
