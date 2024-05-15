@@ -16,15 +16,21 @@ const loginFormData = [
 const registerFormData = [
   {
     label: "Nombre:",
-    name: "firstname",
+    name: "firstName",
     type: "text",
     placeholder: "Ingresa tu nombre",
   },
   {
     label: "Apellido:",
-    name: "lastname",
+    name: "lastName",
     type: "text",
     placeholder: "Ingresa tu apellido",
+  },
+  {
+    label: "Fecha de nacimiento:",
+    name: "birthdate",
+    type: "date",
+    placeholder: "Ingresa tu fecha de nacimiento",
   },
   {
     label: "Nombre de usuario:",
@@ -51,7 +57,5 @@ const registerFormData = [
     placeholder: "Confirma tu contraseña",
   },
 ];
-
-
 
 export { loginFormData, registerFormData };
