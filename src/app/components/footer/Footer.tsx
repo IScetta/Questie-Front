@@ -4,80 +4,80 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 
 const Footer: React.FC = (): JSX.Element => {
   return (
-    <footer className="bg-purpleMain">
-      <div className="flex flex-col justify-center items-center w-full h-auto px-[11.5rem]">
-        <div className="flex flex-row justify-between items-center w-full h-full px-7 py-5">
-          <div className="flex flex-col justify-start items-start w-60 h-[17.5rem] p-6">
-            <h1 className="text-yellowMain text-2xl font-medium mb-6">
+    <footer className="bg-purpleMain pb-5">
+      <div className="flex flex-col justify-center items-center w-full h-auto sm:px-[11.5rem]">
+        <div className="flex flex-row justify-between items-center w-full h-full px-2 py-2">
+          <div className="ml-4 flex flex-col sm:flex sm:flex-col sm:justify-start sm:items-start sm:w-60 sm:h-[17.5rem] sm:p-6">
+            <h1 className="text-yellowMain text-sm sm:text-2xl font-medium mb-6">
               Empresa
             </h1>
             <Link href="/about">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Acerca de
               </p>
             </Link>
             <Link href="/contact">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Empleo
               </p>
             </Link>
             <Link href="/affiliate-program">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Programa de Afiliados
               </p>
             </Link>
             <Link href="/associations">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Asociaciones
               </p>
             </Link>
             <Link href="/blog">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer">
                 Blog
               </p>
             </Link>
           </div>
-          <div className="flex flex-col justify-start items-start w-60 h-[17.5rem] p-6">
-            <h1 className="text-yellowMain text-2xl font-medium mb-6">
+          <div className="ml-4 flex flex-col sm:flex sm:flex-col sm:justify-start sm:items-start sm:w-60 sm:h-[17.5rem] sm:p-6">
+            <h1 className="text-yellowMain text-sm sm:text-2xl font-medium mb-6">
               Estudiantes
             </h1>
             <Link href="/students/scholarships">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Becas
               </p>
             </Link>
             <Link href="/students/memberships">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Membresias
               </p>
             </Link>
             <Link href="/students/points-plans">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Planes de puntos
               </p>
             </Link>
           </div>
-          <div className="flex flex-col justify-start items-start w-60 h-[17.5rem] p-6">
-            <h1 className="text-yellowMain text-2xl font-medium mb-6">
+          <div className="ml-4 flex flex-col sm:flex sm:flex-col sm:justify-start sm:items-start sm:w-60 sm:h-[17.5rem] sm:p-6">
+            <h1 className="text-yellowMain sm:text-2xl font-medium mb-6">
               Enseñanza
             </h1>
             <Link href="/teaching/begin-to-teach">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Comienza a enseñar
               </p>
             </Link>
             <Link href="/teaching/support-for-teachers">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Ayuda para profesores
               </p>
             </Link>
             <Link href="/teaching/rules-and-requirements">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Reglas y requisitos
               </p>
             </Link>
             <Link href="/teaching/support-center">
-              <p className="text-white text-base font-normal hover:underline cursor-pointer mb-3">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Centro de ayuda
               </p>
             </Link>
@@ -85,20 +85,20 @@ const Footer: React.FC = (): JSX.Element => {
         </div>
         <div className="w-10/12 h-[0px] border border-white"></div>
         <div className="flex flex-col md:flex-row justify-center items-center w-full h-20">
-          <div className="flex flex-col md:flex-row justify-start content-center items-center w-full h-auto mx-4 gap-8">
-            <p className="text-white text-base font-medium">© Questie - 2024</p>
+          <div className="flex flex-row md:flex-row justify-start content-center items-center w-full h-auto mx-4 gap-3 mt-5 mb-3">
+            <p className="text-white text-sm font-medium">© Questie - 2024</p>
             <Link href="/help">
-              <p className="text-white text-base font-normal hover:underline">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline">
                 Ayuda
               </p>
             </Link>
             <Link href="/privacy">
-              <p className="text-white text-base font-normal hover:underline">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline">
                 Privacidad
               </p>
             </Link>
             <Link href="/terms">
-              <p className="text-white text-base font-normal hover:underline">
+              <p className="text-white text-sm sm:text-base font-normal hover:underline">
                 Términos y Condiciones
               </p>
             </Link>
@@ -126,7 +126,7 @@ const Footer: React.FC = (): JSX.Element => {
               <FaSquareXTwitter className="text-white w-6 h-auto cursor-pointer" />
             </Link>
             <Link href="/">
-              <h1 className="bg-yellowMain text-purpleMain text-3xl font-medium px-4 py-2 ml-2 cursor-pointer rounded-lg">
+              <h1 className="bg-yellowMain text-purpleMain text-sm sm:text-3xl font-medium px-4 py-2 ml-2 cursor-pointer rounded-lg">
                 Questie
               </h1>
             </Link>
