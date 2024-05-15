@@ -1,6 +1,8 @@
 "use client";
 
 import { Button, Card as FlowbiteCard } from "flowbite-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const Card = ({
   title,
@@ -21,11 +23,12 @@ const Card = ({
     <FlowbiteCard className="max-w-sm my-4 select-none" style={style}>
       <div className="flex flex-col space-between h-full space-y-4">
         <div className="flex flex-col h-full space-y-4">
-          <img
+          <Image
             className="w-full h-1/2 object-cover rounded-md"
             src={imgUrl}
             alt={title}
-          />
+            width={300}
+            height={300}/>
           <h5 className="text-xl font-bold tracking-tight text-gray-900 truncate">
             {title}
           </h5>
@@ -36,11 +39,11 @@ const Card = ({
         <div className="w-full">
           <div className="w-full">
             {buttonLink && buttonLabel && (
-              <a href={buttonLink}>
+              <Link href={buttonLink}>
                 <button className="w-full bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg">
                   {buttonLabel}
                 </button>
-              </a>
+              </Link>
             )}
           </div>
         </div>

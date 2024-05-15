@@ -4,7 +4,8 @@ import CarouselFilter from "../components/filter-components/carousel-filter";
 import Slider from "../components/slider/Slider";
 import { ICourse } from "../types";
 import FeaturedCard from "../components/featured/featured-card";
-        
+import Card from "../components/card";
+
 async function Categories() {
   const courses = await getCoursesDB();
 
@@ -16,7 +17,7 @@ async function Categories() {
       <div className="ml-10 w-full flex flex-col justify-around items-center space-y-5">
         <div className="bg-purpleMain mt-8  ">
           <h1 className="text-5xl mt-18 text-center text-white mt-10">
-          Todos los cursos
+            Todos los cursos
           </h1>
           <div className=" text-sm mt-8 text-center">
             <p className="text-white text-center pb-5">
@@ -39,15 +40,20 @@ async function Categories() {
           elementsPerSlide={3}
         />
 
-
         <div className=" text-sm mt-8"> </div>
         <div className="   mb-8 ">
           <div className=" bg-purpleMainLight p-6 text-[22px]">Cursos</div>
           <div className="flex flex-wrap gap-10  place-content-around my-5">
-            {courses.map((course:ICourse,index:number)=>(
-                <FeaturedCard key={index} course={course}/>
+            {courses.map((course: ICourse, index: number) => (
+              <Card
+                key={index}
+                title={course.title}
+                imgUrl={course.image}
+                body={course.headline}
+                buttonLabel={`Ver Curso`}
+                buttonLink={`/course-review/${course.id}`}
+              />
             ))}
-
           </div>
           <div className="bg-purpleMainLight p-6"></div>
         </div>
