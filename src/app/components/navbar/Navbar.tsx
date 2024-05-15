@@ -37,7 +37,7 @@ const Navbar: React.FC = (): JSX.Element => {
           <IoSearchCircle className="w-10 h-10 text-purpleMain" />
         </button>
       </div>
-      <Link href="/signup">
+      <Link href="/sign-up">
         <button className="bg-yellowMain text-purpleMain text-base font-semibold cursor-pointer px-4 py-2 rounded-lg">
           Registrarse
         </button>
