@@ -20,7 +20,7 @@ async function Categories({params,}: {params: { slug: string };}): Promise<JSX.E
     categories.push(decodedValue)
   });
   
-  console.log(categories);
+//  console.log(categories);
 
   return (
     <div className="flex mx-[11.5rem] justify-center ">
