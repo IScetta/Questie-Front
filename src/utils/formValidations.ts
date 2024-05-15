@@ -11,6 +11,8 @@ const loginValidation = (input: ILoginForm): ILoginErrorForm => {
   //* USERNAME
   if (!input.username) errors.username = "";
   else {
+    if (!input.username)
+      errors.username = "Debe ingresar un nombre de usuario.";
     if (input.username.length < 3)
       errors.username =
         "El nombre de usuario debe tener al menos 3 carácteres.";
@@ -19,6 +21,7 @@ const loginValidation = (input: ILoginForm): ILoginErrorForm => {
   //* PASSWORD
   if (!input.password) errors.password = "";
   else {
+    if (!input.password) errors.password = "Debe ingresar una contraseña.";
     if (input.password.length < 6)
       errors.password = "La contraseña debe tener al menos 6 carácteres.";
   }
@@ -31,20 +34,31 @@ const registerValidation = (input: IRegisterForm): IRegisterErrorForm => {
   const passMinRegExp = /[a-z]/;
   const passMayusRegExp = /[A-Z]/;
   const passNumRegExp = /[0-9]/;
+  const passSpecialCharRegExp = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
   let errors: IRegisterErrorForm = {};
 
   //* FIRSTNAME
-  if (!input.firstname) errors.firstname = "Debe ingresar su nombre.";
+  if (!input.firstName) errors.firstName = "Debe ingresar su nombre.";
   else {
-    if (input.firstname.length < 3)
-      errors.firstname = "El nombre debe tener al menos 3 carácteres.";
+    if (input.firstName.length < 3)
+      errors.firstName = "El nombre debe tener al menos 3 carácteres.";
   }
 
   //* LASTNAME
-  if (!input.lastname) errors.lastname = "Debe ingresar su apellido.";
+  if (!input.lastName) errors.lastName = "Debe ingresar su apellido.";
   else {
-    if (input.lastname.length < 3)
-      errors.lastname = "El apellido debe tener al menos 3 carácteres.";
+    if (input.lastName.length < 3)
+      errors.lastName = "El apellido debe tener al menos 3 carácteres.";
+  }
+
+  //* BIRTHDATE
+  if (!input.birthdate)
+    errors.birthdate = "Debe seleccionar su fecha de nacimiento.";
+  else {
+    const birthdate = new Date(input.birthdate);
+    const today = new Date();
+    if (birthdate > today)
+      errors.birthdate = "La fecha de nacimiento no puede ser futura.";
   }
 
   //* EMAIL
@@ -64,9 +78,6 @@ const registerValidation = (input: IRegisterForm): IRegisterErrorForm => {
   //* PASSWORD
   if (!input.password) errors.password = "Debe ingresar su contraseña.";
   else {
-    if (input.password.length < 6) {
-      errors.password = "La contraseña debe tener al menos 6 carácteres.";
-    }
     if (
       !passMinRegExp.test(input.password) ||
       !passMayusRegExp.test(input.password) ||
@@ -74,6 +85,15 @@ const registerValidation = (input: IRegisterForm): IRegisterErrorForm => {
     ) {
       errors.password =
         "La contraseña debe tener al menos una minúscula, una mayúscula y un número.";
+    } else {
+      if (!passSpecialCharRegExp.test(input.password)) {
+        errors.password =
+          "La contraseña debe tener al menos un caracter especial.";
+      } else {
+        if (input.password.length < 8) {
+          errors.password = "La contraseña debe tener al menos 8 carácteres.";
+        }
+      }
     }
   }
 
