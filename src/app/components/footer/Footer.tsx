@@ -86,7 +86,7 @@ const Footer: React.FC = (): JSX.Element => {
         <div className="w-10/12 h-[0px] border border-white"></div>
         <div className="flex flex-col md:flex-row justify-center items-center w-full h-20">
           <div className="flex flex-row md:flex-row justify-start content-center items-center w-full h-auto mx-4 gap-3 mt-5 mb-3">
-            <p className="text-white text-sm font-medium">© Questie - 2024</p>
+            <p className="text-white text-xs  ml-3">© Questie - 2024</p>
             <Link href="/help">
               <p className="text-white text-sm sm:text-base font-normal hover:underline">
                 Ayuda
