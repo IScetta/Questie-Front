@@ -9,13 +9,20 @@ const Navbar: React.FC = (): JSX.Element => {
       <Link href="/">
         <h1 className="text-white text-4xl font-medium">Questie</h1>
       </Link>
-      <div className="flex items-center justify-between w-56">
+      <div className="flex items-center justify-between space-x-4">
         <ButtonCategoryNavbar />
         <div className="justify-center items-center inline-flex cursor-pointer">
           <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
             Comunidad
           </p>
           <FaCaretDown className="text-white w-4 h-auto cursor-pointer" />
+        </div>
+        <div className="justify-center items-center inline-flex cursor-pointer">
+          <Link href="/shop">
+            <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
+              Tienda
+            </p>
+          </Link>
         </div>
       </div>
       <div className="justify-center items-center inline-flex w-[32rem] h-12 p-2 bg-purpleMainLighter rounded-lg">
