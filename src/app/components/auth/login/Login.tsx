@@ -1,6 +1,7 @@
 "use client";
 
 import { ILoginErrorForm, ILoginForm } from "@/app/types";
+import { useAuth } from "@/context/AuthContext";
 import { signin } from "@/helpers/auth.helper";
 import { loginFormData } from "@/utils/formData";
 import { loginValidation } from "@/utils/formValidations";
@@ -11,6 +12,8 @@ import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
 
 const Login: React.FC = (): JSX.Element => {
   const router = useRouter();
+  const { setToken } = useAuth();
+
   const initialState: ILoginForm = {
     username: "",
     password: "",
@@ -40,6 +43,7 @@ const Login: React.FC = (): JSX.Element => {
       event.preventDefault();
       const response = await signin(input);
       if (!response) throw new Error(`Error al intentar iniciar sesión`);
+      setToken(response.token);
       router.push("/");
     } catch (error: any) {
       console.error(error);
@@ -48,7 +52,7 @@ const Login: React.FC = (): JSX.Element => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-purpleMainLight w-[26.5rem] h-[33rem] my-4 mx-auto px-10 py-6 rounded-lg">
+    <div className="flex items-center justify-center bg-purpleMainLight w-[26.5rem] h-auto my-4 mx-auto px-10 py-6 rounded-lg">
       <div className="flex flex-col items-center justify-center w-full h-auto">
         <form
           className="flex flex-col items-center justify-center w-full h-auto"
@@ -72,7 +76,7 @@ const Login: React.FC = (): JSX.Element => {
                   onChange={handleChange}
                   className="w-full h-12 mt-1 px-4 py-2 bg-purpleMain rounded-lg placeholder:text-white placeholder:text-opacity-70 focus:outline-none"
                 />
-                <div className="w-full h-4 bg-purpleMainLight">
+                <div className="my-1 w-auto h-4 bg-purpleMainLight">
                   <p className="text-red-600 text-xs">
                     {errors[name] && errors[name]}
                   </p>
@@ -108,24 +112,33 @@ const Login: React.FC = (): JSX.Element => {
           de Questie.
         </span>
 
-        <div>
+        <div className="flex flex-col items-center justify-center w-full h-auto">
           <p className="text-start font-medium mb-4">
             También puedes iniciar sesión con:
           </p>
           <div className="flex items-center justify-between w-full h-auto">
-            <button className="mr-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
+            <button className="mr-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
               <FaGoogle className="w-10 h-10" />
             </button>
 
-            <button className="mx-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
+            <button className="mx-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
               <FaFacebookF className="w-10 h-10" />
             </button>
 
-            <button className="ml-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
+            <button className="ml-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
               <FaApple className="w-10 h-10" />
             </button>
           </div>
         </div>
+        <p className="text-center text-sm mt-4">
+          ¿No tienes cuenta?{" "}
+          <Link
+            href="/sign-up"
+            className="hover:underline hover:text-indigo-600"
+          >
+            Registrate
+          </Link>
+        </p>
       </div>
     </div>
   );
