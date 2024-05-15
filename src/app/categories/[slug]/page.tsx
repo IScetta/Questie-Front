@@ -8,9 +8,19 @@ import FeaturedCard from "@/app/components/featured/featured-card";
 
 
 async function Categories({params,}: {params: { slug: string };}): Promise<JSX.Element> {
-  const {slug} = params;
   const courses = await getCoursesDB()
+  const {slug} = params;
+  const decodedURL = decodeURIComponent(slug)
 
+  const pairs = decodedURL.split('&')
+  let categories:string[] = []
+
+  pairs.forEach(pair => {
+    const decodedValue = decodeURIComponent(pair.split('=')[1])
+    categories.push(decodedValue)
+  });
+  
+//  console.log(categories);
 
   return (
     <div className="flex mx-[11.5rem] justify-center ">
@@ -20,7 +30,14 @@ async function Categories({params,}: {params: { slug: string };}): Promise<JSX.E
       <div className="ml-10 w-full flex flex-col justify-center items-center">
         <div className="bg-purpleMain mt-8 rounded-xl">
           <h1 className="text-5xl mt-18 text-center text-white mt-10">
-          Todos los cursos de {slug}
+            Todos los cursos de
+          {categories.map((categorie,index)=>(
+          <p key={index}>
+             {categorie}
+          </p>
+          
+          
+          ))}
           </h1>
           <div className=" text-sm mt-8 text-center">
             {" "}
@@ -44,7 +61,7 @@ async function Categories({params,}: {params: { slug: string };}): Promise<JSX.E
 
         <div className=" text-sm mt-8"> </div>
         <div className="   mb-8 ">
-          <div className=" bg-purpleMainLight p-6">Cursos de {slug}</div>
+          <div className=" bg-purpleMainLight p-6">Cursos de {categories[0]}</div>
           <div className="flex flex-wrap gap-10  place-content-around my-5">
             {courses.map((course:ICourse,index:number)=>(
               <div key={index}>

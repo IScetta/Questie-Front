@@ -1,9 +1,12 @@
-import React from "react";
+"use client";
+
+import { Spinner } from "flowbite-react";
 
 const Loading = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+    <div className="flex flex-col flex-wrap items-center justify-center gap-2 absolute w-screen h-screen bg-white top-0 left-0 opacity-95">
+      <Spinner aria-label="Loading" size="xl" color="purple" />
+      Loading...
     </div>
   );
 };
