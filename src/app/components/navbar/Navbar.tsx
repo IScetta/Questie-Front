@@ -1,16 +1,31 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 import ButtonCategoryNavbar from "./button-category-navbar";
 
 const Navbar: React.FC = (): JSX.Element => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    // Aquí podrías implementar la lógica de búsqueda,
+    // por ejemplo, redirigir a una página de resultados con la consulta de búsqueda.
+    console.log("Realizar búsqueda con:", searchQuery);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <nav className="flex items-center justify-between px-[11.5rem] py-4 bg-purpleMain">
       <Link href="/">
         <h1 className="text-white text-4xl font-medium">Questie</h1>
       </Link>
       <div className="flex items-center justify-between w-56">
-        <ButtonCategoryNavbar/>
+        <ButtonCategoryNavbar />
         <div className="justify-center items-center inline-flex cursor-pointer">
           <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
             Comunidad
@@ -25,8 +40,10 @@ const Navbar: React.FC = (): JSX.Element => {
           type="text"
           name="search"
           id="search"
+          value={searchQuery}
+          onChange={handleChange}
         />
-        <button className="ml-1">
+        <button className="ml-1" onClick={handleSearch}>
           <IoSearchCircle className="w-10 h-10 text-purpleMain" />
         </button>
       </div>
