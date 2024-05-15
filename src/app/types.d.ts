@@ -11,8 +11,9 @@ export interface ILoginErrorForm {
 }
 
 export interface IRegisterForm {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
+  birthdate: string;
   username: string;
   email: string;
   password: string;
@@ -23,6 +24,7 @@ export interface IRegisterForm {
 export interface IRegisterErrorForm {
   firstname?: string;
   lastname?: string;
+  birthdate?: string;
   username?: string;
   email?: string;
   password?: string;
@@ -98,4 +100,14 @@ export interface ICourse {
       ];
     }
   ];
+}
+
+export interface IProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  polymorphicEntityType?: string;
+  polymorphicEntityId?: string;
 }

@@ -5,16 +5,28 @@ import { useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 import ButtonCategoryNavbar from "./button-category-navbar";
+import axios, { AxiosResponse } from "axios";
+import { ICourse } from "@/app/types";
 
 const Navbar: React.FC = (): JSX.Element => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     // Aquí podrías implementar la lógica de búsqueda,
     // por ejemplo, redirigir a una página de resultados con la consulta de búsqueda.
     console.log("Realizar búsqueda con:", searchQuery);
+    const courses: AxiosResponse<ICourse> = await axios.get(
+      `${API_URL}courses`
+    );
+    const products: AxiosResponse<ICourse> = await axios.get(
+      `${API_URL}products`
+    );
+    const categories: AxiosResponse<ICourse> = await axios.get(
+      `${API_URL}categories`
+    );
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
@@ -24,13 +36,20 @@ const Navbar: React.FC = (): JSX.Element => {
       <Link href="/">
         <h1 className="text-white text-4xl font-medium">Questie</h1>
       </Link>
-      <div className="flex items-center justify-between w-56">
+      <div className="flex items-center justify-between space-x-4">
         <ButtonCategoryNavbar />
         <div className="justify-center items-center inline-flex cursor-pointer">
           <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
             Comunidad
           </p>
           <FaCaretDown className="text-white w-4 h-auto cursor-pointer" />
+        </div>
+        <div className="justify-center items-center inline-flex cursor-pointer">
+          <Link href="/shop">
+            <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
+              Tienda
+            </p>
+          </Link>
         </div>
       </div>
       <div className="justify-center items-center inline-flex w-[32rem] h-12 p-2 bg-purpleMainLighter rounded-lg">
@@ -47,7 +66,7 @@ const Navbar: React.FC = (): JSX.Element => {
           <IoSearchCircle className="w-10 h-10 text-purpleMain" />
         </button>
       </div>
-      <Link href="/signup">
+      <Link href="/sign-up">
         <button className="bg-yellowMain text-purpleMain text-base font-semibold cursor-pointer px-4 py-2 rounded-lg">
           Registrarse
         </button>
