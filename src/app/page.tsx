@@ -34,7 +34,7 @@ const Home: React.FC = async () => {
         </div>
         <CategoriesCards />
       </div>
-      <div className="md:hidden grid grid-cols-1 justify-item-center gap-4 my-6  w-[15rem] h-[40rem]">
+      <div className="md:hidden xl:hidden grid grid-cols-1 justify-item-center gap-4 my-6  w-[15rem] h-[40rem]">
         <div className="flex w-full">
           <div className="bg-image rounded-full w-10 h-10 mt-5"></div>{" "}
           <button className="">Programacion</button>
