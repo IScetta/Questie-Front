@@ -39,7 +39,7 @@ const ProfileButton = () => {
         <FaUserCircle className="w-12 h-12 text-yellowMain" />
       </button>
       {isOpen && (
-        <div className="absolute w-32 top-14 flex items-center justify-center bg-tertiary text-tertiary shadow-xl rounded-lg bg-purpleMain">
+        <div className="absolute w-44 top-14 flex items-center justify-center bg-tertiary text-tertiary shadow-xl rounded-lg bg-purpleMainLight">
           <div className="bg-text rounded-lg p-2">
             <ul className="space-y-2 text-center">
               {(token ? userOptions : [])?.map((option) => (
