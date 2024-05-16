@@ -87,7 +87,7 @@ const Register: React.FC = (): JSX.Element => {
                   value={input[name]}
                   placeholder={placeholder}
                   onChange={handleChange}
-                  className="w-full h-12 mt-1 px-4 py-2 bg-purpleMain rounded-lg placeholder:text-white placeholder:text-opacity-70 focus:outline-none"
+                  className="w-full h-12 mt-1 px-4 py-2 bg-purpleMain rounded-lg placeholder:text-white placeholder:text-opacity-60 focus:outline-none"
                 />
                 <div className="my-1 w-auto h-4 bg-purpleMainLight">
                   <p className="text-red-600 text-xs">
@@ -127,22 +127,32 @@ const Register: React.FC = (): JSX.Element => {
 
         <div className="flex flex-col items-center justify-center w-full h-auto">
           <p className="text-start font-medium mb-4">
-            También puedes iniciar sesión con:
+            También puedes registrarte con:
           </p>
           <div className="flex items-center justify-between w-full h-auto">
-            <button className="mr-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
+            <button className="mr-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
               <FaGoogle className="w-10 h-10" />
             </button>
 
-            <button className="mx-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
+            <button className="mx-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
               <FaFacebookF className="w-10 h-10" />
             </button>
 
-            <button className="ml-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
+            <button className="ml-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
               <FaApple className="w-10 h-10" />
             </button>
           </div>
         </div>
+
+        <p className="text-center text-sm mt-4">
+          ¿Ya tienes cuenta?{" "}
+          <Link
+            href="/sign-in"
+            className="hover:underline hover:text-indigo-600"
+          >
+            Iniciar Sesión
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -2,13 +2,12 @@ import { ILesson } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const TOKEN = process.env.NEXT_PUBLIC_TOKEN;
 
-const getLessons = async (): Promise<ILesson[]> => {
+const getLessons = async (token: string | null): Promise<ILesson[]> => {
   try {
     const res: AxiosResponse<ILesson[]> = await axios.get(`${API_URL}lessons`, {
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     if (res.status !== 200) {
@@ -20,13 +19,16 @@ const getLessons = async (): Promise<ILesson[]> => {
   }
 };
 
-const getLessonById = async (id: string): Promise<ILesson> => {
+const getLessonById = async (
+  id: string,
+  token: string | null
+): Promise<ILesson> => {
   try {
     const res: AxiosResponse<ILesson> = await axios.get(
       `${API_URL}lessons/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
