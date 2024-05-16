@@ -1,0 +1,75 @@
+.navbar-mobile{
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 1500px) {
+    .navbar-desktop{
+        display: none;
+        visibility: hidden;
+    }
+    .navbar-mobile{
+        position: sticky;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        /* align-items: center; */
+        top: 0;
+        z-index: 99;
+        visibility: visible;
+        background-color: rgb(86 48 115);
+        color: white;
+        min-width: 100vw;
+        padding: 1rem;
+        & .navbar-mobile-menu, .navbar-mobile-title, .navbar-mobile-button{
+            width: 30%;
+        }
+        & .navbar-mobile-menu-button{
+            background-image: url('../../../../public/menu-svgrepo-com.svg');
+            background-size: cover;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        & .navbar-mobile-menu-activator{
+            width: 2.5rem;
+            height: 2.5rem;
+            opacity: 0;
+            position: absolute;
+            transform: translateY(-100%);
+        }
+        & .navbar-mobile-menu-links{
+            visibility: hidden;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            background-color: white;
+            border-radius: .5rem .5rem;
+            border: thin solid black;
+            transform: translate(-1.5rem, 1rem);
+            & a{
+                width: 100;
+                text-align: center;
+                text-decoration: none;
+                color: black;
+                padding: .5rem;
+                border-bottom: solid 1px black;
+                transition: background-color 0.3s ease-in;
+            }
+            & a:last-child{
+                border-bottom: none;
+            }
+            & a:hover{
+                text-decoration: underline;
+                background-color: red;
+            }
+        }
+        & .navbar-mobile-menu-activator:checked + .navbar-mobile-menu-links{
+            visibility: visible;
+        }
+        & h2{
+            font-size: 150%;
+        }
+    }
+}
