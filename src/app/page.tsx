@@ -2,7 +2,6 @@ import { getCoursesDB } from "@/helpers/course.helpers";
 import Login from "./components/auth/login";
 import Carousel from "./components/carousel";
 import CategoriesCards from "./components/categories/categories-cards/CategoriesCards";
-import FeaturedCarousel from "./components/featured/featured-carousel";
 import Slider from "./components/slider";
 
 const Home: React.FC = async () => {
@@ -10,7 +9,7 @@ const Home: React.FC = async () => {
 
   return (
     <div className="flex flex-col justify-center items-center mx-[11.5rem]">
-      <div className="flex place-content-center mr-11 md:flex-row md:justify-center  md:items-center mt-10 md:gap-14">
+      <div className="flex place-content-center md:flex-row md:justify-center md:items-center md:mt-0 md:gap-14">
         <div className="flex items-center justify-center w-[15.5rem] h-[20.5rem]  md:flex md:items-center md:justify-center md:w-[32.5rem] md:h-[40.5rem] bg-blue-gray-50 px-9 py-7">
           <Carousel />
         </div>
@@ -63,8 +62,6 @@ const Home: React.FC = async () => {
           <div className="bg-image rounded-full w-10 h-10 mt-5"></div>{" "}
           <button className=" ">Desarrollo-web</button>
         </div>
-
-        
       </div>
     </div>
   );
