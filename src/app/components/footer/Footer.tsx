@@ -7,7 +7,7 @@ const Footer: React.FC = (): JSX.Element => {
     <footer className="bg-purpleMain pb-5">
       <div className="flex flex-col justify-center items-center w-full h-auto sm:px-[11.5rem] md">
         <div className="sm:flex sm:flex-row grid grid-cols-2 justify-between items-center w-full h-full px-2 py-2 md:mr-20 lg:mr-14">
-          <div className="ml-4  flex flex-col sm:flex sm:flex-col justify-start items-start h-[15rem] sm:w-60 sm:h-[17.5rem] sm:p-6 md:place-content-center md:ml-0">
+          <div className="ml-4 flex flex-col sm:flex sm:flex-col justify-start items-start sm:w-60 h-[15rem] sm:h-[17.5rem] sm:p-6 md:h-[17.5rem] lg:h-[17.5rem]-">
             <h1 className="text-yellowMain text-sm sm:text-2xl font-medium mb-6">
               Empresa
             </h1>
@@ -37,7 +37,7 @@ const Footer: React.FC = (): JSX.Element => {
               </p>
             </Link>
           </div>
-          <div className="ml-4 flex flex-col sm:flex sm:flex-col justify-start items-start sm:w-60 h-[15rem] sm:h-[17.5rem] sm:p-6">
+          <div className="ml-4 flex flex-col sm:flex sm:flex-col justify-start items-start sm:w-60 h-[15rem] sm:h-[17.5rem] sm:p-6 md:h-[17.5rem] lg:h-[17.5rem]">
             <h1 className="text-yellowMain text-sm sm:text-2xl font-medium mb-6">
               Estudiantes
             </h1>
@@ -57,7 +57,7 @@ const Footer: React.FC = (): JSX.Element => {
               </p>
             </Link>
           </div>
-          <div className="ml-4 flex flex-col sm:flex sm:flex-col sm:justify-start sm:items-start sm:w-60 h-[15rem] sm:h-[17.5rem] sm:p-6">
+          <div className="ml-4 flex flex-col sm:flex sm:flex-col sm:justify-start sm:items-start sm:w-60 h-[15rem] sm:h-[17.5rem] sm:p-6 md:h-[17.5rem] lg:h-[17.5rem] ">
             <h1 className="text-yellowMain sm:text-2xl font-medium mb-6">
               Enseñanza
             </h1>
