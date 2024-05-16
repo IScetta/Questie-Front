@@ -38,14 +38,22 @@ const Login: React.FC = (): JSX.Element => {
     });
   };
 
+  const resetForm = () => {
+    setInput(initialState);
+    setErrors({
+      username: "",
+      password: "",
+    });
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
       const response = await signin(input);
       if (!response) throw new Error(`Error al intentar iniciar sesión`);
       console.log(response);
-
       setToken(response.token);
+      resetForm();
       router.push("/");
     } catch (error: any) {
       console.error(error);
