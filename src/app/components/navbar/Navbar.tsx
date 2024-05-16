@@ -23,9 +23,12 @@ const Navbar: React.FC = (): JSX.Element => {
     const products: AxiosResponse<ICourse> = await axios.get(
       `${API_URL}products`
     );
-    const categories: AxiosResponse<ICourse> = await axios.get(
+    /* const categories: AxiosResponse<ICourse> = await axios.get(
       `${API_URL}categories`
-    );
+    ); */
+    console.log(courses);
+    console.log(products);/* 
+    console.log(categories); */
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
