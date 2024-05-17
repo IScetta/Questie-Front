@@ -132,17 +132,26 @@ const Register: React.FC = (): JSX.Element => {
             También puedes registrarte con:
           </p>
           <div className="flex items-center justify-between w-full h-auto">
-            <button className="mr-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
               <FaGoogle className="md:w-10 md:h-10" />
-            </button>
+            </Link>
 
-            <button className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
               <FaFacebookF className="md:w-10 md:h-10" />
-            </button>
+            </Link>
 
-            <button className="ml-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
               <FaApple className="md:w-10 md:h-10" />
-            </button>
+            </Link>
           </div>
         </div>
 

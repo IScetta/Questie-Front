@@ -11,6 +11,8 @@ const nextConfig = {
       { hostname: "elestudiantedigital.com" },
       { hostname: "res.cloudinary.com" },
       { hostname: "placehold.co" },
+      { hostname: "avatars.githubusercontent.com" },
+      { hostname: "s.gravatar.com" },
     ],
   },
 };
