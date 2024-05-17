@@ -38,7 +38,7 @@ const Slider = ({
               width: `calc((100%/${elementsPerSlide}) - 1rem)`,
               alignSelf: "normal",
               display: "flex",
-              margin: "1rem 0"
+              margin: "1rem 0",
             }}
           />
         ))}
@@ -47,7 +47,7 @@ const Slider = ({
   }
 
   return (
-    <div className="w-full h-[26rem]">
+    <div className="w-full h-[40rem]">
       <Carousel slideInterval={5000}>
         {slides.map((slide, index) => (
           <div key={index}>{slide}</div>
