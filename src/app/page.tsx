@@ -1,5 +1,4 @@
 import { getCoursesDB } from "@/helpers/course.helpers";
-import Login from "./components/auth/login";
 import Carousel from "./components/carousel";
 import CategoriesCards from "./components/categories/categories-cards/CategoriesCards";
 import Slider from "./components/slider";
