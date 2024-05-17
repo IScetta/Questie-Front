@@ -1,60 +1,75 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 interface IAuthContext {
   token: string | null;
-  setToken: (token: string | null) => void;
+  payload: any | null; // Nuevo campo para almacenar el payload
+  setToken: (token: string | null, payload: any | null) => void; // Actualizado para aceptar payload
 }
 
 interface IAuthProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const AuthContext = createContext<IAuthContext>({
   token: null,
+  payload: null, // Inicializado a null
   setToken: () => {},
 });
 
 export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setTokenState] = useState<string | null>(null);
+  const [payload, setPayload] = useState<any | null>(null); // Estado para almacenar el payload
 
   const getTokenFromCookies = () => {
-    return Cookies.get("token") || null;
+    const token = Cookies.get("token");
+    const payload = Cookies.get("payload"); // Obtener el payload de las cookies
+    return { token, payload };
   };
 
-  useEffect(() => {
-    const token = getTokenFromCookies();
-    if (token) {
-      setToken(token);
-    }
-  }, []);
+  const setTokenInCookies = (token: string | null, payload: any | null) => {
+    console.log(token, payload);
 
-  const setTokenInCookies = (token: string | null) => {
     if (token) {
       Cookies.set("token", token, {
         secure: true,
         sameSite: "strict",
         expires: 1 / 12, // Elimina el token dentro de 2 horas
       });
+
+      if (payload) {
+        Cookies.set("payload", JSON.stringify(payload), {
+          secure: true,
+          sameSite: "strict",
+          expires: 1 / 12, // También guarda el payload
+        });
+      }
     } else {
       Cookies.remove("token");
+      Cookies.remove("payload"); // Elimina el payload si el token se elimina
     }
   };
 
+  const setToken = (token: string | null, payload: any | null) => {
+    setTokenState(token);
+    setPayload(payload); // Actualizar el estado del payload
+  };
+
   useEffect(() => {
-    setTokenInCookies(token);
-  }, [token]);
+    const { token, payload } = getTokenFromCookies();
+    if (token) {
+      setToken(token, payload); // Establecer el token y el payload desde las cookies
+    }
+  }, []);
+
+  useEffect(() => {
+    setTokenInCookies(token, payload); // Actualizar las cookies cuando cambia el token o el payload
+  }, [token, payload]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken }}>
+    <AuthContext.Provider value={{ token, payload, setToken }}>
       {children}
     </AuthContext.Provider>
   );

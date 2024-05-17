@@ -52,7 +52,7 @@ const Login: React.FC = (): JSX.Element => {
       const response = await signin(input);
       if (!response) throw new Error(`Error al intentar iniciar sesión`);
       console.log(response);
-      setToken(response.token);
+      setToken(response.token, null);
       resetForm();
       router.push("/");
     } catch (error: any) {
