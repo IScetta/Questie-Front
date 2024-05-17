@@ -127,3 +127,10 @@ export interface IInvoice {
   updated_at: string;
   deleted_at: string | null;
 }
+
+interface IPayload {
+  id: string;
+  email: string;
+  isAdmin: string;
+  sub: string;
+}
