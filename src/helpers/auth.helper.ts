@@ -45,7 +45,7 @@ const signup = async (
         },
       }
     );
-    if (res.status === 200 || res.data.message === "Register successful") {
+    if (res.status === 201) {
       return res.data;
     } else {
       throw new Error("Failed to register");

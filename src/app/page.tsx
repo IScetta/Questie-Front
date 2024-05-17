@@ -1,8 +1,8 @@
 import { getCoursesDB } from "@/helpers/course.helpers";
-import Login from "./components/auth/login";
 import Carousel from "./components/carousel";
 import CategoriesCards from "./components/categories/categories-cards/CategoriesCards";
 import Slider from "./components/slider";
+import LandingLogin from "./components/landing-login";
 
 const Home: React.FC = async () => {
   const courses = await getCoursesDB();
@@ -14,7 +14,7 @@ const Home: React.FC = async () => {
           <Carousel />
         </div>
         <div className="hidden md:flex">
-          <Login />
+          <LandingLogin />
         </div>
       </div>
       <div className="hidden md:flex md:flex-col md:items-center md:justify-center md:w-full md:h-auto md:mt-16">
