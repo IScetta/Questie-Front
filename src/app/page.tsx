@@ -8,7 +8,7 @@ const Home: React.FC = async () => {
   const courses = await getCoursesDB();
 
   return (
-    <div className="flex flex-col justify-center items-center mx-[11.5rem]">
+    <div className="flex flex-col justify-center items-center mx-[11.5rem] md:mx-[5rem] lg:mx-[11.5rem]">
       <div className="flex place-content-center md:flex-row md:justify-center md:items-center md:mt-10 md:gap-14">
         <div className="flex items-center justify-center w-[15.5rem] h-[20.5rem]  md:flex md:items-center md:justify-center md:w-[32.5rem] md:h-[40.5rem] bg-blue-gray-50 px-9 py-7">
           <Carousel />
