@@ -105,9 +105,25 @@ export interface ICourse {
 export interface IProduct {
   id: string;
   name: string;
-  description: string;
+  order: number;
   price: number;
+  imgUrl: string;
   currency: string;
+  description: string;
   polymorphicEntityType?: string;
   polymorphicEntityId?: string;
+}
+
+export interface IInvoice {
+  id: string;
+  userId: string;
+  total: number;
+  status: string;
+  product: IProduct;
+  user: {
+    id: string;
+  };
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
 }
