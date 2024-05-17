@@ -5,7 +5,7 @@ import Link from "next/link";
 const CategoryCard = ({ name, image }: ICategory) => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <Link href={`/categories/${name.toLowerCase()}`}>
+      <Link href={`/categories/categorie%5B%5D=${name}`}>
         <div className="bg-purpleMainLighter w-56 h-[12.5rem]">
           <Image
             src={image}

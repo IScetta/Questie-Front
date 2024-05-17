@@ -5,6 +5,7 @@ import ColumnFilter from "../../components/column-filter";
 import CarouselFilter from "../../components/filter-components/carousel-filter";
 import { ICourse } from "@/app/types";
 import FeaturedCard from "@/app/components/featured/featured-card";
+import Card from "@/app/components/card";
 
 
 async function Categories({params,}: {params: { slug: string };}): Promise<JSX.Element> {
@@ -59,14 +60,21 @@ async function Categories({params,}: {params: { slug: string };}): Promise<JSX.E
           <div className="pagination flex justify-center items-center m-2" />
         </div>
 
-        <div className=" text-sm mt-8"> </div>
+        <div className=" text-sm my-8"> </div>
         <div className="   mb-8 ">
           <div className=" bg-purpleMainLight p-6">Cursos de {categories[0]}</div>
           <div className="flex flex-wrap gap-10  place-content-around my-5">
             {courses.map((course:ICourse,index:number)=>(
               <div key={index}>
                 {true &&
-                  <FeaturedCard  course={course}/>
+                  <Card
+                  key={index}
+                  title={course.title}
+                  imgUrl={course.image}
+                  body={course.headline}
+                  buttonLabel={`Ver Curso`}
+                  buttonLink={`/course-review/${course.id}`}
+                />
                 }
               </div>
               

@@ -134,3 +134,22 @@ interface IPayload {
   isAdmin: string;
   sub: string;
 }
+
+
+export interface ICreateCourseForm{
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
+}
+
+export interface ICreateCourseErrorForm{
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
+}

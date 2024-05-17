@@ -47,7 +47,7 @@ const Slider = ({
   }
 
   return (
-    <div className="w-full h-[40rem]">
+    <div className="w-full h-[40rem] p-4">
       <Carousel slideInterval={5000}>
         {slides.map((slide, index) => (
           <div key={index}>{slide}</div>
