@@ -1,7 +1,7 @@
 "use client";
 
 import { IRegisterErrorForm, IRegisterForm } from "@/app/types";
-import { signin } from "@/helpers/auth.helper";
+import { signup } from "@/helpers/auth.helper";
 import { registerFormData } from "@/utils/formData";
 import { registerValidation } from "@/utils/formValidations";
 import Link from "next/link";
@@ -48,9 +48,8 @@ const Register: React.FC = (): JSX.Element => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
-      console.log(input);
       event.preventDefault();
-      const response = await signin(input);
+      const response = await signup(input);
       if (!response) throw new Error(`Error al intentar registrar usuario`);
       alert(`Registro exitoso, Bienvenido/a ${input.firstName}`);
       router.push("/sign-in");
@@ -77,7 +76,10 @@ const Register: React.FC = (): JSX.Element => {
                 className="flex flex-col items-start justify-center w-full h-auto mb-2"
                 key={name}
               >
-                <label className="font-medium text-base md:text-[22px] " htmlFor={name}>
+                <label
+                  className="font-medium text-base md:text-[22px] "
+                  htmlFor={name}
+                >
                   {label}
                 </label>
                 <input
