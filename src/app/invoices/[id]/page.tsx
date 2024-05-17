@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ShowInvoice = async (id: string) => {
+const ShowInvoice = async () => {
   return <h1>Factura</h1>;
   // try {
   //   const response = await axios.get(
