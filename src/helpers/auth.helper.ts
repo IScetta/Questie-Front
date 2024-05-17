@@ -15,6 +15,13 @@ const signin = async (input: ILoginForm): Promise<ILoginForm | undefined> => {
       }
     );
     if (res.status === 200 || res.data.message === "Login successful") {
+      const token = res.data.token; // Reemplaza esto con tu token JWT
+
+      // Dividir el token en sus partes (encabezado, carga útil y firma)
+      const parts = token.split(".");
+      const payload = JSON.parse(atob(parts[1]));
+      res.data.payload = payload;
+
       return res.data;
     } else {
       throw new Error("Failed to login");
@@ -38,7 +45,7 @@ const signup = async (
         },
       }
     );
-    if (res.status === 200 || res.data.message === "Register successful") {
+    if (res.status === 201) {
       return res.data;
     } else {
       throw new Error("Failed to register");
