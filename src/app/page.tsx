@@ -13,11 +13,27 @@ const Home: React.FC = async () => {
         <div className="flex items-center justify-center w-[15.5rem] h-[20.5rem]  md:flex md:items-center md:justify-center md:w-[32.5rem] md:h-[40.5rem] bg-blue-gray-50 px-9 py-7">
           <Carousel />
         </div>
-        <div className="hidden md:flex">
+        <div className="hidden md:hidden lg:flex">
           <LandingLogin />
         </div>
       </div>
-      <div className="hidden md:flex md:flex-col md:items-center md:justify-center md:w-full md:h-auto md:mt-10">
+      <div className="w-60 h-30 md:hidden lg:hidden">
+      <Slider
+          data={courses}
+          cardButtonLink="/course-review"
+          cardButtonLabel="View Course"
+          elementsPerSlide={1}
+        />
+      </div>
+      <div className="hidden md:flex md:flex-col md:items-center md:justify-center md:w-full md:h-auto md:mt-10 lg:hidden">
+        <Slider
+          data={courses}
+          cardButtonLink="/course-review"
+          cardButtonLabel="View Course"
+          elementsPerSlide={2}
+        />
+      </div>
+      <div className="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:w-full lg:h-auto lg:mt-10 ">
         <Slider
           data={courses}
           cardButtonLink="/course-review"
