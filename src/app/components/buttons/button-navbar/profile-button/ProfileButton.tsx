@@ -28,7 +28,7 @@ const ProfileButton = () => {
   const handleLogout = () => {
     toggleMenu();
     Cookies.remove("token");
-    setToken(null);
+    setToken(null, null);
     router.refresh();
     router.push("/");
   };
