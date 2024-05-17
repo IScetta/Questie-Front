@@ -100,6 +100,12 @@ export interface ICourse {
       ];
     }
   ];
+  categories:[
+    {
+      name: string;
+      id:string;
+    }
+  ];
 }
 
 export interface IProduct {
