@@ -38,7 +38,7 @@ const Slider = ({
               width: `calc((100%/${elementsPerSlide}) - 1rem)`,
               alignSelf: "normal",
               display: "flex",
-              margin: "1rem 0"
+              margin: "1rem 0",
             }}
           />
         ))}
