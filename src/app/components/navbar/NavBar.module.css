@@ -1,5 +1,6 @@
 .navbar-mobile {
   visibility: hidden;
+  display: none;
 }
 
 @media only screen and (max-width: 1500px) {
