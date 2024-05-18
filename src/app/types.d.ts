@@ -100,14 +100,62 @@ export interface ICourse {
       ];
     }
   ];
+  categories:[
+    {
+      name: string;
+      id:string;
+    }
+  ];
 }
 
 export interface IProduct {
   id: string;
   name: string;
-  description: string;
+  order: number;
   price: number;
+  imgUrl: string;
   currency: string;
+  description: string;
   polymorphicEntityType?: string;
   polymorphicEntityId?: string;
+}
+
+export interface IInvoice {
+  id: string;
+  userId: string;
+  total: number;
+  status: string;
+  product: IProduct;
+  user: {
+    id: string;
+  };
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+interface IPayload {
+  id: string;
+  email: string;
+  isAdmin: string;
+  sub: string;
+}
+
+
+export interface ICreateCourseForm{
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
+}
+
+export interface ICreateCourseErrorForm{
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
 }

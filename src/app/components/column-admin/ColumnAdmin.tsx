@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaCaretUp } from "react-icons/fa";
 
 const ColumnAdmin = async () => {
@@ -6,7 +7,7 @@ const ColumnAdmin = async () => {
         <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 px-7 ">
           <div className="bg-image rounded-full h-52 w-52 ml-7 mt-6 mb-6"></div>
           <button className="bg-yellowMain text-purpleMain h-10 w-52 ml-7 text-lg mt-5">
-          <p>Editar perfil</p>   
+          <Link href={"/admin/create-course"}>Agregar Curso</Link>   
           </button>
          
          

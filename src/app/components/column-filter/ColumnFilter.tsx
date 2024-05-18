@@ -5,27 +5,33 @@ import data from "@/helpers/categoriesPreLoad.json";
 import { useRouter } from "next/navigation";
 
 const ColumnFilter: React.FC = (): JSX.Element => {
-  const [checkboxStates, setCheckboxStates] = useState(Array(data.length).fill(false))
+  const [checkboxStates, setCheckboxStates] = useState(
+    Array(data.length).fill(false)
+  );
 
   const route = useRouter();
 
   const handleCheckboxChange =
     (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newCheckboxStates = [...checkboxStates]
-      newCheckboxStates[index] = event.target.checked
-      setCheckboxStates(newCheckboxStates)
-    }
+      const newCheckboxStates = [...checkboxStates];
+      newCheckboxStates[index] = event.target.checked;
+      setCheckboxStates(newCheckboxStates);
+    };
 
-    const getCheckedNames = () => {
-      const list = data.filter((category, index) => checkboxStates[index]).map(category => category.name);
-      // Array de géneros
-      const encodedGenres = list.map(genre => encodeURIComponent(genre));
-      const formattedURL = encodedGenres.map(genre => `categorie%5B%5D=${genre}`).join('&');
+  const getCheckedNames = () => {
+    const list = data
+      .filter((category, index) => checkboxStates[index])
+      .map((category) => category.name);
+    // Array de géneros
+    const encodedGenres = list.map((genre) => encodeURIComponent(genre));
+    const formattedURL = encodedGenres
+      .map((genre) => `categorie%5B%5D=${genre}`)
+      .join("&");
 
-      route.push(`/categories/${formattedURL}`)
+    route.push(`/categories/${formattedURL}`);
 
-      return list;
-    }
+    return list;
+  };
 
   return (
     <div className="justify-center items-center grid grid-cols-1">
@@ -37,7 +43,8 @@ const ColumnFilter: React.FC = (): JSX.Element => {
           <div key={index}>
             <p className=" bg-purpleMainLighter m-2 p-2">
               <label>
-                <input className="m-2"
+                <input
+                  className="m-2"
                   type="checkbox"
                   checked={checkboxStates[index]}
                   onChange={handleCheckboxChange(index)}
@@ -47,7 +54,12 @@ const ColumnFilter: React.FC = (): JSX.Element => {
             </p>
           </div>
         ))}
-        <button onClick={getCheckedNames} className="my-2 p-4  justify-center items-center bg-purpleMainLighter rounded-xl text-lg font-semibold text-gray-900">Filtrar</button>
+        <button
+          onClick={getCheckedNames}
+          className="my-2 p-4  justify-center items-center bg-yellowMainLight rounded-xl text-lg font-semibold text-gray-900 hover:bg-yellowMain"
+        >
+          Filtrar
+        </button>
       </div>
     </div>
   );

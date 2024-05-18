@@ -1,7 +1,7 @@
 "use client";
 
 import { IRegisterErrorForm, IRegisterForm } from "@/app/types";
-import { signin } from "@/helpers/auth.helper";
+import { signup } from "@/helpers/auth.helper";
 import { registerFormData } from "@/utils/formData";
 import { registerValidation } from "@/utils/formValidations";
 import Link from "next/link";
@@ -48,9 +48,8 @@ const Register: React.FC = (): JSX.Element => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
-      console.log(input);
       event.preventDefault();
-      const response = await signin(input);
+      const response = await signup(input);
       if (!response) throw new Error(`Error al intentar registrar usuario`);
       alert(`Registro exitoso, Bienvenido/a ${input.firstName}`);
       router.push("/sign-in");
@@ -61,13 +60,13 @@ const Register: React.FC = (): JSX.Element => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-purpleMainLight w-[30rem] h-auto my-4 mx-auto px-10 py-6 rounded-lg">
+    <div className="flex items-center justify-center bg-purpleMainLight w-[15rem] md:w-[30rem] h-auto my-4 mx-auto px-10 py-6 rounded-lg">
       <div className="flex flex-col items-center justify-center w-full h-auto">
         <form
           className="flex flex-col items-center justify-center w-full h-auto"
           onSubmit={handleSubmit}
         >
-          <h1 className="text-black text-center font-bold text-3xl mb-2">
+          <h1 className="text-black text-center font-bold text-xl md:text-3xl mb-2">
             Registrate
           </h1>
 
@@ -77,7 +76,10 @@ const Register: React.FC = (): JSX.Element => {
                 className="flex flex-col items-start justify-center w-full h-auto mb-2"
                 key={name}
               >
-                <label className="font-medium text-[22px]" htmlFor={name}>
+                <label
+                  className="font-medium text-base md:text-[22px] "
+                  htmlFor={name}
+                >
                   {label}
                 </label>
                 <input
@@ -87,7 +89,7 @@ const Register: React.FC = (): JSX.Element => {
                   value={input[name]}
                   placeholder={placeholder}
                   onChange={handleChange}
-                  className="w-full h-12 mt-1 px-4 py-2 bg-purpleMain rounded-lg placeholder:text-white placeholder:text-opacity-60 focus:outline-none"
+                  className="w-full h-12 mt-1 px-4 py-2 bg-purpleMain rounded-lg placeholder:text-white placeholder:text-opacity-60 focus:outline-none text-sm md:text-base"
                 />
                 <div className="my-1 w-auto h-4 bg-purpleMainLight">
                   <p className="text-red-600 text-xs">
@@ -99,7 +101,7 @@ const Register: React.FC = (): JSX.Element => {
           })}
 
           <button
-            className="w-full h-12 bg-yellowMain text-purpleMain text-2xl font-medium rounded-lg text-center hover:bg-yellowMainLight mt-2"
+            className="w-full h-12 bg-yellowMain text-purpleMain text-lg md:text-2xl font-medium rounded-lg text-center hover:bg-yellowMainLight mt-2"
             type="submit"
             disabled={Object.keys(errors).length > 0}
             style={{
@@ -130,17 +132,26 @@ const Register: React.FC = (): JSX.Element => {
             También puedes registrarte con:
           </p>
           <div className="flex items-center justify-between w-full h-auto">
-            <button className="mr-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
-              <FaGoogle className="w-10 h-10" />
-            </button>
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
+              <FaGoogle className="md:w-10 md:h-10" />
+            </Link>
 
-            <button className="mx-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
-              <FaFacebookF className="w-10 h-10" />
-            </button>
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
+              <FaFacebookF className="md:w-10 md:h-10" />
+            </Link>
 
-            <button className="ml-1 bg-purpleMain py-2 px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain">
-              <FaApple className="w-10 h-10" />
-            </button>
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
+              <FaApple className="md:w-10 md:h-10" />
+            </Link>
           </div>
         </div>
 

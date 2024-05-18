@@ -11,6 +11,7 @@ const Card = ({
   style,
   buttonLink,
   buttonLabel,
+  children,
 }: {
   title: string;
   body?: string;
@@ -18,6 +19,7 @@ const Card = ({
   style?: { [key: string]: string };
   buttonLink?: string;
   buttonLabel?: string;
+  children?: React.ReactNode;
 }) => {
   return (
     <FlowbiteCard className="max-w-sm my-4 select-none" style={style}>
@@ -28,16 +30,16 @@ const Card = ({
             src={imgUrl}
             alt={title}
             width={300}
-            height={300}/>
+            height={300}
+          />
           <h5 className="text-xl font-bold tracking-tight text-gray-900 truncate">
             {title}
           </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400 truncate">
-            {body}
-          </p>
+          <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-5">{body}</p>
         </div>
         <div className="w-full">
           <div className="w-full">
+            {children}
             {buttonLink && buttonLabel && (
               <Link href={buttonLink}>
                 <button className="w-full bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg">
