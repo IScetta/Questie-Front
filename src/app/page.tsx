@@ -17,7 +17,13 @@ const Home: React.FC = async () => {
           <LandingLogin />
         </div>
       </div>
-      <div className="w-full h-auto md:hidden lg:hidden">
+
+      <div className="bg-blue-gray-50 w-full h-auto md:hidden lg:hidden mt-10">
+        <div className="w-full">
+          <h1 className="text-black text-start font-semibold text-xl">
+            Cursos Mas Visitados
+          </h1>
+        </div>
         <Slider
           data={courses}
           cardButtonLink="/course-review"
@@ -25,7 +31,13 @@ const Home: React.FC = async () => {
           elementsPerSlide={1}
         />
       </div>
-      <div className="hidden md:flex md:flex-col md:items-center md:justify-center md:w-full md:h-auto md:mt-10 lg:hidden">
+
+      <div className="bg-blue-gray-50 hidden md:flex md:flex-col md:items-center md:justify-center md:w-full md:h-auto md:mt-10 lg:hidden">
+        <div className="w-full">
+          <h1 className="text-black text-start font-semibold text-xl">
+            Cursos Mas Visitados
+          </h1>
+        </div>
         <Slider
           data={courses}
           cardButtonLink="/course-review"
@@ -33,7 +45,13 @@ const Home: React.FC = async () => {
           elementsPerSlide={2}
         />
       </div>
-      <div className="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:w-full lg:h-auto lg:mt-10 ">
+
+      <div className="bg-blue-gray-50 hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:w-full lg:h-auto lg:mt-20 lg:px-8 lg:py-8">
+        <div className="w-full">
+          <h1 className="text-black text-start font-semibold text-xl">
+            Cursos Mas Visitados
+          </h1>
+        </div>
         <Slider
           data={courses}
           cardButtonLink="/course-review"
@@ -41,14 +59,16 @@ const Home: React.FC = async () => {
           elementsPerSlide={3}
         />
       </div>
-      <div className="hidden md:flex flex-col items-center justify-center w-full h-auto mt-10 mb-10 px-8 py-8 bg-blue-gray-50">
+
+      <div className="hidden md:flex flex-col items-center justify-center w-full h-auto my-20 px-8 py-8 bg-blue-gray-50">
         <div className="w-full mb-6">
-          <h1 className="text-black text-start font-medium text-xl">
+          <h1 className="text-black text-start font-semibold text-xl">
             Categorías Principales
           </h1>
         </div>
         <CategoriesCards />
       </div>
+
       <div className="md:hidden xl:hidden grid grid-cols-1 justify-item-center gap-4 my-6  w-[15rem] h-[40rem]">
         <div className="flex w-full">
           <div className="bg-image rounded-full w-10 h-10 mt-5"></div>{" "}

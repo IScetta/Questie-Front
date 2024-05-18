@@ -1,9 +1,7 @@
 import { getCoursesDB } from "@/helpers/course.helpers";
 import ColumnFilter from "../components/column-filter";
-import CarouselFilter from "../components/filter-components/carousel-filter";
 import Slider from "../components/slider/Slider";
 import { ICourse } from "../types";
-import FeaturedCard from "../components/featured/featured-card";
 import Card from "../components/card";
 
 async function Categories() {
@@ -39,8 +37,8 @@ async function Categories() {
           elementsPerSlide={3}
         />
 
-        <div className=" text-sm mt-8"> </div>
-        <div className="   mb-8 ">
+        <div className="text-sm mt-8"></div>
+        <div className="mb-8 ">
           <div className=" bg-purpleMainLight p-6 text-[22px]">Cursos</div>
           <div className="flex flex-wrap gap-10  place-content-around my-5">
             {courses.map((course: ICourse, index: number) => (
