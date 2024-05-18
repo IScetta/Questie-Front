@@ -4,8 +4,11 @@ import { IoSearchCircle } from "react-icons/io5";
 import ButtonCategoryNavbar from "./button-category-navbar";
 import ButtonNavbar from "../buttons/button-navbar";
 import styles from "./NavBar.module.css";
+import { getCategoriesDB } from "@/helpers/categories.helper";
+import { ICategory } from "@/app/types";
 
-const Navbar: React.FC = (): JSX.Element => {
+ const Navbar: React.FC = async () => {
+  const categoriesList:ICategory[] = await getCategoriesDB()
   return (
     <>
       <nav className="flex items-center justify-between px-[11.5rem] py-4 bg-purpleMain w-full">
@@ -13,7 +16,7 @@ const Navbar: React.FC = (): JSX.Element => {
           <h1 className="text-white text-4xl font-medium">Questie</h1>
         </Link>
         <div className="flex items-center justify-between space-x-4">
-          <ButtonCategoryNavbar />
+          <ButtonCategoryNavbar categories={categoriesList} />
           <div className="justify-center items-center inline-flex cursor-pointer">
             <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
               Comunidad

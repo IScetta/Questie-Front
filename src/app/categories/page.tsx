@@ -2,17 +2,19 @@ import { getCoursesDB } from "@/helpers/course.helpers";
 import ColumnFilter from "../components/column-filter";
 import CarouselFilter from "../components/filter-components/carousel-filter";
 import Slider from "../components/slider/Slider";
-import { ICourse } from "../types";
+import { ICategory, ICourse } from "../types";
 import FeaturedCard from "../components/featured/featured-card";
 import Card from "../components/card";
+import { getCategoriesDB } from "@/helpers/categories.helper";
 
 async function Categories() {
   const courses = await getCoursesDB();
+  const categoriesList:ICategory[] = await getCategoriesDB()
 
   return (
     <div className="flex mx-[11.5rem] justify-center ">
       <div className="flex flex-grow-0">
-        <ColumnFilter />
+        <ColumnFilter categories={categoriesList}/>
       </div>
       <div className="ml-10 w-full flex flex-col justify-around items-center space-y-5">
         <div className="bg-purpleMain mt-8 rounded-xl ">
