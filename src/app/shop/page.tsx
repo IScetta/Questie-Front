@@ -14,7 +14,7 @@ const Shop = async () => {
     <Card
       key={index}
       title={product.name}
-      body={product.description}
+      // body={product.description}
       buttonLabel="Comprar"
       buttonLink={`/shop/pay?productId=${product.id}`}
       imgUrl={product.imgUrl}

@@ -51,8 +51,7 @@ const Login: React.FC = (): JSX.Element => {
       event.preventDefault();
       const response = await signin(input);
       if (!response) throw new Error(`Error al intentar iniciar sesión`);
-      console.log(response);
-      setToken(response.token, null);
+      setToken(response.token, response.payload);
       resetForm();
       router.push("/");
     } catch (error: any) {
