@@ -76,13 +76,14 @@ async function Categories({
             
               {filteredCourses.map((course: ICourse, index: number) => (
               <Card
-                key={index}
-                title={course.title}
-                imgUrl={course.image}
-                // body={course.headline}
-                buttonLabel={`Ver Curso`}
-                buttonLink={`/course-review/${course.id}`}
-              />
+              key={index}
+              title={course.title}
+              imgUrl={course.image}
+              buttonLabel={`Ver Curso`}
+              buttonLink={`/course-review/${course.id}`}
+            >
+              {course.headline}
+            </Card>
             ))}
             </div>
               
