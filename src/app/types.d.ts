@@ -175,3 +175,13 @@ export interface IUser {
   updated_at: string;
   deleted_at: string | null;
 }
+
+export interface ICategory {
+  id: string;
+  name: string;
+  slug: string;
+  image: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
