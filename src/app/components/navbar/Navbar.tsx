@@ -3,12 +3,12 @@ import { FaCaretDown } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 import ButtonCategoryNavbar from "./button-category-navbar";
 import ButtonNavbar from "../buttons/button-navbar";
-import styles from './NavBar.module.css'
+import styles from "./NavBar.module.css";
 
 const Navbar: React.FC = (): JSX.Element => {
   return (
     <>
-      <nav className={`flex items-center justify-between px-[11.5rem] py-4 bg-purpleMain ${styles['navbar-desktop']}`}>
+      <nav className="flex items-center justify-between px-[11.5rem] py-4 bg-purpleMain w-full">
         <Link href="/">
           <h1 className="text-white text-4xl font-medium">Questie</h1>
         </Link>
@@ -42,20 +42,23 @@ const Navbar: React.FC = (): JSX.Element => {
         </div>
         <ButtonNavbar />
       </nav>
-      <nav className={styles['navbar-mobile']}>
-        <div className={styles['navbar-mobile-menu']}>
-          <div className={styles['navbar-mobile-menu-button']}></div>
-          <input type="checkbox" className={styles['navbar-mobile-menu-activator']}/>
-          <div className={styles['navbar-mobile-menu-links']}>
+      <nav className={styles["navbar-mobile"]}>
+        <div className={styles["navbar-mobile-menu"]}>
+          <div className={styles["navbar-mobile-menu-button"]}></div>
+          <input
+            type="checkbox"
+            className={styles["navbar-mobile-menu-activator"]}
+          />
+          <div className={styles["navbar-mobile-menu-links"]}>
             <Link href={"/"}>Home</Link>
             <Link href={"/categories"}>Categories</Link>
             <Link href={"/shop"}>Shop</Link>
           </div>
         </div>
-        <div className={styles['navbar-mobile-title']}>
+        <div className={styles["navbar-mobile-title"]}>
           <h2>Questie</h2>
         </div>
-        <div className={styles['navbar-mobile-button']}>
+        <div className={styles["navbar-mobile-button"]}>
           <ButtonNavbar />
         </div>
       </nav>
