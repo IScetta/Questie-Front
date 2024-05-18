@@ -2,7 +2,7 @@
 .navbar-desktop {
   display: flex;
   width: 100%;
-  padding: 11.5rem;
+  padding: 1rem 11.5rem;
 }
 
 /* Estilos para la navegación móvil por defecto oculta */
@@ -110,4 +110,3 @@
     padding: 0.5rem 1rem;
   }
 }
-
