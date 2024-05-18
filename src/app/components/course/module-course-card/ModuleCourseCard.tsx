@@ -9,7 +9,7 @@ const ModuleCourseCard = ({ course }: any) => {
   return (
     <div className="relative ">
       <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
-        <div className="flex items-center p-8 border-b-2  border-red-900">
+        <div className="flex items-center p-8 border-b-2 border-gray-700">
           <Image
             className=" rounded-full"
             src={course.image}
@@ -35,8 +35,9 @@ const ModuleCourseCard = ({ course }: any) => {
           <div className=" bg-white shadow-md  w-full">
             {course.modules.map((module: any, index: any) => (
               <div key={index} className="">
+                {index !== 0 &&
                 <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
-                  <div className="flex items-center p-8 border-b-2 border-black">
+                  <div className="flex items-center p-8 border-b-2 border-gray-700">
                     <Image
                       className=" rounded-full"
                       src={course.image}
@@ -56,6 +57,8 @@ const ModuleCourseCard = ({ course }: any) => {
                     ))}
                   </div>
                 </div>
+
+                }
               </div>
             ))}
           </div>

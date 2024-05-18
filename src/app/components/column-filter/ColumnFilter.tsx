@@ -3,8 +3,10 @@ import { useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import data from "@/helpers/categoriesPreLoad.json";
 import { useRouter } from "next/navigation";
+import { getCategoriesDB } from "@/helpers/categories.helper";
 
 const ColumnFilter: React.FC = (): JSX.Element => {
+
   const [checkboxStates, setCheckboxStates] = useState(
     Array(data.length).fill(false)
   );
