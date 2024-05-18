@@ -30,8 +30,6 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   };
 
   const setTokenInCookies = (token: string | null, payload: any | null) => {
-    console.log(token, payload);
-
     if (token) {
       Cookies.set("token", token, {
         secure: true,
@@ -40,11 +38,20 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       });
 
       if (payload) {
-        Cookies.set("payload", JSON.stringify(payload), {
-          secure: true,
-          sameSite: "strict",
-          expires: 1 / 12, // También guarda el payload
-        });
+        //Validate payload is an object
+        if (typeof payload !== "object") {
+          Cookies.set("payload", payload, {
+            secure: true,
+            sameSite: "strict",
+            expires: 1 / 12, // También guarda el payload
+          });
+        } else {
+          Cookies.set("payload", JSON.stringify(payload), {
+            secure: true,
+            sameSite: "strict",
+            expires: 1 / 12, // También guarda el payload
+          });
+        }
       }
     } else {
       Cookies.remove("token");
@@ -59,7 +66,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const { token, payload } = getTokenFromCookies();
-    if (token) {
+    if (token && payload) {
       setToken(token, payload); // Establecer el token y el payload desde las cookies
     }
   }, []);

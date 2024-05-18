@@ -6,7 +6,7 @@ import { PayPalNamespace } from "@paypal/paypal-js/types/index";
 import { getProductById } from "@/helpers/products.helper";
 import axios from "axios";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { createInvoice } from "@/helpers/invoices.helper";
 
@@ -14,9 +14,8 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   const [paypal, setPaypal] = useState<PayPalNamespace | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [product, setProduct] = useState<any>(null);
-  const { payload, token } = useAuth();
-
-  // console.log(payload, token);
+  let { payload, token } = useAuth();
+  const route = useRouter();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -51,7 +50,11 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   }, []);
 
   useEffect(() => {
-    if (paypal && paypal.Buttons && product) {
+    if (paypal && paypal.Buttons && product && token && payload) {
+      if (typeof payload !== "object") {
+        payload = JSON.parse(payload);
+      }
+
       const paypalContainer = document.getElementById(
         "paypal-button-container"
       );
@@ -74,19 +77,13 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
             },
 
             onApprove: async function (data, actions) {
-              console.log(payload);
-              if (!payload || !payload.id) {
-                alert("Necesitas estar logueado para comprar.");
-                return;
-              }
-
               const invoice = await createInvoice(
                 payload.id,
                 product.id,
                 token!
               );
 
-              redirect(`/invoices?id=${invoice.id}`);
+              route.push(`/invoices?id=${invoice}`);
             },
           })
           .render("#paypal-button-container");
@@ -122,7 +119,20 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
         ) : (
           <div>Cargando producto...</div>
         )}
-        {paypal ? (
+
+        {!payload ? (
+          <div className="flex flex-col justify-center items-center mt-4 space-y-4">
+            <p className="text-gray-600">
+              Necesitas estar logueado para comprar.
+            </p>
+            <button
+              className="py-2 px-4 rounded-lg bg-purpleMain hover:bg-purpleMainLight hover:text-gray-700 text-white"
+              onClick={() => route.push("/sign-in")}
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        ) : paypal ? (
           <div className="flex w-full justify-center h-full">
             <div id="paypal-button-container"></div>
           </div>

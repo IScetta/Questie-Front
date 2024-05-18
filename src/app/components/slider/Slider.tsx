@@ -25,29 +25,33 @@ const Slider = ({
   const slides = [];
   for (let i = 0; i < formattedData.length; i += elementsPerSlide) {
     slides.push(
-      <div key={i} className="flex items-center justify-around space-x-4">
+      <div
+        key={i}
+        className="flex items-center justify-around space-x-4 h-full"
+      >
         {formattedData.slice(i, i + elementsPerSlide).map((course) => (
           <Card
             key={course.id}
             title={course.title}
-            body={course.description}
             imgUrl={course.image}
             buttonLink={`${cardButtonLink}/${course.id}`}
             buttonLabel={cardButtonLabel}
             style={{
               width: `calc((100%/${elementsPerSlide}) - 1rem)`,
-              alignSelf: "normal",
-              display: "flex",
-              margin: "1rem 0"
+              margin: "1rem 0",
             }}
-          />
+          >
+            <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
+              {course.description}
+            </p>
+          </Card>
         ))}
       </div>
     );
   }
 
   return (
-    <div className="w-full h-[26rem]">
+    <div className="w-full h-[30rem] flex items-stretch">
       <Carousel slideInterval={5000}>
         {slides.map((slide, index) => (
           <div key={index}>{slide}</div>
