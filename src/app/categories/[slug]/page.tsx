@@ -1,7 +1,7 @@
 import { getCoursesDB } from "@/helpers/course.helpers";
 import ColumnFilter from "../../components/column-filter";
 import CarouselFilter from "../../components/filter-components/carousel-filter";
-import { ICourse } from "@/app/types";
+import { ICategory, ICourse } from "@/app/types";
 import FeaturedCard from "@/app/components/featured/featured-card";
 import Card from "@/app/components/card";
 import { getCategoriesDB } from "@/helpers/categories.helper";
@@ -12,8 +12,8 @@ async function Categories({
   params: { slug: string };
 }): Promise<JSX.Element> {
   const courses: ICourse[] = await getCoursesDB();
+  const categoriesList:ICategory[] = await getCategoriesDB()
 
-  const categoriesList = await getCategoriesDB();
   // const coursesPreLoad:ICourse[] = coursePreLoadFilter;
   const { slug } = params;
   const decodedURL = decodeURIComponent(slug);
@@ -43,7 +43,7 @@ async function Categories({
   return (
     <div className="flex mx-[11.5rem] justify-center ">
       <div className="flex flex-grow-0">
-        <ColumnFilter />
+        <ColumnFilter categories={categoriesList}/>
       </div>
       <div className="ml-10 w-full flex flex-col justify-center items-center">
         <div className="bg-purpleMain mt-8 w-full rounded-xl">

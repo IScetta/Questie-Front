@@ -1,11 +1,13 @@
 "use client";
 
+import { ICategory } from "@/app/types";
 import { categoriesPreLoad } from "@/helpers/categoriesPreLoad";
 import Link from "next/link";
 import { useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
-const ButtonCategoryNavBar = () => {
+const ButtonCategoryNavBar = ({categories}:{categories:ICategory[]}) => {
+  
   const [isOpen, setIsOpen] = useState(false);
 
 
@@ -44,7 +46,7 @@ const ButtonCategoryNavBar = () => {
             </Link>
             <div className="w-full h-0.5 bg-black"></div>
 
-            {categoriesPreLoad.map((item, index) => (
+            {categories.map((item, index) => (
               <Link href={`/categories/categorie%5B%5D=${item.name}`} onClick={toggleDropdown} key={index}>
                 <h3 className="m-4 p-2 rounded-lg hover:bg-purpleMainLighter">
                   {item.name}
