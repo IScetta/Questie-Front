@@ -15,20 +15,19 @@ async function Categories() {
         <ColumnFilter />
       </div>
       <div className="ml-10 w-full flex flex-col justify-around items-center space-y-5">
-        <div className="bg-purpleMain mt-8  ">
-          <h1 className="text-5xl mt-18 text-center text-white mt-10">
+        <div className="bg-purpleMain mt-8 rounded-xl ">
+          <h1 className="text-4xl mt-18 text-center text-white mt-10">
             Todos los cursos
           </h1>
           <div className=" text-sm mt-8 text-center">
             <p className="text-white text-center pb-5">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Asperiores, nesciunt fuga inventore deleniti nulla, amet
-              distinctio, saepe quisquam quod voluptate nemo. Modi voluptates
-              unde, delectus excepturi corporis soluta voluptatem dignissimos.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus
-              sunt inventore autem aut porro in harum corporis asperiores eaque
-              fuga qui doloremque cum sed, ab alias facere officiis quibusdam
-              corrupti?
+              Questie es una página que posee muchos cursos de todo tipo. Ofrece
+              una amplia variedad de contenidos educativos que abarcan desde la
+              programación y el desarrollo de software hasta las artes
+              culinarias y la música. Con una plataforma fácil de usar y
+              accesible desde cualquier dispositivo, Questie se convierte en una
+              excelente opción para quienes buscan mejorar sus habilidades y
+              conocimientos de manera flexible y efectiva.
             </p>
           </div>
         </div>
@@ -36,7 +35,7 @@ async function Categories() {
         <Slider
           data={courses}
           cardButtonLink="/course-review"
-          cardButtonLabel="View Course"
+          cardButtonLabel="Ver Curso"
           elementsPerSlide={3}
         />
 

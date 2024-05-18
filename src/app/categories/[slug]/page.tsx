@@ -4,6 +4,7 @@ import CarouselFilter from "../../components/filter-components/carousel-filter";
 import { ICourse } from "@/app/types";
 import FeaturedCard from "@/app/components/featured/featured-card";
 import Card from "@/app/components/card";
+import { getCategoriesDB } from "@/helpers/categories.helper";
 
 async function Categories({
   params,
@@ -11,6 +12,8 @@ async function Categories({
   params: { slug: string };
 }): Promise<JSX.Element> {
   const courses: ICourse[] = await getCoursesDB();
+
+  const categoriesList = await getCategoriesDB()
   // const coursesPreLoad:ICourse[] = coursePreLoadFilter;
   const { slug } = params;
   const decodedURL = decodeURIComponent(slug);
@@ -69,24 +72,33 @@ async function Categories({
         <div className=" text-sm my-8"> </div>
         <div className=" mb-8  w-full">
           <div className=" bg-purpleMainLight l p-6">Cursos</div>
+            {filteredCourses.length ? 
           <div className="flex flex-wrap gap-10  place-content-around my-5">
+
             {filteredCourses.map((course: ICourse, index: number) => (
               <Card
-                key={index}
-                title={course.title}
-                imgUrl={course.image}
-                buttonLabel={`Ver Curso`}
-                buttonLink={`/course-review/${course.id}`}
-              >
-                {course.headline}
-              </Card>
+              key={index}
+              title={course.title}
+              imgUrl={course.image}
+              buttonLabel={`Ver Curso`}
+              buttonLink={`/course-review/${course.id}`}
+            >
+              {course.headline}
+            </Card>
             ))}
+            </div>
+              
+            :
+            <div className="flex justify-center items-center">
+              <h3 className="p-2 mt-10 mb-5 bg-purpleMainLighter">No existen cursos para esta categoria</h3>
+            </div>
+          }
+
           </div>
-          <div className="bg-purpleMainLight p-6"></div>
+          <div className="bg-purpleMainLight w-full mb-2 p-6"></div>
         </div>
       </div>
-      <div></div>
-    </div>
+
   );
 }
 
