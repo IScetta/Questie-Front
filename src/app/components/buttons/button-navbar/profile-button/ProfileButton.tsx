@@ -7,6 +7,7 @@ import { FaUserCircle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { IPayload } from "@/app/types";
 
 const adminOptions = ["Perfil", "Crear Curso", "Cerrar Sesión"];
 const userOptions = ["Perfil", "Cerrar Sesión"];
@@ -16,8 +17,10 @@ const ProfileButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [profileOptions, setProfileOptions] = useState(userOptions);
 
-  const { token, setToken } = useAuth();
+  const { token, setToken, payload } = useAuth();
   const { user } = useUser();
+
+  const payloadParse: IPayload = JSON.parse(payload);
 
   useEffect(() => {
     token || user ? setProfileOptions(userOptions) : setProfileOptions([]);
@@ -53,7 +56,11 @@ const ProfileButton = () => {
                   }
                   className="py-2 px-6 hover:bg-tertiary text-textColor hover:bg-purpleMainLighter hover:cursor-pointer transition-colors duration-200"
                 >
-                  <Link href={option === "Perfil" ? "/profile" : "/"}>
+                  <Link
+                    href={
+                      option === "Perfil" ? `/profile/${payloadParse?.id}` : "/"
+                    }
+                  >
                     {option}
                   </Link>
                 </li>
