@@ -1,6 +1,7 @@
 import { GoArrowUp } from "react-icons/go";
 import ColumnLesson from "../../components/column-lesson";
 import { getLessonById } from "@/helpers/lesson.helper";
+import { useAuth } from "@/context/AuthContext";
 
 const Lesson = async ({
   params,
@@ -8,7 +9,8 @@ const Lesson = async ({
   params: { slug: string };
 }): Promise<JSX.Element> => {
   const { slug } = params;
-  const lessonId = await getLessonById(slug);
+  const { token } = useAuth();
+  const lessonId = await getLessonById(slug, token);
   const moduleId = lessonId.module.id;
 
   return (

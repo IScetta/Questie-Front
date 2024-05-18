@@ -11,8 +11,9 @@ export interface ILoginErrorForm {
 }
 
 export interface IRegisterForm {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
+  birthdate: string;
   username: string;
   email: string;
   password: string;
@@ -23,6 +24,7 @@ export interface IRegisterForm {
 export interface IRegisterErrorForm {
   firstname?: string;
   lastname?: string;
+  birthdate?: string;
   username?: string;
   email?: string;
   password?: string;
@@ -98,4 +100,88 @@ export interface ICourse {
       ];
     }
   ];
+  categories: [
+    {
+      name: string;
+      id: string;
+    }
+  ];
+}
+
+export interface IProduct {
+  id: string;
+  name: string;
+  order: number;
+  price: number;
+  imgUrl: string;
+  currency: string;
+  description: string;
+  polymorphicEntityType?: string;
+  polymorphicEntityId?: string;
+}
+
+export interface IInvoice {
+  id: string;
+  userId: string;
+  total: number;
+  status: string;
+  product: IProduct;
+  user: {
+    id: string;
+  };
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+interface IPayload {
+  id: string;
+  email: string;
+  isAdmin: string;
+  sub: string;
+  iat: number;
+  exp: number;
+}
+
+export interface ICreateCourseForm {
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
+}
+
+export interface ICreateCourseErrorForm {
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
+}
+
+export interface IUser {
+  id: string;
+  username: string;
+  password: string;
+  email: string;
+  profile_pic: string;
+  firstName: string;
+  lastName: string;
+  birthdate: string;
+  role: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+export interface ICategory {
+  id: string;
+  name: string;
+  slug: string;
+  image: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
 }

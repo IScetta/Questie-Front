@@ -1,13 +1,19 @@
 "use client";
 
 import { ILoginErrorForm, ILoginForm } from "@/app/types";
+import { useAuth } from "@/context/AuthContext";
+import { signin } from "@/helpers/auth.helper";
 import { loginFormData } from "@/utils/formData";
 import { loginValidation } from "@/utils/formValidations";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
 
 const Login: React.FC = (): JSX.Element => {
+  const router = useRouter();
+  const { setToken } = useAuth();
+
   const initialState: ILoginForm = {
     username: "",
     password: "",
@@ -32,12 +38,30 @@ const Login: React.FC = (): JSX.Element => {
     });
   };
 
+  const resetForm = () => {
+    setInput(initialState);
+    setErrors({
+      username: "",
+      password: "",
+    });
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      const response = await signin(input);
+      if (!response) throw new Error(`Error al intentar iniciar sesión`);
+      setToken(response.token, response.payload);
+      resetForm();
+      router.push("/");
+    } catch (error: any) {
+      console.error(error);
+      throw new Error("Error desconocido: " + error.message);
+    }
   };
 
   return (
-    <div className="flex items-center justify-center bg-purpleMainLight w-[26.5rem] h-[33rem] my-4 mx-auto px-10 py-6 rounded-lg">
+    <div className="flex items-center justify-center bg-purpleMainLight w-[13rem] md:w-[26.5rem] h-auto my-4 mx-auto px-10 py-6 rounded-lg">
       <div className="flex flex-col items-center justify-center w-full h-auto">
         <form
           className="flex flex-col items-center justify-center w-full h-auto"
@@ -49,7 +73,7 @@ const Login: React.FC = (): JSX.Element => {
                 className="flex flex-col items-start justify-center w-full h-auto mb-6"
                 key={name}
               >
-                <label className="font-medium text-[22px]" htmlFor={name}>
+                <label className="font-medium md:text-[22px]" htmlFor={name}>
                   {label}
                 </label>
                 <input
@@ -59,9 +83,9 @@ const Login: React.FC = (): JSX.Element => {
                   value={input[name]}
                   placeholder={placeholder}
                   onChange={handleChange}
-                  className="w-full h-12 mt-1 px-4 py-2 bg-purpleMain rounded-lg placeholder:text-white placeholder:text-opacity-70 focus:outline-none"
+                  className="w-full h-12 mt-1 px-4 py-2 bg-purpleMain rounded-lg placeholder:text-white placeholder:text-opacity-70 focus:outline-none text-xs md:text-base"
                 />
-                <div className="w-full h-4 bg-purpleMainLight">
+                <div className="my-1 w-auto h-4 bg-purpleMainLight">
                   <p className="text-red-600 text-xs">
                     {errors[name] && errors[name]}
                   </p>
@@ -71,7 +95,7 @@ const Login: React.FC = (): JSX.Element => {
           })}
 
           <button
-            className="w-full h-12 bg-yellowMain text-purpleMain text-2xl font-medium rounded-lg text-center hover:bg-yellowMainLight"
+            className="w-full h-12 bg-yellowMain text-purpleMain text-base md:text-2xl font-medium rounded-lg text-center hover:bg-yellowMainLight"
             type="submit"
             disabled={Object.keys(errors).length > 0}
             style={{
@@ -97,24 +121,42 @@ const Login: React.FC = (): JSX.Element => {
           de Questie.
         </span>
 
-        <div>
+        <div className="flex flex-col items-center justify-center w-full h-auto">
           <p className="text-start font-medium mb-4">
             También puedes iniciar sesión con:
           </p>
-          <div className="flex items-center justify-between w-full h-auto">
-            <button className="mr-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
-              <FaGoogle className="w-10 h-10" />
-            </button>
+          <div className="flex items-center justify-between w-full h-auto mr-6">
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
+              <FaGoogle className="md:w-10 md:h-10" />
+            </Link>
 
-            <button className="mx-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
-              <FaFacebookF className="w-10 h-10" />
-            </button>
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
+              <FaFacebookF className="md:w-10 md:h-10" />
+            </Link>
 
-            <button className="ml-1 bg-white py-2 px-8 border-2 border-purpleMain rounded-lg hover:bg-purpleMain hover:text-white">
-              <FaApple className="w-10 h-10" />
-            </button>
+            <Link
+              href="/api/auth/login"
+              className="mx-1 bg-purpleMain px-3 py-2 md:px-8 border-2 border-purpleMain rounded-lg text-white hover:bg-yellowMain hover:text-purpleMain"
+            >
+              <FaApple className="md:w-10 md:h-10" />
+            </Link>
           </div>
         </div>
+        <p className="text-center text-sm mt-4">
+          ¿No tienes cuenta?{" "}
+          <Link
+            href="/sign-up"
+            className="hover:underline hover:text-indigo-600"
+          >
+            Registrate
+          </Link>
+        </p>
       </div>
     </div>
   );

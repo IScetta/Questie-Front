@@ -1,0 +1,76 @@
+"use client";
+
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { IPayload } from "@/app/types";
+
+const adminOptions = ["Perfil", "Crear Curso", "Cerrar Sesión"];
+const userOptions = ["Perfil", "Cerrar Sesión"];
+
+const ProfileButton = () => {
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [profileOptions, setProfileOptions] = useState(userOptions);
+
+  const { token, setToken, payload } = useAuth();
+  const { user } = useUser();
+
+  const payloadParse: IPayload = JSON.parse(payload);
+
+  useEffect(() => {
+    token || user ? setProfileOptions(userOptions) : setProfileOptions([]);
+  }, [token, user]);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    toggleMenu();
+    Cookies.remove("token");
+    setToken(null, null);
+    router.refresh();
+    router.push("/");
+    router.push("/api/auth/logout");
+  };
+
+  return (
+    <div className="relative flex flex-col items-center justify-center">
+      <button onClick={toggleMenu}>
+        <FaUserCircle className="w-12 h-12 text-yellowMain" />
+      </button>
+      {isOpen && (
+        <div className="absolute w-44 top-14 flex items-center justify-center bg-tertiary text-tertiary shadow-xl rounded-lg bg-purpleMainLight">
+          <div className="bg-text rounded-lg p-2">
+            <ul className="space-y-2 text-center">
+              {(token || user ? userOptions : [])?.map((option) => (
+                <li
+                  key={option}
+                  onClick={
+                    option === "Cerrar Sesión" ? handleLogout : toggleMenu
+                  }
+                  className="py-2 px-6 hover:bg-tertiary text-textColor hover:bg-purpleMainLighter hover:cursor-pointer transition-colors duration-200"
+                >
+                  <Link
+                    href={
+                      option === "Perfil" ? `/profile/${payloadParse?.id}` : "/"
+                    }
+                  >
+                    {option}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProfileButton;

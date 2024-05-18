@@ -9,12 +9,17 @@ import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
 import { getCourseByIdDB, getCoursesDB } from "@/helpers/course.helpers";
 import HeaderCourse from "@/app/components/course/header-course";
 import ModuleCourseCard from "@/app/components/course/module-course-card";
+import Card from "@/app/components/card/Card";
+import { ICourse } from "@/app/types";
+import Slider from "@/app/components/slider";
 
 const CurseReview = async ({ params }: { params: any }) => {
   const { slug } = params;
-  const courses = await getCoursesDB();
-  const course = await getCourseByIdDB(slug);
+  const courses:ICourse[] = await getCoursesDB();
+  const course:ICourse = await getCourseByIdDB(slug);
   const curso = DatoNuevoCurso;
+
+  
 
   return (
     <div className="flex flex-row mx-[11.5rem] ">
@@ -58,25 +63,31 @@ const CurseReview = async ({ params }: { params: any }) => {
           <ModuleCourseCard course={course} />
         </div>
 
-        <div className="flex  flex-col  m-6 py-2 w-auto h-[370px] ">
+        <div className="flex  flex-col  m-6 py-2 w-auto h-auto ">
           <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
             Cursos relacionados
           </h2>
-          <div className="flex flex-wrap justify-between mb-6  ">
-            <FeaturedCard course={courses[0]} />
-            <FeaturedCard course={courses[1]} />
-            <FeaturedCard course={courses[2]} />
+          <div className="flex justify-between w-full">
+                <Slider
+                data={courses}
+                cardButtonLink="/course-review"
+                cardButtonLabel="Ver Curso"
+                elementsPerSlide={3}
+              />   
           </div>
         </div>
 
-        <div className="flex  flex-col   m-6 py-2 w-auto h-[370px] ">
+        <div className="flex  flex-col   m-6 py-2 w-auto h-auto">
           <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
             Cursos valorados
           </h2>
           <div className="flex flex-wrap justify-between  ">
-            <FeaturedCard course={courses[0]} />
-            <FeaturedCard course={courses[1]} />
-            <FeaturedCard course={courses[2]} />
+          <Slider
+                data={courses}
+                cardButtonLink="/course-review"
+                cardButtonLabel="Ver Curso"
+                elementsPerSlide={3}
+              />
           </div>
         </div>
 
