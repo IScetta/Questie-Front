@@ -9,6 +9,7 @@ import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
 import { getCourseByIdDB, getCoursesDB } from "@/helpers/course.helpers";
 import HeaderCourse from "@/app/components/course/header-course";
 import ModuleCourseCard from "@/app/components/course/module-course-card";
+import Card from "@/app/components/card/Card";
 
 const CurseReview = async ({ params }: { params: any }) => {
   const { slug } = params;
@@ -62,10 +63,8 @@ const CurseReview = async ({ params }: { params: any }) => {
           <h2 className="text-[20px] rounded-lg p-4 my-2 bg-purpleMainLighter">
             Cursos relacionados
           </h2>
-          <div className="flex flex-wrap justify-between mb-6  ">
-            <FeaturedCard course={courses[0]} />
-            <FeaturedCard course={courses[1]} />
-            <FeaturedCard course={courses[2]} />
+          <div className="flex flex-wrap justify-between mb-6 w-auto">
+                  
           </div>
         </div>
 

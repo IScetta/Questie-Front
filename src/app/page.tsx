@@ -8,16 +8,32 @@ const Home: React.FC = async () => {
   const courses = await getCoursesDB();
 
   return (
-    <div className="flex flex-col justify-center items-center mx-[11.5rem]">
-      <div className="flex place-content-center md:flex-row md:justify-center md:items-center md:mt-0 md:gap-14">
-        <div className="flex items-center justify-center w-[15.5rem] h-[20.5rem]  md:flex md:items-center md:justify-center md:w-[32.5rem] md:h-[40.5rem] bg-blue-gray-50 px-9 py-7">
+    <div className="flex flex-col justify-center items-center mx-[2rem] md:mx-[5rem] lg:mx-[11.5rem]">
+      <div className="flex place-content-center md:flex-row md:justify-center md:items-center mt-10 md:gap-14">
+        <div className="flex items-center justify-center w-[17rem] sm:w-[20rem] h-[22rem] sm:h-[25rem]  md:flex md:items-center md:justify-center md:w-[32.5rem] md:h-[40.5rem] bg-blue-gray-50 p-2 sm:px-9 sm:py-7">
           <Carousel />
         </div>
-        <div className="hidden md:flex">
+        <div className="hidden md:hidden lg:flex">
           <LandingLogin />
         </div>
       </div>
-      <div className="hidden md:flex md:flex-col md:items-center md:justify-center md:w-full md:h-auto md:mt-16">
+      <div className="w-full h-auto md:hidden lg:hidden">
+        <Slider
+          data={courses}
+          cardButtonLink="/course-review"
+          cardButtonLabel="View Course"
+          elementsPerSlide={1}
+        />
+      </div>
+      <div className="hidden md:flex md:flex-col md:items-center md:justify-center md:w-full md:h-auto md:mt-10 lg:hidden">
+        <Slider
+          data={courses}
+          cardButtonLink="/course-review"
+          cardButtonLabel="View Course"
+          elementsPerSlide={2}
+        />
+      </div>
+      <div className="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:w-full lg:h-auto lg:mt-10 ">
         <Slider
           data={courses}
           cardButtonLink="/course-review"
