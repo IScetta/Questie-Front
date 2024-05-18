@@ -100,6 +100,12 @@ export interface ICourse {
       ];
     }
   ];
+  categories:[
+    {
+      name: string;
+      id:string;
+    }
+  ];
 }
 
 export interface IProduct {
@@ -135,4 +141,23 @@ interface IPayload {
   sub: string;
   iat: number;
   exp: number;
+}
+
+
+export interface ICreateCourseForm{
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
+}
+
+export interface ICreateCourseErrorForm{
+  title: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  categories: string[];
 }

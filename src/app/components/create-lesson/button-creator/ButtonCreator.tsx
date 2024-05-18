@@ -1,28 +1,36 @@
-// "use client"
+"use client";
 
 import React, { useState } from "react";
 
-const ButtonCreator = ({ component }: any) => {
-  //   const [components, setComponents] = useState([]);
+interface DynamicComponentProps {
+  element: JSX.Element;
+}
 
-  // const DynamicComponent = ({element}:any) => {
-  //   return <div>{element}</div>;
-  // };
-  //   const handleClick = () => {
-  //     // Crea un nuevo componente y lo agrega a la lista de componentes
-  //     const newComponent = <DynamicComponent key={components.length} element={component} />;
-  //     setComponents([...components, newComponent]);
-  //   };
+const DynamicComponent: React.FC<DynamicComponentProps> = ({ element }) => {
+  return <div>{element}</div>;
+};
+
+interface ButtonCreatorProps {
+  component: JSX.Element;
+}
+
+const ButtonCreator: React.FC<ButtonCreatorProps> = ({ component }) => {
+  const [components, setComponents] = useState<JSX.Element[]>([]);
+
+  const handleClick = () => {
+    // Crea un nuevo componente y lo agrega a la lista de componentes
+    const newComponent = <DynamicComponent key={components.length} element={component} />;
+    setComponents([...components, newComponent]);
+  };
 
   return (
     <div>
-      {/* <button  className='border-2 border-red-900 p-2 m-5' onClick={handleClick}>Crear Componente</button>
+      <button onClick={handleClick}>+</button>
       <div>
         {components.map((component, index) => (
           <div key={index}>{component}</div>
         ))}
-      </div> */}
-      <h1>ButtonCreator</h1>
+      </div>
     </div>
   );
 };
