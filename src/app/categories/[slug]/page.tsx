@@ -12,6 +12,7 @@ async function Categories({
   params: { slug: string };
 }): Promise<JSX.Element> {
   const courses: ICourse[] = await getCoursesDB();
+
   const categoriesList = await getCategoriesDB()
   // const coursesPreLoad:ICourse[] = coursePreLoadFilter;
   const { slug } = params;
@@ -73,8 +74,8 @@ async function Categories({
           <div className=" bg-purpleMainLight l p-6">Cursos</div>
             {filteredCourses.length ? 
           <div className="flex flex-wrap gap-10  place-content-around my-5">
-            
-              {filteredCourses.map((course: ICourse, index: number) => (
+
+            {filteredCourses.map((course: ICourse, index: number) => (
               <Card
                 key={index}
                 title={course.title}
@@ -92,7 +93,6 @@ async function Categories({
             </div>
           }
 
-            
           </div>
           <div className="bg-purpleMainLight w-full mb-2 p-6"></div>
         </div>

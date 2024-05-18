@@ -48,7 +48,7 @@ async function Categories() {
                 key={index}
                 title={course.title}
                 imgUrl={course.image}
-                body={course.headline}
+                // body={course.headline}
                 buttonLabel={`Ver Curso`}
                 buttonLink={`/course-review/${course.id}`}
               />

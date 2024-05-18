@@ -40,7 +40,20 @@ export const getUserInvoices = async (payload: IPayload, token: string) => {
       (invoice: IInvoice) => invoice.userId === payload.id
     );
 
-    return invoices.data;
+    userInvoices.sort((a: IInvoice, b: IInvoice) => {
+      return (
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+    });
+
+    const formattedInvoices = userInvoices.map((invoice: IInvoice) => {
+      return {
+        ...invoice,
+        created_at: new Date(invoice.created_at).toLocaleDateString(),
+      };
+    });
+
+    return formattedInvoices;
   } catch (error) {
     console.error("Error getting invoices", error);
   }
