@@ -100,10 +100,10 @@ export interface ICourse {
       ];
     }
   ];
-  categories:[
+  categories: [
     {
       name: string;
-      id:string;
+      id: string;
     }
   ];
 }
@@ -143,8 +143,7 @@ interface IPayload {
   exp: number;
 }
 
-
-export interface ICreateCourseForm{
+export interface ICreateCourseForm {
   title: string;
   headline: string;
   description: string;
@@ -153,11 +152,26 @@ export interface ICreateCourseForm{
   categories: string[];
 }
 
-export interface ICreateCourseErrorForm{
+export interface ICreateCourseErrorForm {
   title: string;
   headline: string;
   description: string;
   image: string;
   bg_image: string;
   categories: string[];
+}
+
+export interface IUser {
+  id: string;
+  username: string;
+  password: string;
+  email: string;
+  profile_pic: string;
+  firstName: string;
+  lastName: string;
+  birthdate: string;
+  role: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
 }
