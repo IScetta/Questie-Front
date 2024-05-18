@@ -35,9 +35,10 @@ const Slider = ({
             title={course.title}
             imgUrl={course.image}
             buttonLink={`${cardButtonLink}/${course.id}`}
-            buttonLabel={cardButtonLabel}
+            buttonLabel={"Ver Curso"}
             style={{
               width: `calc((100%/${elementsPerSlide}) - 1rem)`,
+              height: "100%",
               margin: "1rem 0",
             }}
           >
@@ -51,10 +52,12 @@ const Slider = ({
   }
 
   return (
-    <div className="w-full h-[30rem] flex items-stretch">
+    <div className="w-full h-[40rem] flex items-stretch bg-blue-gray-50">
       <Carousel slideInterval={5000}>
         {slides.map((slide, index) => (
-          <div key={index}>{slide}</div>
+          <div key={index} className="px-14">
+            {slide}
+          </div>
         ))}
       </Carousel>
     </div>
