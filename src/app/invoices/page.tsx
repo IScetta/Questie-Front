@@ -4,16 +4,34 @@ import { useAuth } from "@/context/AuthContext";
 import { getUserInvoices } from "@/helpers/invoices.helper";
 import { Table } from "flowbite-react/components/Table";
 import { useEffect, useState } from "react";
+import { IInvoice, IPayload } from "../types";
 
-const ShowAllInvoices = async () => {
-  let { payload, token } = useAuth();
-  const [invoices, setInvoices] = useState([]);
+const ShowAllInvoices = () => {
+  const { payload, token } = useAuth() as {
+    payload: IPayload | string;
+    token: string;
+  };
+  const [invoices, setInvoices] = useState<IInvoice[]>([]);
 
-  if (typeof payload !== "object") {
-    payload = JSON.parse(payload);
-  }
+  useEffect(() => {
+    let parsedPayload: IPayload;
 
-  if (!payload) {
+    if (typeof payload !== "object") {
+      parsedPayload = JSON.parse(payload) as IPayload;
+    } else {
+      parsedPayload = payload as IPayload;
+    }
+
+    if (parsedPayload) {
+      const fetchUserInvoices = async () => {
+        const userInvoices = await getUserInvoices(parsedPayload, token);
+        setInvoices(userInvoices);
+      };
+      fetchUserInvoices();
+    }
+  }, [payload, token]);
+
+  if (!payload || (typeof payload !== "object" && !JSON.parse(payload))) {
     return (
       <div className="flex flex-col items-center justify-center h-screen space-y-4">
         <p className="text-4xl text-gray-700">
@@ -25,14 +43,6 @@ const ShowAllInvoices = async () => {
       </div>
     );
   }
-
-  useEffect(() => {
-    const fetchUserInvoices = async () => {
-      const userInvoices = await getUserInvoices(payload.id, token!);
-      setInvoices(userInvoices);
-    };
-    fetchUserInvoices();
-  }, []);
 
   if (!invoices || invoices.length === 0) {
     return (
@@ -58,7 +68,7 @@ const ShowAllInvoices = async () => {
             <Table.HeadCell>Fecha</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {invoices.map((invoice: any) => {
+            {invoices.map((invoice) => {
               return (
                 <Table.Row
                   key={invoice.id}

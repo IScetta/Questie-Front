@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { loadScript } from "@paypal/paypal-js";
 import { PayPalNamespace } from "@paypal/paypal-js/types/index";
 import { getProductById } from "@/helpers/products.helper";
-import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
@@ -14,8 +13,17 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   const [paypal, setPaypal] = useState<PayPalNamespace | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [product, setProduct] = useState<any>(null);
-  let { payload, token } = useAuth();
+  const { payload, token } = useAuth();
+  const parsedPayloadRef = useRef<any>(null);
   const route = useRouter();
+
+  useEffect(() => {
+    if (typeof payload === "string") {
+      parsedPayloadRef.current = JSON.parse(payload);
+    } else {
+      parsedPayloadRef.current = payload;
+    }
+  }, [payload]);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -50,11 +58,13 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   }, []);
 
   useEffect(() => {
-    if (paypal && paypal.Buttons && product && token && payload) {
-      if (typeof payload !== "object") {
-        payload = JSON.parse(payload);
-      }
-
+    if (
+      paypal &&
+      paypal.Buttons &&
+      product &&
+      token &&
+      parsedPayloadRef.current
+    ) {
       const paypalContainer = document.getElementById(
         "paypal-button-container"
       );
@@ -78,7 +88,7 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
 
             onApprove: async function (data, actions) {
               const invoice = await createInvoice(
-                payload.id,
+                parsedPayloadRef.current.id,
                 product.id,
                 token!
               );
@@ -89,14 +99,14 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
           .render("#paypal-button-container");
       }
     }
-  }, [paypal, product]);
+  }, [paypal, product, token, route]);
 
   if (error) {
     return <div>{error}</div>;
   }
 
   return (
-    <div className="flex justify-center my-8  items-center">
+    <div className="flex justify-center my-8 items-center">
       <div className="flex flex-col w-1/4 justify-between border shadow-xl rounded-lg p-4">
         {product ? (
           <div className="flex flex-col justify-start items-left mb-4 space-y-4 border-b pb-4">
@@ -114,7 +124,7 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
             />
             <span className="text-2xl font-bold">${product.price}</span>
             <p className="text-md font-bold">{product.name}</p>
-            <p className=" text-gray-600">{product.description}</p>
+            <p className="text-gray-600">{product.description}</p>
           </div>
         ) : (
           <div>Cargando producto...</div>
