@@ -1,17 +1,40 @@
-const ColumnProfile = async () => {
+"use client";
+
+import { IUser } from "@/app/types";
+import { useAuth } from "@/context/AuthContext";
+import Image from "next/image";
+
+const ColumnProfile = ({ userInfo }: { userInfo: IUser }) => {
+  const { payload } = useAuth();
+  const payloadParse = JSON.parse(payload);
+
+  // console.log(payloadParse);
+
   return (
-    <div className="justify-center items-center grid grid-cols-1">
-      <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 px-7 ">
-        <div className="bg-image rounded-full h-52 w-52 ml-7 mt-6 mb-6"></div>
-        <button className="bg-yellowMain text-purpleMain h-10 w-52 ml-7 text-lg">
-          edit profile
-        </button>
-        <div className="text-lg text-center space-y-4 my-5">
-          <p>Nombre</p>
-          <p>Puntos Totales: 18</p>
-          <p>Cursos finalizados: 3</p>
-          <p>Cursos pendientes: 2</p>
-          <p>Experiencia: 100</p>
+    <div className="h-full w-80 bg-purpleMainLight p-7 flex flex-col justify-start items-center">
+      <div className="bg-image rounded-full h-52 w-52 my-6 content-center justify-items-center">
+        {userInfo.profile_pic && (
+          <Image
+            src={userInfo.profile_pic}
+            alt="profile"
+            width={1000}
+            height={1000}
+            className="rounded-full"
+          />
+        )}
+      </div>
+      <button className="bg-yellowMain text-purpleMain h-10 w-52 text-lg font-semibold">
+        Editar Perfil
+      </button>
+      <div className="text-lg text-center my-5">
+        <p className="text-2xl font-semibold mb-4">
+          {userInfo.firstName} {userInfo.lastName}
+        </p>
+        <div className="flex flex-col text-center gap-2">
+          <p>Puntos Totales: {}</p>
+          <p>Cursos finalizados: {}</p>
+          <p>Cursos pendientes: {}</p>
+          <p>Experiencia: {}</p>
         </div>
       </div>
     </div>
