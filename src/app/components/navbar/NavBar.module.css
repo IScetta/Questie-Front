@@ -1,89 +1,113 @@
+/* Estilos básicos para pantallas grandes */
+.navbar-desktop {
+  display: flex;
+  width: 100%;
+  padding: 11.5rem;
+}
+
+/* Estilos para la navegación móvil por defecto oculta */
 .navbar-mobile {
   visibility: hidden;
   display: none;
 }
 
+/* Media query para pantallas menores a 1500px */
 @media only screen and (max-width: 1500px) {
   .navbar-desktop {
     display: none;
     visibility: hidden;
+    width: 0;
+    padding: 0;
   }
   .navbar-mobile {
     position: sticky;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* align-items: center; */
+    width: 100%;
     top: 0;
     z-index: 99;
     visibility: visible;
-    background-color: rgb(86 48 115);
+    background-color: rgb(86, 48, 115);
     color: white;
     min-width: 100vw;
     padding: 1rem 2rem;
-    & .navbar-mobile-menu,
-    .navbar-mobile-title,
-    .navbar-mobile-button {
-      width: 30%;
-    }
-    & .navbar-mobile-title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: medium;
-    }
-    & .navbar-mobile-button {
-      display: flex;
-      justify-content: flex-end;
-    }
-    & .navbar-mobile-menu-button {
-      background-image: url("../../../../public/menu-svgrepo-com.svg");
-      background-size: cover;
-      width: 2.5rem;
-      height: 2.5rem;
-    }
-    & .navbar-mobile-menu-activator {
-      width: 2.5rem;
-      height: 2.5rem;
-      opacity: 0;
-      position: absolute;
-      transform: translateY(-100%);
-    }
-    & .navbar-mobile-menu-links {
-      visibility: hidden;
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: black;
-      background-color: white;
-      border-radius: 0.5rem 0.5rem;
-      border: thin solid black;
-      transform: translate(-1.5rem, 1rem);
-      & a {
-        width: 100;
-        text-align: center;
-        text-decoration: none;
-        color: black;
-        padding: 0.5rem;
-        border-bottom: solid 1px black;
-        transition: background-color 0.3s ease-in;
-      }
-      & a:last-child {
-        border-bottom: none;
-      }
-      & a:hover {
-        text-decoration: underline;
-        background-color: red;
-      }
-    }
-    & .navbar-mobile-menu-activator:checked + .navbar-mobile-menu-links {
-      visibility: visible;
-    }
-    & h2 {
-      font-size: 150%;
-    }
+  }
+
+  .navbar-mobile-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: medium;
+  }
+
+  .navbar-mobile-button {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .navbar-mobile-menu-button {
+    background-image: url("../../../../public/menu-svgrepo-com.svg");
+    background-size: cover;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .navbar-mobile-menu-activator {
+    width: 2.5rem;
+    height: 2.5rem;
+    opacity: 0;
+    position: absolute;
+    transform: translateY(-100%);
+  }
+
+  .navbar-mobile-menu-links {
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem;
+    border: thin solid black;
+    transform: translate(-1.5rem, 1rem);
+  }
+
+  .navbar-mobile-menu-links a {
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: 0.5rem;
+    border-bottom: solid 1px black;
+    transition: background-color 0.3s ease-in;
+  }
+
+  .navbar-mobile-menu-links a:last-child {
+    border-bottom: none;
+  }
+
+  .navbar-mobile-menu-links a:hover {
+    text-decoration: underline;
+    background-color: red;
+  }
+
+  .navbar-mobile-menu-activator:checked + .navbar-mobile-menu-links {
+    visibility: visible;
+  }
+
+  .navbar-mobile h2 {
+    font-size: 150%;
   }
 }
+
+/* Opcional: Estilos adicionales para pantallas extremadamente pequeñas */
+@media only screen and (max-width: 540px) {
+  .navbar-mobile {
+    padding: 0.5rem 1rem;
+  }
+}
+
