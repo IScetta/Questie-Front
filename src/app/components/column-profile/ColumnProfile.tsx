@@ -1,14 +1,32 @@
 "use client";
 
-import { IUser } from "@/app/types";
+import { IPayload, IUser } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-const ColumnProfile = ({ userInfo }: { userInfo: IUser }) => {
+const ColumnProfile = ({ userInfo }: { userInfo: IUser }): JSX.Element => {
   const { payload } = useAuth();
-  const payloadParse = JSON.parse(payload);
 
-  // console.log(payloadParse);
+  const [payloadParse, setPayloadParse] = useState<IPayload>({
+    id: "",
+    email: "",
+    isAdmin: "",
+    sub: "",
+    iat: 0,
+    exp: 0,
+  });
+
+  useEffect(() => {
+    const payloadParse = () => {
+      if (payload === Object(payload)) {
+        setPayloadParse(payload);
+      } else {
+        setPayloadParse(JSON.parse(payload));
+      }
+    };
+    payloadParse();
+  }, [payload]);
 
   return (
     <div className="h-full w-80 bg-purpleMainLight p-7 flex flex-col justify-start items-center">
@@ -31,10 +49,10 @@ const ColumnProfile = ({ userInfo }: { userInfo: IUser }) => {
           {userInfo.firstName} {userInfo.lastName}
         </p>
         <div className="flex flex-col text-center gap-2">
-          <p>Puntos Totales: {}</p>
-          <p>Cursos finalizados: {}</p>
-          <p>Cursos pendientes: {}</p>
-          <p>Experiencia: {}</p>
+          <p>Puntos Totales: 0</p>
+          <p>Cursos finalizados: 0</p>
+          <p>Cursos pendientes: 0</p>
+          <p>Experiencia: 0</p>
         </div>
       </div>
     </div>
