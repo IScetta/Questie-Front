@@ -8,25 +8,24 @@ import { FaCaretDown } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 import axios from "axios";
 import { ICourse, ILesson, IModule, IProduct } from "@/app/types";
+import { getCategoriesDB } from "@/helpers/categories.helper";
 
 const useSearch = (API_URL: string) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredResults, setFilteredResults] = useState<
-    (ICourse | IModule | IProduct)[]
+    (ICourse | IModule | IProduct | ILesson | any)[]
   >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   const handleSearch = async (query: string) => {
     setLoading(true);
     setError(null);
-    const res = await axios.get(`${API_URL}search`);
     try {
-      console.log(res.data);
+      const res = await axios.get(`${API_URL}search`);
 
       const allResources = res.data;
-
-      console.log(allResources);
 
       const nombreBusquedaNormalizado = query
         .normalize("NFD")
@@ -41,9 +40,7 @@ const useSearch = (API_URL: string) => {
         return nombreResultadoNormalizado.includes(nombreBusquedaNormalizado);
       });
 
-      console.log(filtrados);
-
-      /* setFilteredResults(filtrados); */
+      setFilteredResults(filtrados);
     } catch (err) {
       setError("Error al obtener resultados de búsqueda");
     } finally {
@@ -53,10 +50,21 @@ const useSearch = (API_URL: string) => {
 
   useEffect(() => {
     if (searchQuery.length > 0) {
-      handleSearch(searchQuery);
+      if (timer) {
+        clearTimeout(timer);
+      }
+      const newTimer = setTimeout(() => {
+        handleSearch(searchQuery);
+      }, 1000);
+      setTimer(newTimer);
     } else {
       setFilteredResults([]);
     }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
   }, [searchQuery]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +73,9 @@ const useSearch = (API_URL: string) => {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      if (timer) {
+        clearTimeout(timer);
+      }
       handleSearch(searchQuery);
     }
   };
@@ -76,7 +87,7 @@ const useSearch = (API_URL: string) => {
     error,
     handleChange,
     handleKeyPress,
-    handleSearch, // Añadido aquí para el uso en Navbar
+    handleSearch,
   };
 };
 
@@ -89,41 +100,10 @@ const Navbar: React.FC = (): JSX.Element => {
     handleKeyPress,
     loading,
     error,
-    handleSearch, // Añadido aquí para el uso en Navbar
+    handleSearch,
   } = useSearch(API_URL);
 
-  const getResultsByType = () => {
-    const resultsByType: {
-      course?: ICourse | any;
-      module?: IModule | any;
-      product?: IProduct | any;
-    } = {};
-
-    for (const result of filteredResults) {
-      if ("courseSpecificProperty" in result && !resultsByType.course) {
-        resultsByType.course = result;
-      } else if ("moduleSpecificProperty" in result && !resultsByType.module) {
-        resultsByType.module = result;
-      } else if (
-        "productSpecificProperty" in result &&
-        !resultsByType.product
-      ) {
-        resultsByType.product = result;
-      }
-
-      if (
-        resultsByType.course &&
-        resultsByType.module &&
-        resultsByType.product
-      ) {
-        break;
-      }
-    }
-
-    return Object.values(resultsByType).filter(Boolean);
-  };
-
-  const resultsToShow = getResultsByType();
+  const resultsToShow = filteredResults.slice(0, 3);
 
   return (
     <>
@@ -131,10 +111,10 @@ const Navbar: React.FC = (): JSX.Element => {
         className={`flex items-center justify-between py-4 bg-purpleMain ${styles["navbar-desktop"]}`}
       >
         <Link href="/">
-          <h1 className="text-white text-4xl font-medium">Questie</h1>
+          <div className="text-white text-4xl font-medium">Questie</div>
         </Link>
         <div className="flex items-center justify-between space-x-4">
-          <ButtonCategoryNavbar categories={[]} />
+          <ButtonCategoryNavbar />
           <div className="justify-center items-center inline-flex cursor-pointer">
             <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
               Comunidad
@@ -143,9 +123,9 @@ const Navbar: React.FC = (): JSX.Element => {
           </div>
           <div className="justify-center items-center inline-flex cursor-pointer">
             <Link href="/shop">
-              <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
+              <div className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
                 Tienda
-              </p>
+              </div>
             </Link>
           </div>
         </div>
@@ -170,16 +150,31 @@ const Navbar: React.FC = (): JSX.Element => {
             </button>
           </div>
           {resultsToShow.length > 0 && (
-            <div className="absolute top-full mt-2 w-[32rem] bg-white shadow-lg rounded-lg">
-              {resultsToShow.map((result, index) => (
-                <div key={index} className="p-2 border-b last:border-b-0">
-                  <Link href={`/details/${result.id}`}>
-                    <a className="block text-black hover:bg-gray-100 p-2 rounded">
-                      {result.name}
-                    </a>
-                  </Link>
-                </div>
-              ))}
+            <div className="absolute top-full mt-2 w-[32rem] bg-white shadow-lg rounded-lg z-10">
+              {resultsToShow.map((result, index) => {
+                const linkHref =
+                  result.type === "category"
+                    ? `/categories/categorie%5B%5D=${result.name}`
+                    : result.type === "module"
+                    ? `/module/${result.id}`
+                    : result.type === "course"
+                    ? `/course-review/${result.id}`
+                    : `/shop/pay?productId=${result.id}`;
+
+                return (
+                  <div key={index} className="p-2 border-b last:border-b-0">
+                    <Link href={linkHref} legacyBehavior>
+                      <a className="block text-black hover:bg-gray-100 p-2 rounded">
+                        {result.name}
+                        <br />
+                        <span className="bg-purpleMainLighter rounded-lg w-full h-full px-2 py-1">
+                          {result.type}
+                        </span>
+                      </a>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

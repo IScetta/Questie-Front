@@ -1,15 +1,33 @@
 "use client";
 
 import { ICategory } from "@/app/types";
+import { getCategoriesDB } from "@/helpers/categories.helper";
 import { categoriesPreLoad } from "@/helpers/categoriesPreLoad";
+import { promises } from "dns";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
-const ButtonCategoryNavBar = ({categories}:{categories:ICategory[]}) => {
-  
+const ButtonCategoryNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState<ICategory[]>([]);
 
+  const getCategories = async (): Promise<ICategory[]> => {
+    return getCategoriesDB();
+  };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categories = await getCategories();
+        setCategories(categories);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -17,7 +35,7 @@ const ButtonCategoryNavBar = ({categories}:{categories:ICategory[]}) => {
 
   return (
     <div className="relative inline-block text-left">
-      <div className=" justify-center items-center cursor-pointer ">
+      <div className="justify-center items-center cursor-pointer">
         <button
           onClick={toggleDropdown}
           className="flex flex-row justify-center items-center text-white text-base font-medium hover:text-yellowMain cursor-pointer"
@@ -44,10 +62,10 @@ const ButtonCategoryNavBar = ({categories}:{categories:ICategory[]}) => {
                 Todos los cursos
               </h3>
             </Link>
-            <div className="w-full h-0.5 bg-black"></div>
+            <div className="w-full h-[1px] bg-gray-400"></div>
 
-            {categories.map((item, index) => (
-              <Link href={`/categories/categorie%5B%5D=${item.name}`} onClick={toggleDropdown} key={index}>
+            {categories.map((item:ICategory) => (
+              <Link href={`/categories/categorie%5B%5D=${item.name}`} onClick={toggleDropdown} key={item.id}>
                 <h3 className="m-4 p-2 rounded-lg hover:bg-purpleMainLighter">
                   {item.name}
                 </h3>
