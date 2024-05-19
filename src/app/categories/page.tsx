@@ -15,7 +15,7 @@ async function Categories() {
       <div className="flex flex-grow-0">
         <ColumnFilter categories={categoriesList}/>
       </div>
-      <div className="ml-10 w-full flex flex-col justify-around items-center space-y-5">
+      <div className="ml-10  w-full flex flex-col justify-around items-center space-y-5">
         <div className="bg-purpleMain mt-8 rounded-xl ">
           <h1 className="text-4xl mt-18 text-center text-white mt-10">
             Todos los cursos
@@ -40,9 +40,9 @@ async function Categories() {
           elementsPerSlide={3}
         />
 
-        <div className="text-sm mt-8"></div>
-        <div className="mb-8 ">
-          <div className=" bg-purpleMainLight p-6 text-[22px]">Cursos</div>
+        <div className="text-sm my-8"></div>
+        <div className=" mb-4 rounded-xl bg-blue-gray-50 shadow-[0_5px_15px_0px_#00000042] w-full ">
+          <div className="rounded-t-xl bg-purpleMainLight p-6 text-[22px]">Cursos</div>
           <div className="flex flex-wrap gap-10  place-content-around my-5">
             {courses.map((course: ICourse, index: number) => (
               <Card
@@ -55,7 +55,7 @@ async function Categories() {
               />
             ))}
           </div>
-          <div className="bg-purpleMainLight p-6"></div>
+            <div className="bg-purpleMainLight w-full rounded-b-xl mb-0 p-6"></div>
         </div>
       </div>
       <div></div>

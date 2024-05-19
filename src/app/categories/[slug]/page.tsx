@@ -25,6 +25,7 @@ async function Categories({
     const decodedValue = decodeURIComponent(pair.split("=")[1]);
     categories.push(decodedValue);
   });
+  // console.log(categories)
 
   const normalizeString = (str: string) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -39,6 +40,7 @@ async function Categories({
       )
     )
   );
+
 
   return (
     <div className="flex mx-[11.5rem] justify-center ">
@@ -69,9 +71,14 @@ async function Categories({
           <div className="pagination flex justify-center items-center m-2" />
         </div>
 
-        <div className=" text-sm my-8"> </div>
-        <div className=" mb-8  w-full">
-          <div className=" bg-purpleMainLight l p-6">Cursos</div>
+        <div className=" text-sm mt-8"> </div>
+        <div className=" mb-8 rounded-xl bg-blue-gray-50 shadow-[0_5px_15px_0px_#00000042] w-full">
+          <div className="flex flex-row items-center rounded-t-xl bg-purpleMainLight p-6 w-full ">Cursos:
+          {categories.map((category:string,index:number)=>(
+            <h3 key={index} className="text-purpleMainLighter bg-purpleMain rounded-xl p-2 mx-2">{category}</h3>
+          ))}
+          
+          </div>
           {filteredCourses.length ? (
             <div className="flex flex-wrap gap-10  place-content-around my-5">
               {filteredCourses.map((course: ICourse, index: number) => (
@@ -92,9 +99,10 @@ async function Categories({
                 No existen cursos para esta categoria
               </h3>
             </div>
-          )}
+          )} 
+          <div className="bg-purpleMainLight w-full rounded-b-xl p-6"></div>
         </div>
-        <div className="bg-purpleMainLight w-full mb-2 p-6"></div>
+       
       </div>
     </div>
   );
