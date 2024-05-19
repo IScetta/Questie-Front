@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 const ToggleButton: React.FC = (): JSX.Element => {
   const pathname = usePathname();
 
-  const linkPath = pathname === "/sign-up" ? "/sign-in" : "/sign-up";
-  const buttonText = pathname === "/sign-up" ? "Inicia Sesión" : "Regístrate";
+  const buttonText = pathname === "/" ? "Registrarse" : "Iniciar Sesión";
+  const linkPath = buttonText === "Registrarse" ? "/sign-up" : "/sign-in";
 
   return (
     <>

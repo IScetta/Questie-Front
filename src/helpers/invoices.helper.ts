@@ -37,7 +37,7 @@ export const getUserInvoices = async (payload: IPayload, token: string) => {
     );
 
     const userInvoices = await invoices.data.filter(
-      (invoice: IInvoice) => invoice.userId === payload.id
+      (invoice: IInvoice) => invoice.user.id === payload.id
     );
 
     userInvoices.sort((a: IInvoice, b: IInvoice) => {
