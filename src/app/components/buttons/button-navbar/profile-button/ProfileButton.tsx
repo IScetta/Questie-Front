@@ -10,7 +10,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { IPayload } from "@/app/types";
 
 const adminOptions = ["Perfil", "Crear Curso", "Cerrar Sesión"];
-const userOptions = ["Perfil", "Cerrar Sesión"];
+const userOptions = ["Perfil", "Facturas", "Cerrar Sesión"];
 
 const ProfileButton: React.FC = (): JSX.Element => {
   const router = useRouter();
@@ -76,7 +76,11 @@ const ProfileButton: React.FC = (): JSX.Element => {
                 >
                   <Link
                     href={
-                      option === "Perfil" ? `/profile/${payloadParse?.id}` : "/"
+                      option === "Perfil"
+                        ? `/profile/${payloadParse?.id}`
+                        : option === "Facturas"
+                        ? "/invoices"
+                        : "/"
                     }
                   >
                     {option}
