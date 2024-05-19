@@ -12,15 +12,33 @@ import { IPayload } from "@/app/types";
 const adminOptions = ["Perfil", "Crear Curso", "Cerrar Sesión"];
 const userOptions = ["Perfil", "Cerrar Sesión"];
 
-const ProfileButton = () => {
+const ProfileButton: React.FC = (): JSX.Element => {
   const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const [profileOptions, setProfileOptions] = useState(userOptions);
+  const [payloadParse, setPayloadParse] = useState<IPayload>({
+    id: "",
+    email: "",
+    isAdmin: "",
+    sub: "",
+    iat: 0,
+    exp: 0,
+  });
 
   const { token, setToken, payload } = useAuth();
   const { user } = useUser();
 
-  const payloadParse: IPayload = JSON.parse(payload);
+  useEffect(() => {
+    const payloadParse = async () => {
+      if (payload === Object(payload)) {
+        setPayloadParse(payload);
+      } else {
+        setPayloadParse(JSON.parse(payload));
+      }
+    };
+    payloadParse();
+  }, [payload]);
 
   useEffect(() => {
     token || user ? setProfileOptions(userOptions) : setProfileOptions([]);
