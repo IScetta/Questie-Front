@@ -3,35 +3,39 @@ import { useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import data from "@/helpers/categoriesPreLoad.json";
 import { useRouter } from "next/navigation";
+import { getCategoriesDB } from "@/helpers/categories.helper";
+import { ICategory } from "@/app/types";
 
-const ColumnFilter: React.FC = (): JSX.Element => {
+const ColumnFilter = ({categories}:{categories:ICategory[]})=> {
+
+  // console.log(categories)
   const [checkboxStates, setCheckboxStates] = useState(
-    Array(data.length).fill(false)
+    Array(categories.length).fill(false)
   );
 
   const route = useRouter();
 
   const handleCheckboxChange =
-    (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newCheckboxStates = [...checkboxStates];
-      newCheckboxStates[index] = event.target.checked;
-      setCheckboxStates(newCheckboxStates);
-    };
-
-  const getCheckedNames = () => {
-    const list = data
-      .filter((category, index) => checkboxStates[index])
-      .map((category) => category.name);
-    // Array de géneros
-    const encodedGenres = list.map((genre) => encodeURIComponent(genre));
-    const formattedURL = encodedGenres
-      .map((genre) => `categorie%5B%5D=${genre}`)
-      .join("&");
-
-    route.push(`/categories/${formattedURL}`);
-
-    return list;
+  (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCheckboxStates = [...checkboxStates];
+    newCheckboxStates[index] = event.target.checked;
+    setCheckboxStates(newCheckboxStates);
   };
+
+const getCheckedNames = () => {
+  const list = categories
+    .filter((category, index) => checkboxStates[index])
+    .map((category) => category.name);
+  // Array de categorías
+  const encodedCategories = list.map((category) => encodeURIComponent(category));
+  const formattedURL = encodedCategories
+    .map((category) => `categorie%5B%5D=${category}`)
+    .join("&");
+
+  route.push(`/categories/${formattedURL}`);
+
+  return list;
+};
 
   return (
     <div className="justify-center items-center grid grid-cols-1">
@@ -39,7 +43,7 @@ const ColumnFilter: React.FC = (): JSX.Element => {
         <h2 className="my-2 p-4 bg-purpleMainLighter rounded-xl text-lg font-semibold text-gray-900 dark:text-white">
           Categorias:
         </h2>
-        {data.map((category: any, index: number) => (
+        {categories.map((category: any, index: number) => (
           <div key={index}>
             <p className=" bg-purpleMainLighter m-2 p-2">
               <label>

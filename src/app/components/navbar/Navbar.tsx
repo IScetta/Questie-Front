@@ -7,45 +7,19 @@ import { IoSearchCircle } from "react-icons/io5";
 import ButtonCategoryNavbar from "./button-category-navbar";
 import ButtonNavbar from "../buttons/button-navbar";
 import styles from "./NavBar.module.css";
-import axios, { AxiosResponse } from "axios";
-import { ICourse } from "@/app/types";
+import { getCategoriesDB } from "@/helpers/categories.helper";
+import { ICategory } from "@/app/types";
 
-const Navbar: React.FC = (): JSX.Element => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearch = async () => {
-    // Aquí podrías implementar la lógica de búsqueda,
-    // por ejemplo, redirigir a una página de resultados con la consulta de búsqueda.
-    console.log("Realizar búsqueda con:", searchQuery);
-    const courses: AxiosResponse<ICourse> = await axios.get(
-      `${API_URL}courses`
-    );
-    const products: AxiosResponse<ICourse> = await axios.get(
-      `${API_URL}products`
-    );
-    /* const categories: AxiosResponse<ICourse> = await axios.get(
-      `${API_URL}categories`
-    ); */
-    console.log(courses);
-    console.log(products); /* 
-    console.log(categories); */
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
+ const Navbar: React.FC = async () => {
+  const categoriesList:ICategory[] = await getCategoriesDB()
   return (
     <>
-      <nav
-        className={`flex items-center justify-between px-[11.5rem] py-4 bg-purpleMain ${styles["navbar-desktop"]}`}
-      >
+      <nav className="flex items-center justify-between px-[11.5rem] py-4 bg-purpleMain w-full">
         <Link href="/">
           <h1 className="text-white text-4xl font-medium">Questie</h1>
         </Link>
         <div className="flex items-center justify-between space-x-4">
-          <ButtonCategoryNavbar />
+          <ButtonCategoryNavbar categories={categoriesList} />
           <div className="justify-center items-center inline-flex cursor-pointer">
             <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
               Comunidad

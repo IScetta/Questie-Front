@@ -20,7 +20,7 @@ const Card = ({
 }) => {
   return (
     <div
-      className="flex flex-col select-none border p-4 rounded-lg space-between h-full space-y-4"
+      className="bg-white flex flex-col select-none border p-4 rounded-lg space-between w-96 h-full space-y-4"
       style={style}
     >
       <div id="card-header" className="flex flex-col h-full space-y-4">
@@ -40,7 +40,7 @@ const Card = ({
         <div className="w-full">
           {buttonLink && buttonLabel && (
             <Link href={buttonLink}>
-              <button className="w-full bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg">
+              <button className="w-full bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg font-semibold">
                 {buttonLabel}
               </button>
             </Link>
