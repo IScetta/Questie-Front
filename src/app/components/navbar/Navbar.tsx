@@ -8,6 +8,7 @@ import { FaCaretDown } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 import axios from "axios";
 import { ICourse, ILesson, IModule, IProduct } from "@/app/types";
+import { getCategoriesDB } from "@/helpers/categories.helper";
 
 const useSearch = (API_URL: string) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -113,7 +114,7 @@ const Navbar: React.FC = (): JSX.Element => {
           <div className="text-white text-4xl font-medium">Questie</div>
         </Link>
         <div className="flex items-center justify-between space-x-4">
-          <ButtonCategoryNavbar categories={[]} />
+          <ButtonCategoryNavbar />
           <div className="justify-center items-center inline-flex cursor-pointer">
             <p className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
               Comunidad
