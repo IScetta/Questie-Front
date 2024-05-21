@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { getCategoriesDB } from "@/helpers/categories.helper";
 import { ICategory } from "@/app/types";
 
-const ColumnFilter = ({categories}:{categories:ICategory[]})=> {
+const ButtonFilter = ({categories}:{categories:ICategory[]})=> {
   const [open, setOpen] = useState(false);
   // console.log(categories)
   const [checkboxStates, setCheckboxStates] = useState(
@@ -50,7 +50,7 @@ const getCheckedNames = () => {
     )}
     </button>
     {open && (
-      <div className="bg-red-500 w-full absolute ">
+      <div className="bg-white w-full absolute mt-14">
         {categories.map((category: any, index: number) => (
           <div key={index}>
             <p className=" bg-purpleMainLighter m-2 p-2">
@@ -82,4 +82,4 @@ const getCheckedNames = () => {
   );
 };
 
-export default ColumnFilter;
+export default ButtonFilter;
