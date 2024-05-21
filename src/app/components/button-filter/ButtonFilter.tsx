@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { getCategoriesDB } from "@/helpers/categories.helper";
 import { ICategory } from "@/app/types";
 
-const ColumnFilter = ({categories}:{categories:ICategory[]})=> {
+const ButtonFilter = ({categories}:{categories:ICategory[]})=> {
   const [open, setOpen] = useState(false);
   // console.log(categories)
   const [checkboxStates, setCheckboxStates] = useState(
@@ -38,13 +38,21 @@ const getCheckedNames = () => {
 };
 
   return (
-    <div className="md:justify-center md:items-center md:grid md:grid-cols-1">
-      <div className="h-[50px] w-[50px] md:h-full md:w-80 bg-purpleMainLight col-start-2 col-span-4 pl-10 pr-10">
-        <h2 className="my-2 p-4 bg-purpleMainLighter rounded-xl text-lg font-semibold text-gray-900 dark:text-white">
-          Categorias:
-        </h2 >
+    
+      
+        <div className="flex flex-col">
+  <button onClick={() => setOpen((prev) => !prev)} className="bg-purpleMainLight p-4 w-full flex items-center justify-between font-bold text-lg rounded-lg tracking-wider">
+    Filtrado
+    {!open ?(
+<FaCaretDown></FaCaretDown>
+    ): (
+<FaCaretUp></FaCaretUp>
+    )}
+    </button>
+    {open && (
+      <div className="bg-white w-full absolute mt-14">
         {categories.map((category: any, index: number) => (
-          <div className="hidden md:block" key={index}>
+          <div key={index}>
             <p className=" bg-purpleMainLighter m-2 p-2">
               <label>
                 <input
@@ -58,21 +66,20 @@ const getCheckedNames = () => {
             </p>
           </div>
         ))}
-        <button
+      </div>
+    )}
+    <button
           onClick={getCheckedNames}
           className="my-2 p-4  justify-center items-center bg-yellowMainLight rounded-xl text-lg font-semibold text-gray-900 hover:bg-yellowMain"
         >
           Filtrar
         </button>
+</div> 
 
-
-        
-
-
-      </div>
+     
       
-    </div>
+   
   );
 };
 
-export default ColumnFilter;
+export default ButtonFilter;
