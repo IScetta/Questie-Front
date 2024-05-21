@@ -1,5 +1,5 @@
 .ColumnModuleContainer{
-    & .ColumnModule{
+    & .ColumnModule, .ColumnModuleMobile{
         color: white;
         & .CourseTitle {
             background-color: rgb(86 48 115);
@@ -21,8 +21,8 @@
     & .ColumnModuleContainerMobile{
         position: fixed;
         display: none;
-        z-index: 99;
-        top: 30vh;
+        z-index: 98;
+        top: 8vh;
         left: 0;
         & .MyVisible{
             display: block;
@@ -36,6 +36,8 @@
             height: 3rem;
             width: 3.5rem;
             height: 3.5rem;
+            top: 10vh;
+            position: relative;
             background-color: white;
             background-size: cover;
             border-radius: 0 2rem 2rem 0;
@@ -61,9 +63,15 @@
     .ColumnModuleContainer{
         & .ColumnModule{
             display: none;
+            overflow-y: scroll;
         }
         & .ColumnModuleContainerMobile{
             display: flex;
+            /* align-items: start; */
+            height: 100vh;
+            & .ColumnModuleMobile{
+                height: 100vh;
+            }
         }
     }
 }
