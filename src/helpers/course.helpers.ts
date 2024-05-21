@@ -1,9 +1,9 @@
-import { ICourse } from "@/app/types";
+import { ICourse, IModule } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const getCourseByIdDB = async (id: string): Promise<ICourse> => {
+export const getCourseByIdDB = async (id: string): Promise<ICourse> => {
   try {
     const res: AxiosResponse<ICourse> = await axios.get(
       `${API_URL}courses/${id}`
@@ -18,7 +18,7 @@ const getCourseByIdDB = async (id: string): Promise<ICourse> => {
   }
 };
 
-const getCoursesDB = async (): Promise<ICourse[]> => {
+export const getCoursesDB = async (): Promise<ICourse[]> => {
   try {
     const res: AxiosResponse<ICourse[]> = await axios.get(`${API_URL}courses`);
     if (res.status !== 200) {
@@ -31,4 +31,21 @@ const getCoursesDB = async (): Promise<ICourse[]> => {
   }
 };
 
-export { getCourseByIdDB, getCoursesDB };
+export const getCourseModules = async (
+  courseId: string
+): Promise<Pick<IModule, "id" | "title" | "lessons">[]> => {
+  try {
+    const res: AxiosResponse<ICourse> = await axios.get(
+      `${API_URL}courses/${courseId}`
+    );
+
+    if (res.status !== 200) {
+      console.log("Error al traer los módulos");
+    }
+
+    return res.data.modules;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error al obtener los módulos");
+  }
+};

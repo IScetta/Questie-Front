@@ -185,3 +185,12 @@ export interface ICategory {
   updated_at: string;
   deleted_at: string | null;
 }
+
+export interface IEnrolment {
+  id: string;
+  course: string;
+  user: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
