@@ -1,7 +1,7 @@
-const ContentSubTitle: React.FC<{ subtitle: string }> = ({
+const ContentSubTitle: React.FC<{ subtitle: string | undefined }> = ({
   subtitle,
 }: {
-  subtitle: string;
+  subtitle: string | undefined;
 }): JSX.Element => {
   return (
     <div className="bg-blue-gray-50 w-full h-auto p-4 mt-8 text-center rounded">
