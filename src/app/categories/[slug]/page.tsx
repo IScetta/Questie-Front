@@ -82,9 +82,9 @@ async function Categories({
              <ButtonFilter categories={categoriesList} />
           </div>
        
-          <div className="flex flex-row items-center rounded-t-xl bg-purpleMainLight p-6 w-full ">Cursos:
+          <div className="flex flex-wrap items-center rounded-t-xl bg-purpleMainLight p-6 w-full ">Cursos:
           {categories.map((category:string,index:number)=>(
-            <h3 key={index} className="text-purpleMainLighter bg-purpleMain rounded-xl p-2 mx-2">{category}</h3>
+            <h3 key={index} className="text-purpleMainLighter m-1 bg-purpleMain rounded-xl p-2 mx-2">{category}</h3>
           ))}
           
           </div>

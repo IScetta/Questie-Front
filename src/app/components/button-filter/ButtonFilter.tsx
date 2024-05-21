@@ -41,7 +41,7 @@ const getCheckedNames = () => {
     
       
         <div className="flex flex-col">
-  <button onClick={() => setOpen((prev) => !prev)} className="bg-yellowMainLight p-4 w-full flex items-center justify-between font-bold text-lg rounded-lg tracking-wider">
+  <button onClick={() => setOpen((prev) => !prev)} className="bg-purpleMainLight p-4 w-full flex items-center justify-between font-bold text-lg rounded-lg tracking-wider">
     Filtrado
     {!open ?(
 <FaCaretDown></FaCaretDown>
