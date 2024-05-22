@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import Sidebar from "./components/sidebar";
+import SideBar from "./components/sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,14 +26,7 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen justify-between">
         <UserProvider>
           <AuthProvider>
-            <div className="hidden sm:flex">
- <Navbar />
-            </div>
-           
-            <div className="flex sm:hidden md:hidden z-50 mb-10">
-              <Sidebar />
-            </div>
-
+            <Navbar />
             {children}
             <Footer />
           </AuthProvider>

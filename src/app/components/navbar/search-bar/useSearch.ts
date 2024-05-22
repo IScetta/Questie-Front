@@ -15,24 +15,11 @@ const useSearch = (API_URL: string) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${API_URL}search`);
+      const res = await axios.post(`${API_URL}search/:query`);
 
-      const allResources = res.data;
+      const responseArray = res.data;
 
-      const normalizedQuery = query
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase();
-
-      const filtered = allResources.filter((res: { name: string }) => {
-        const normalizedResultName = res.name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
-        return normalizedResultName.includes(normalizedQuery);
-      });
-
-      setFilteredResults(filtered);
+      setFilteredResults(responseArray);
     } catch (err) {
       setError("Error al obtener resultados de búsqueda");
     } finally {

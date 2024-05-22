@@ -51,7 +51,7 @@ const Slider = ({
     );
   }
 
-  return (
+/*   return (
     <div className="w-full h-[40rem] flex items-stretch bg-blue-gray-50">
       <Carousel slideInterval={5000}>
         {slides.map((slide, index) => (
@@ -61,7 +61,7 @@ const Slider = ({
         ))}
       </Carousel>
     </div>
-  );
+  ); */
 };
 
 export default Slider;
