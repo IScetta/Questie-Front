@@ -1,8 +1,12 @@
 import { getCourseByIdDB } from "@/helpers/course.helpers";
 import Link from "next/link";
-import SideBar from "../sidebar/sideBar";
+import SideBar from "../side-bar";
 
-const ColumnModule = async ({ courseid }: { courseid: string }) => {
+const ColumnModule: React.FC<{ courseid: string }> = async ({
+  courseid,
+}: {
+  courseid: string;
+}): Promise<JSX.Element> => {
   let numberModule = 1;
   const course = await getCourseByIdDB(courseid);
 
@@ -38,7 +42,7 @@ const ColumnModule = async ({ courseid }: { courseid: string }) => {
           </div>
         )}
       </div>
-      <SideBar course={course}/>
+      <SideBar course={course} />
     </div>
   );
 };
