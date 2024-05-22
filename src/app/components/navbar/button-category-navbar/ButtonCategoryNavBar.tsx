@@ -99,9 +99,11 @@ const ButtonCategoryNavBar: React.FC = (): JSX.Element => {
           <button className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
             Comunidad
           </button>
+          <Link href={`/shop/`}>
           <button className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
             Tienda
           </button>
+          </Link>
         </div>
       </div>
       {isOpen && (
