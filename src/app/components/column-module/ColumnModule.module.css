@@ -24,6 +24,7 @@
         z-index: 98;
         top: 8vh;
         left: 0;
+        /* max-width: 80vw; */
         & .MyVisible{
             display: block;
         }
