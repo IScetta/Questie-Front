@@ -5,15 +5,21 @@ import ColumnLesson from "../../components/column-lesson";
 import { getLessonById, getLessons } from "@/helpers/lesson.helper";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
-import { ILesson } from "@/app/types";
+import { IContent, ILesson } from "@/app/types";
 import Link from "next/link";
-import ContentTitle from "@/app/components/content-lesson/content-title";
-import ContentText from "@/app/components/content-lesson/content-text";
-import ContentSubTitle from "@/app/components/content-lesson/content-subtitle";
-import ContentImage from "@/app/components/content-lesson/content-image";
-import ContentVideo from "@/app/components/content-lesson/content-video";
+import {
+  ContentTitle,
+  ContentSubTitle,
+  ContentText,
+  ContentImage,
+  ContentVideo,
+} from "@/app/components/content-lesson";
 
-const Lesson = ({ params }: { params: { slug: string } }) => {
+const Lesson: React.FC<{ params: { slug: string } }> = ({
+  params,
+}: {
+  params: { slug: string };
+}): JSX.Element => {
   const [lesson, setLesson] = useState<ILesson>({
     id: "",
     title: "",
@@ -30,28 +36,9 @@ const Lesson = ({ params }: { params: { slug: string } }) => {
         id: "",
       },
     },
-    contents: [""],
+    contents: [],
   });
-  const [allLessons, setAllLessons] = useState<ILesson[]>([
-    {
-      id: "",
-      title: "",
-      order: 0,
-      xp: 0,
-      coins: 0,
-      slug: "",
-      created_at: "",
-      updated_at: "",
-      deleted_at: "",
-      module: {
-        id: "",
-        course: {
-          id: "",
-        },
-      },
-      contents: [""],
-    },
-  ]);
+  const [allLessons, setAllLessons] = useState<ILesson[]>([]);
 
   const { slug } = params;
   const { token } = useAuth();
@@ -85,54 +72,85 @@ const Lesson = ({ params }: { params: { slug: string } }) => {
     getLesson();
   }, [token, moduleId]);
 
+  const getPreviousLessonById = (
+    allLessons: ILesson[],
+    currentLessonId: string
+  ) => {
+    const currentIndex = allLessons.findIndex(
+      (lesson) => lesson.id === currentLessonId
+    );
+    if (currentIndex > 0) {
+      return allLessons[currentIndex - 1].id;
+    } else {
+      return `/module/${moduleId}`;
+    }
+  };
+
+  const getNextLessonById = (
+    allLessons: ILesson[],
+    currentLessonId: string
+  ) => {
+    const currentIndex = allLessons.findIndex(
+      (lesson) => lesson.id === currentLessonId
+    );
+    if (currentIndex < allLessons.length - 1) {
+      return allLessons[currentIndex + 1].id;
+    } else {
+      return `/module/${moduleId}`;
+    }
+  };
+
   return token ? (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
         <ColumnLesson moduleid={moduleId} />
       </div>
+
       <div className="ml-10 w-full flex flex-col justify-center items-center">
         <Link
-          href={
-            lesson.order - 1 >= 1
-              ? `/lesson/${
-                  allLessons.find(
-                    (lessons) => lessons.order === lesson.order - 1
-                  )?.id
-                }`
-              : `/module/${moduleId}`
-          }
+          href={getPreviousLessonById(allLessons, lesson.id)}
           className="bg-yellowMain rounded-full w-12 h-12 p-2 mt-8 mb-6 flex justify-center items-center sticky top-6"
         >
           <GoArrowUp className="w-8 h-8 text-purpleMain" />
         </Link>
 
-        <ContentTitle title={lesson.title} />
-        <ContentText
-          text={
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit."
-          }
-        />
-        <ContentSubTitle subtitle="Este es el primer subtitulo de la lección" />
-        <ContentImage image="https://placehold.co/600x400.png" name={"image"} />
-        <ContentSubTitle subtitle="Este es el segundo subtitulo de la lección" />
-        <ContentVideo video="https://www.youtube.com/embed/9bZkp7q19f0" />
-        <ContentSubTitle subtitle="Este es el tercer subtitulo de la lección" />
-        <ContentText
-          text={
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit."
-          }
-        />
+        <div className="flex flex-col justify-center items-center w-full h-auto mt-8 mb-2 text-center">
+          <h1 className="text-5xl font-bold underline underline-offset-1">
+            {lesson.title}
+          </h1>
+        </div>
+
+        {lesson.contents.map((content: IContent, index: number) => (
+          <div
+            key={index}
+            className="flex justify-center items-center w-full h-auto"
+          >
+            {content.type === "title" && (
+              <ContentTitle title={content.content.title} />
+            )}
+            {content.type === "subtitle" && (
+              <ContentSubTitle subtitle={content.content.subtitle} />
+            )}
+            {content.type === "text" && (
+              <ContentText text={content.content.text} />
+            )}
+            {content.type === "image" && (
+              <ContentImage
+                image={content.content.image_url}
+                description={content.content.description}
+              />
+            )}
+            {content.type === "video" && (
+              <ContentVideo
+                video={content.content.video_url}
+                description={content.content.description}
+              />
+            )}
+          </div>
+        ))}
 
         <Link
-          href={
-            lesson.order + 1 <= allLessons.length
-              ? `/lesson/${
-                  allLessons.find(
-                    (lessons) => lessons.order === lesson.order + 1
-                  )?.id
-                }`
-              : `/module/${moduleId}`
-          }
+          href={getNextLessonById(allLessons, lesson.id)}
           className="bg-yellowMain my-10 px-4 py-2 rounded-lg"
         >
           <p className="text-purpleMain text-lg font-normal">
