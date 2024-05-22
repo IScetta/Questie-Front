@@ -1,5 +1,6 @@
 import { getCourseByIdDB } from "@/helpers/course.helpers";
 import Link from "next/link";
+import SideBar from "../sidebar/sideBar";
 
 const ColumnModule = async ({ courseid }: { courseid: string }) => {
   let numberModule = 1;
@@ -7,7 +8,7 @@ const ColumnModule = async ({ courseid }: { courseid: string }) => {
 
   return (
     <div className=" justify-center items-center grid grid-cols-1  ">
-      <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 px-7">
+      <div className="hidden md:block h-full w-80 bg-purpleMainLight col-start-2 col-span-4 px-7">
         <Link href={`/course-review/${courseid}`}>
           <div className="bg-whiteColumn my-5 py-3 mt-10 flex flex-nowrap w-full h-[4.5rem] content-center hover:bg-purpleMainLighter">
             <div className="bg-image w-12 h-12 rounded-full ml-2"></div>
@@ -37,6 +38,7 @@ const ColumnModule = async ({ courseid }: { courseid: string }) => {
           </div>
         )}
       </div>
+      <SideBar course={course}/>
     </div>
   );
 };

@@ -66,13 +66,13 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
 
   return (
     <div className="">
-      <div className="flex flex-row bg-gray-900  justify-center">
-        <div className="flex flex-col m-4 text-white">
-          <h1 className="text-5xl m-4 backdrop-blur-sm">{course.title}</h1>
-          <p className="text-lg my-2 ml-6">{course.headline}</p>
+      <div className="flex flex-col md:flex-row bg-gray-900  justify-center w-screen md:w-full">
+        <div className="flex flex-col m-2 md:m-4 text-white">
+          <h1 className="text-2xl md:text-5xl m-4 backdrop-blur-sm">{course.title}</h1>
+          <p className="text-base md:text-lg my-2 ml-4">{course.headline}</p>
           {!enrolmentExists ? (
             <button
-              className="flex justify-center bg-yellowMain text-purpleMain text-base font-semibold cursor-pointer px-4 py-2 rounded-lg"
+              className="flex justify-center bg-yellowMain text-purpleMain text-base font-semibold cursor-pointer md:px-4 md:py-2 rounded-lg"
               onClick={() => setOpenModal(true)}
             >
               Iniciar Curso
@@ -114,7 +114,7 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
             )}
           </Modal>
         </div>
-        <div className="flex justify-center items-center p-4">
+        <div className="flex justify-center md:items-center p-4 ">
           <Image
             className=" rounded-2xl border-2 border-yellowMain "
             src={course.image}
