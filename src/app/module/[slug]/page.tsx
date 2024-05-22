@@ -1,6 +1,7 @@
 import ColumnModule from "@/app/components/column-module";
 import { getModuleById } from "@/helpers/module.helper";
 import Link from "next/link";
+import styles from './module.module.css'
 
 const Module = async ({
   params,
@@ -13,11 +14,11 @@ const Module = async ({
   const course = moduleById?.course.id;
 
   return (
-    <div className="flex mx-[11.5rem] justify-center h-full">
+    <div className={`flex mx-[11.5rem] justify-center h-full ${styles['ModuleBody']}`}>
       <div className="flex flex-grow-0">
         <ColumnModule courseid={course} />
       </div>
-      <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full">
+      <div className={`ml-10 mt-10 w-full flex flex-col justify-start h-full ${styles['ModuleContainer']}`}>
         <h1 className="text-4xl mt-18 font-bold">
           Módulo: {moduleById?.title}
         </h1>
