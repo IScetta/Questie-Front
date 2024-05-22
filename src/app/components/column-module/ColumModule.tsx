@@ -4,7 +4,11 @@ import styles from './ColumnModule.module.css'
 import ColumnModuleMobile from "./ColumnModuleMobile";
 import { ICourse } from "@/app/types";
 
-const ColumnModule = async ({ courseid }: { courseid: string }) => {
+const ColumnModule: React.FC<{ courseid: string }> = async ({
+  courseid,
+}: {
+  courseid: string;
+}): Promise<JSX.Element> => {
   let numberModule = 1;
   const course: ICourse = await getCourseByIdDB(courseid);
 

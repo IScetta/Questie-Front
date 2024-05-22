@@ -4,23 +4,18 @@ import { FaCoins } from "react-icons/fa6";
 import { IoIosPhonePortrait } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import ColumnModule from "../../components/column-module";
-import FeaturedCard from "../../components/featured/featured-card";
 import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
 import { getCourseByIdDB, getCoursesDB } from "@/helpers/course.helpers";
 import HeaderCourse from "@/app/components/course/header-course";
 import ModuleCourseCard from "@/app/components/course/module-course-card";
-import Card from "@/app/components/card/Card";
 import { ICourse } from "@/app/types";
 import Slider from "@/app/components/slider";
 
 const CurseReview = async ({ params }: { params: any }) => {
   const { slug } = params;
-  const courses:ICourse[] = await getCoursesDB();
-  const course:ICourse = await getCourseByIdDB(slug);
+  const courses: ICourse[] = await getCoursesDB();
+  const course: ICourse = await getCourseByIdDB(slug);
   const curso = DatoNuevoCurso;
-console.log(slug)
- const elSlugQueLlega = slug
-  
 
   return (
     <div className="flex flex-row md:mx-[11.5rem] ">
@@ -31,7 +26,9 @@ console.log(slug)
         <HeaderCourse course={course} />
         <div className="flex flex-col md:flex-row w-full h-auto ">
           <div className=" w-4/5 md:w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
-            <h2 className="text-[19px] md:text-[22px] leading-6 p-2 ">Descripcion</h2>
+            <h2 className="text-[19px] md:text-[22px] leading-6 p-2 ">
+              Descripcion
+            </h2>
             <p>{course.description}</p>
           </div>
 
@@ -69,12 +66,12 @@ console.log(slug)
             Cursos relacionados
           </h2>
           <div className="flex justify-between w-full">
-                <Slider
-                data={courses}
-                cardButtonLink="/course-review"
-                cardButtonLabel="Ver Curso"
-                elementsPerSlide={3}
-              />   
+            <Slider
+              data={courses}
+              cardButtonLink="/course-review"
+              cardButtonLabel="Ver Curso"
+              elementsPerSlide={3}
+            />
           </div>
         </div>
 
@@ -83,12 +80,12 @@ console.log(slug)
             Cursos valorados
           </h2>
           <div className="flex flex-wrap justify-between  ">
-          <Slider
-                data={courses}
-                cardButtonLink="/course-review"
-                cardButtonLabel="Ver Curso"
-                elementsPerSlide={3}
-              />
+            <Slider
+              data={courses}
+              cardButtonLink="/course-review"
+              cardButtonLabel="Ver Curso"
+              elementsPerSlide={3}
+            />
           </div>
         </div>
 
@@ -99,4 +96,3 @@ console.log(slug)
 };
 
 export default CurseReview;
-

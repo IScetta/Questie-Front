@@ -5,7 +5,7 @@ import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import Sidebar from "./components/sidebar";
+import Sidebar from "./components/side-bar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,9 +26,9 @@ export default function RootLayout({
         <UserProvider>
           <AuthProvider>
             <div className="hidden sm:flex">
- <Navbar />
+              <Navbar />
             </div>
-           
+
             <div className="flex sm:hidden md:hidden z-50 mb-10">
               {/* <Sidebar /> */}
             </div>
