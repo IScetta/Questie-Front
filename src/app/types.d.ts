@@ -46,7 +46,7 @@ export interface ICourse {
   description: string;
   image: string;
   bg_image: string;
-  create_at: string;
+  created_at: string;
   updated_at: string;
   deleted_at: string | null;
   modules: [

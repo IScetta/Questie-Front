@@ -11,13 +11,14 @@ const useSearch = (API_URL: string) => {
   const [error, setError] = useState<string | null>(null);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = async (searchQuery: string) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post(`${API_URL}search/:query`);
-
+      const res = await axios.get(`${API_URL}search/${searchQuery}`);
       const responseArray = res.data;
+
+      console.log(responseArray);
 
       setFilteredResults(responseArray);
     } catch (err) {

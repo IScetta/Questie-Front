@@ -21,21 +21,27 @@ const SearchBar: React.FC = (): JSX.Element => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
+      !dropdownRef.current.contains(event.target as Node) &&
+      inputRef.current &&
+      !inputRef.current.contains(event.target as Node)
     ) {
       setIsDropdownOpen(false);
-      setIsExpanded(false); // Contraer la barra de búsqueda cuando se hace clic fuera
+      if (!searchQuery) {
+        setIsExpanded(false); // Contraer la barra de búsqueda solo si no hay texto en el input
+      }
     }
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [searchQuery]);
 
   const handleResultClick = (result: {
     id: string;
@@ -78,11 +84,22 @@ const SearchBar: React.FC = (): JSX.Element => {
   };
 
   return (
-    <div className="relative  hidden md:flex w-80  justify-start flex-1  mr-10">
+    <div
+      className="relative hidden md:flex w-64 md:64 lg:w-96 justify-start flex-1 md:ml-8"
+      onMouseLeave={() => {
+        if (!searchQuery) {
+          timeoutRef.current = setTimeout(() => {
+            setIsExpanded(false);
+            setHighlightedIndex(-1);
+          }, 1000);
+        }
+      }}
+    >
       {isExpanded ? (
         <div className="flex justify-center items-center p-2 bg-purpleMainLighter rounded-lg w-64">
           <>
             <input
+              ref={inputRef}
               className="w-48 h-full px-2 py-1 bg-purpleMainLight rounded-lg placeholder:text-white placeholder:text-opacity-70"
               placeholder="Buscar..."
               type="text"
@@ -110,7 +127,7 @@ const SearchBar: React.FC = (): JSX.Element => {
           </>
         </div>
       ) : (
-        <button onClick={() => setIsExpanded(true)} className="ml-1">
+        <button onMouseEnter={() => setIsExpanded(true)} className="ml-1">
           <IoSearchCircle className="w-8 sm:w-10 h-8 sm:h-10 text-purpleMainLighter" />
         </button>
       )}
