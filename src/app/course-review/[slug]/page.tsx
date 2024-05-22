@@ -18,23 +18,24 @@ const CurseReview = async ({ params }: { params: any }) => {
   const courses:ICourse[] = await getCoursesDB();
   const course:ICourse = await getCourseByIdDB(slug);
   const curso = DatoNuevoCurso;
-
+console.log(slug)
+ const elSlugQueLlega = slug
   
 
   return (
-    <div className="flex flex-row mx-[11.5rem] ">
-      <div className="flex flex-grow-0">
+    <div className="flex flex-row md:mx-[11.5rem] ">
+      <div className="md:flex md:flex-grow-0">
         <ColumnModule courseid={slug} />
       </div>
       <div className=" pb-4 justify-center">
         <HeaderCourse course={course} />
-        <div className="flex flex-row w-full h-auto ">
-          <div className=" w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
-            <h2 className="text-[22px] leading-6 p-2 ">Descripcion</h2>
+        <div className="flex flex-col md:flex-row w-full h-auto ">
+          <div className=" w-4/5 md:w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
+            <h2 className="text-[19px] md:text-[22px] leading-6 p-2 ">Descripcion</h2>
             <p>{course.description}</p>
           </div>
 
-          <div className="w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
+          <div className="w-4/5 md:w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
             <h2 className="text-[22px] leading-6 ">Este curso incluye:</h2>
             <h3 className="p-2 flex items-center">
               <IoNewspaper className="w-10 h-10 text-purpleMain p-2" />{" "}
@@ -98,3 +99,4 @@ const CurseReview = async ({ params }: { params: any }) => {
 };
 
 export default CurseReview;
+

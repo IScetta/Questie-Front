@@ -38,6 +38,37 @@ export interface ICategory {
   image: string;
 }
 
+export interface ICourse {
+  id: string;
+  title: string;
+  slug: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  create_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  modules: [
+    {
+      id: string;
+      title: string;
+      lessons: [
+        {
+          id: string;
+          title: string;
+        }
+      ];
+    }
+  ];
+  categories: [
+    {
+      name: string;
+      id: string;
+    }
+  ];
+}
+
 export interface IModule {
   id: string;
   title: string;
@@ -74,38 +105,24 @@ export interface ILesson {
       id: string;
     };
   };
-  contents: [string];
+  contents: IContent[];
 }
 
-export interface ICourse {
+export interface IContent {
   id: string;
-  title: string;
-  slug: string;
-  headline: string;
-  description: string;
-  image: string;
-  bg_image: string;
-  create_at: string;
+  type: string;
+  content: {
+    title?: string;
+    subtitle?: string;
+    text?: string;
+    description?: string;
+    image_url?: string;
+    video_url?: string;
+  };
+  created_at: string;
   updated_at: string;
   deleted_at: string | null;
-  modules: [
-    {
-      id: string;
-      title: string;
-      lessons: [
-        {
-          id: string;
-          title: string;
-        }
-      ];
-    }
-  ];
-  categories: [
-    {
-      name: string;
-      id: string;
-    }
-  ];
+  lesson: string;
 }
 
 export interface IProduct {
@@ -181,6 +198,15 @@ export interface ICategory {
   name: string;
   slug: string;
   image: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+export interface IEnrolment {
+  id: string;
+  course: string;
+  user: string;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;

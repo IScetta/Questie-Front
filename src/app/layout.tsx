@@ -26,7 +26,14 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen justify-between">
         <UserProvider>
           <AuthProvider>
-            <Navbar />
+            <div className="hidden sm:flex">
+              <Navbar />
+            </div>
+
+            <div className="flex sm:hidden md:hidden z-50 mb-10">
+              {/* <Sidebar /> */}
+            </div>
+
             {children}
             <Footer />
           </AuthProvider>
