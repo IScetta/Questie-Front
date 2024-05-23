@@ -8,6 +8,8 @@ export default initAuth0({
   clientSecret: process.env.AUTH0_CLIENT_SECRET!,
   authorizationParams: {
     scope: "openid profile email",
+    response_type: "code",
+    audience: process.env.AUTH0_AUDIENCE,
   },
   routes: {
     callback: "/api/auth/callback",
