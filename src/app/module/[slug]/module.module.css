@@ -1,0 +1,11 @@
+@media only screen and (max-width: 1000px){
+    .ModuleBody{
+        /* background-color: black; */
+        padding: 2rem;
+        text-align: center;
+        margin: 0;
+        & .ModuleContainer{
+            margin: 0;
+        }
+    }
+}
