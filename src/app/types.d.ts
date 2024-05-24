@@ -44,6 +44,7 @@ export interface ICategory {
   image: string;
 }
 
+
 export interface IModule {
   id: string;
   title: string;
