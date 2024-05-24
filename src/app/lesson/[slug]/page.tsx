@@ -5,7 +5,7 @@ import ColumnLesson from "../../components/column-lesson";
 import { getLessonById, getLessons } from "@/helpers/lesson.helper";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
-import { IContent, ILesson } from "@/app/types";
+import { ILesson } from "@/app/types";
 import Link from "next/link";
 import {
   ContentTitle,
@@ -36,7 +36,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
         id: "",
       },
     },
-    contents: [],
+    contents: [""],
   });
   const [allLessons, setAllLessons] = useState<ILesson[]>([]);
 
@@ -120,7 +120,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
           </h1>
         </div>
 
-        {lesson.contents.map((content: IContent, index: number) => (
+        {lesson.contents.map((content:any, index: number) => (
           <div
             key={index}
             className="flex justify-center items-center w-full h-auto"
