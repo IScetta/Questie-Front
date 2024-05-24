@@ -182,4 +182,4 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
   );
 };
 
-export default Lesson;
+export default Lesson; 
