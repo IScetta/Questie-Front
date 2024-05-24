@@ -32,42 +32,18 @@ export interface IRegisterErrorForm {
   [key: string?]: string;
 }
 
+export interface ICreateModule{
+  title: string;
+  description: string;
+  course_id: string
+}
+
 export interface ICategory {
   id?: number;
   name: string;
   image: string;
 }
 
-export interface ICourse {
-  id: string;
-  title: string;
-  slug: string;
-  headline: string;
-  description: string;
-  image: string;
-  bg_image: string;
-  created_at: string;
-  updated_at: string;
-  deleted_at: string | null;
-  modules: [
-    {
-      id: string;
-      title: string;
-      lessons: [
-        {
-          id: string;
-          title: string;
-        }
-      ];
-    }
-  ];
-  categories: [
-    {
-      name: string;
-      id: string;
-    }
-  ];
-}
 
 export interface IModule {
   id: string;
@@ -105,24 +81,38 @@ export interface ILesson {
       id: string;
     };
   };
-  contents: IContent[];
+  contents: [string];
 }
 
-export interface IContent {
+export interface ICourse {
   id: string;
-  type: string;
-  content: {
-    title?: string;
-    subtitle?: string;
-    text?: string;
-    description?: string;
-    image_url?: string;
-    video_url?: string;
-  };
-  created_at: string;
+  title: string;
+  slug: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  create_at: string;
   updated_at: string;
   deleted_at: string | null;
-  lesson: string;
+  modules: [
+    {
+      id: string;
+      title: string;
+      lessons: [
+        {
+          id: string;
+          title: string;
+        }
+      ];
+    }
+  ];
+  categories: [
+    {
+      name: string;
+      id: string;
+    }
+  ];
 }
 
 export interface IProduct {
@@ -164,9 +154,9 @@ export interface ICreateCourseForm {
   title: string;
   headline: string;
   description: string;
-  image: string;
-  bg_image: string;
-  categories: string[];
+  // courseImg: string;
+  // courseBgImg: string;
+  // categories: string[];
 }
 
 export interface ICreateCourseErrorForm {
@@ -175,7 +165,7 @@ export interface ICreateCourseErrorForm {
   description: string;
   image: string;
   bg_image: string;
-  categories: string[];
+  // categories: string[];
 }
 
 export interface IUser {
@@ -201,6 +191,11 @@ export interface ICategory {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+}
+
+export interface ICreateLessonModule{
+  title: string;
+  id:string;
 }
 
 export interface IEnrolment {
