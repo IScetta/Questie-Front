@@ -13,6 +13,7 @@ const nextConfig = {
       { hostname: "placehold.co" },
       { hostname: "avatars.githubusercontent.com" },
       { hostname: "s.gravatar.com" },
+      { hostname: "lh3.googleusercontent.com" },
     ],
   },
 };
