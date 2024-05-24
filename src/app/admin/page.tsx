@@ -1,20 +1,52 @@
+"use client";
 
-import { FaCaretDown } from "react-icons/fa";
 import ColumnAdmin from "../components/column-admin";
-import { ICourse } from "../types";
+import { ICourse, IPayload } from "../types";
 import { getCoursesDB } from "@/helpers/course.helpers";
 import AdminCourses from "../components/dashboard-admin/admin-courses";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
-const adimDashborad = async () => {
-  const courses:ICourse[] = await getCoursesDB()
+const AdimDashborad: React.FC = (): JSX.Element => {
+  const { token, payload } = useAuth();
+  const route = useRouter();
 
-  return (
+  const [courses, setCourses] = useState<ICourse[]>([]);
+  const [payloadParsed, setPayloadParse] = useState<IPayload>({
+    id: "",
+    email: "",
+    isAdmin: "",
+    sub: "",
+    iat: 0,
+    exp: 0,
+  });
+
+  useEffect(() => {
+    const getCourses = async () => {
+      const courses: ICourse[] = await getCoursesDB();
+      setCourses(courses);
+    };
+    getCourses();
+  }, []);
+
+  useEffect(() => {
+    const payloadParse = async () => {
+      if (payload === Object(payload)) {
+        setPayloadParse(payload);
+      } else {
+        setPayloadParse(JSON.parse(payload));
+      }
+    };
+    payloadParse();
+  }, [payload]);
+
+  return token && payloadParsed?.isAdmin === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
         <ColumnAdmin />
       </div>
       <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full mb-8">
-       
         <div className="flex justify-evenly ">
           <button className="bg-yellowMain text-purpleMain h-10 w-52 ml-7 text-lg mt-5">
             <p>Categorias </p>
@@ -25,11 +57,12 @@ const adimDashborad = async () => {
           </button>
         </div>
 
-        <AdminCourses courses={courses}/>
-      
+        <AdminCourses courses={courses} />
+      </div>
     </div>
-    </div>
+  ) : (
+    <>{route.push("/")}</>
   );
 };
 
-export default adimDashborad;
+export default AdimDashborad;

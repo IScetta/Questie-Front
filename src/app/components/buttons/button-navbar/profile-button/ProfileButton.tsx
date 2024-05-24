@@ -17,7 +17,7 @@ const ProfileButton: React.FC = (): JSX.Element => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [profileOptions, setProfileOptions] = useState(userOptions);
-  const [payloadParse, setPayloadParse] = useState<IPayload>({
+  const [payloadParsed, setPayloadParse] = useState<IPayload>({
     id: "",
     email: "",
     isAdmin: "",
@@ -77,7 +77,7 @@ const ProfileButton: React.FC = (): JSX.Element => {
                   <Link
                     href={
                       option === "Perfil"
-                        ? `/profile/${payloadParse?.id}`
+                        ? `/profile/${payloadParsed?.id}`
                         : option === "Facturas"
                         ? "/invoices"
                         : "/"
