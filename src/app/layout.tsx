@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import { AuthProvider } from "@/context/AuthContext";
+import { UserProvider as UserProviderClient } from "@/context/UserContext";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import Sidebar from "./components/sidebar";
 
@@ -25,18 +26,21 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen justify-between">
         <UserProvider>
           <AuthProvider>
-            <div className="hidden sm:flex">
- <Navbar />
-            </div>
-           
-            <div className="flex sm:hidden md:hidden z-50 mb-10">
-              <Sidebar />
-            </div>
+            <UserProviderClient>
+              <div className="hidden sm:flex">
+                <Navbar />
+              </div>
 
-            {children}
-            <Footer />
+              <div className="flex sm:hidden md:hidden z-50 mb-10">
+                <Sidebar />
+              </div>
+
+              {children}
+              <Footer />
+            </UserProviderClient>
           </AuthProvider>
         </UserProvider>
+        <script src="https://fw-cdn.com/11645116/4289780.js" defer></script>
       </body>
     </html>
   );
