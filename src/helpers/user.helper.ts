@@ -25,11 +25,14 @@ const getUserById = async (
   token: string | null
 ): Promise<IUser> => {
   try {
-    const res: AxiosResponse<IUser> = await axios.get(`${API_URL}users/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res: AxiosResponse<IUser> = await axios.get(
+      `${API_URL}users/${id}`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.status !== 200) {
       console.log("Error al traer el usuario");
     }
