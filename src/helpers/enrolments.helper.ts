@@ -12,21 +12,25 @@ export const checkEnrolment = async (
     return false;
   }
 
-  const response = await axios.get(`${API_URL}enrolments`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const userEnrolments: AxiosResponse<IEnrolment[]> = await axios.get(
+      `${API_URL}enrolments/user/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  const userEnrolments: IEnrolment[] = response.data.filter(
-    (enrolment: IEnrolment) => enrolment.user === userId
-  );
+    const courseEnrolments: string[] = userEnrolments.data.map(
+      (enrolment: IEnrolment) => enrolment.course
+    );
 
-  const courseEnrolments: string[] = userEnrolments.map(
-    (enrolment: IEnrolment) => enrolment.course
-  );
-
-  return courseEnrolments.includes(courseId);
+    return courseEnrolments.includes(courseId);
+  } catch (error: any) {
+    console.log(error.message);
+    throw new Error(error);
+  }
 };
 
 export const createEnrolment = async (

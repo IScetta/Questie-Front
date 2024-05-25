@@ -1,6 +1,6 @@
 "use client";
 
-import { ICourse, IModule } from "@/app/types";
+import { ICourse, IModule, IPayload } from "@/app/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Modal } from "@/app/components/modal/Modal";
@@ -19,17 +19,23 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
   useEffect(() => {
     if (!token || !payload) return;
 
+    let parsedPayload: IPayload;
+
     if (typeof payload !== "object") {
-      payload = JSON.parse(payload);
+      parsedPayload = JSON.parse(payload);
     }
 
     const userAlreadyEnrolled = async () => {
-      const enrolment = await checkEnrolment(token, course.id, payload.id);
+      const enrolment = await checkEnrolment(
+        token,
+        course.id,
+        parsedPayload.id
+      );
       setEnrolmentExists(enrolment);
     };
 
     userAlreadyEnrolled();
-  }, []);
+  }, [course.id, payload, token]);
 
   async function enrolStudent(courseId: string) {
     if (enrolmentExists) {
