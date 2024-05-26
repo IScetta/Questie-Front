@@ -90,7 +90,7 @@ const ProfileButton: React.FC = (): JSX.Element => {
                     <Link
                       href={
                         option === "Perfil"
-                          ? `/profile/${payloadParse?.id}`
+                          ? `/profile/${payloadParsed?.id}`
                           : option === "Facturas"
                           ? "/invoices"
                           : "/"
