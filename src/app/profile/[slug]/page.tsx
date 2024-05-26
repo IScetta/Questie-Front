@@ -1,7 +1,7 @@
 "use client";
 
 import ColumnProfile from "@/app/components/column-profile";
-import { ICourse, IEnrolment, IUser } from "@/app/types";
+import { ICourse, IEnrolment, IPayload, IUser } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCoursesDB } from "@/helpers/course.helpers";
 import { getEnrolmentsByUser } from "@/helpers/enrolments.helper";
@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   const { slug } = params;
-  let { token, payload } = useAuth();
+  const { token, payload } = useAuth();
 
   const [user, setUser] = useState<IUser>({
     id: "",
@@ -33,13 +33,15 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   useEffect(() => {
     if (!token || !payload) return;
 
+    let parsedPayload: IPayload;
+
     if (typeof payload !== "object") {
-      payload = JSON.parse(payload);
+      parsedPayload = JSON.parse(payload);
     }
 
     const fetchUser = async () => {
       try {
-        const user = await getUserById(payload.id, token);
+        const user = await getUserById(parsedPayload.id, token);
         setUser(user);
         fetchUserCourses(user.id);
       } catch (error: any) {
