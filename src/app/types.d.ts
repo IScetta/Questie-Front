@@ -119,6 +119,10 @@ export interface IProduct {
   id: string;
   name: string;
   order: number;
+  data?: {
+    type?: string;
+    qty?: number;
+  };
   price: number;
   imgUrl: string;
   currency: string;
@@ -178,6 +182,7 @@ export interface IUser {
   lastName: string;
   birthdate: string;
   role: string;
+  stats?: IStats;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -205,4 +210,10 @@ export interface IEnrolment {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+}
+
+export interface IStats {
+  coins: number;
+  xp: number;
+  user: string;
 }

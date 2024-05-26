@@ -8,14 +8,29 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { createInvoice } from "@/helpers/invoices.helper";
+import { addCoins } from "@/helpers/user.helper";
+import { IProduct } from "@/app/types";
+import { useUserContext } from "@/context/UserContext";
 
 const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   const [paypal, setPaypal] = useState<PayPalNamespace | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<IProduct>({
+    id: "",
+    name: "",
+    order: 0,
+    data: undefined,
+    price: 0,
+    imgUrl: "",
+    currency: "",
+    description: "",
+    polymorphicEntityType: "",
+    polymorphicEntityId: "",
+  });
   const { payload, token } = useAuth();
   const parsedPayloadRef = useRef<any>(null);
   const route = useRouter();
+  const { fetchUserStats } = useUserContext();
 
   useEffect(() => {
     if (typeof payload === "string") {
@@ -62,6 +77,7 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
       paypal &&
       paypal.Buttons &&
       product &&
+      product.price > 0 &&
       token &&
       parsedPayloadRef.current
     ) {
@@ -93,13 +109,23 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
                 token!
               );
 
+              if (product.data?.type === "coins") {
+                const response = await addCoins(
+                  token!,
+                  parsedPayloadRef.current.id,
+                  product.data?.qty!
+                );
+              }
+
+              fetchUserStats();
+
               route.push(`/invoices?id=${invoice}`);
             },
           })
           .render("#paypal-button-container");
       }
     }
-  }, [paypal, product, token, route]);
+  }, [paypal, product, token, route, fetchUserStats]);
 
   if (error) {
     return <div>{error}</div>;
