@@ -6,7 +6,7 @@ import Footer from "./components/footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { UserProvider as UserProviderClient } from "@/context/UserContext";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import Sidebar from "./components/sidebar";
+import Sidebar from "./components/side-bar";
 
 const inter = Inter({ subsets: ["latin"] });
 

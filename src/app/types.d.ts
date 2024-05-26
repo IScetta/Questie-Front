@@ -32,11 +32,18 @@ export interface IRegisterErrorForm {
   [key: string?]: string;
 }
 
+export interface ICreateModule{
+  title: string;
+  description: string;
+  course_id: string
+}
+
 export interface ICategory {
   id?: number;
   name: string;
   image: string;
 }
+
 
 export interface IModule {
   id: string;
@@ -151,9 +158,9 @@ export interface ICreateCourseForm {
   title: string;
   headline: string;
   description: string;
-  image: string;
-  bg_image: string;
-  categories: string[];
+  // courseImg: string;
+  // courseBgImg: string;
+  // categories: string[];
 }
 
 export interface ICreateCourseErrorForm {
@@ -162,7 +169,7 @@ export interface ICreateCourseErrorForm {
   description: string;
   image: string;
   bg_image: string;
-  categories: string[];
+  // categories: string[];
 }
 
 export interface IUser {
@@ -189,6 +196,11 @@ export interface ICategory {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+}
+
+export interface ICreateLessonModule{
+  title: string;
+  id:string;
 }
 
 export interface IEnrolment {

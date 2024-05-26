@@ -21,7 +21,7 @@ const ProfileButton: React.FC = (): JSX.Element => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [profileOptions, setProfileOptions] = useState(userOptions);
-  const [payloadParse, setPayloadParse] = useState<IPayload>({
+  const [payloadParsed, setPayloadParse] = useState<IPayload>({
     id: "",
     email: "",
     isAdmin: "",

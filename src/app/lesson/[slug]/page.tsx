@@ -2,13 +2,24 @@
 
 import { GoArrowUp } from "react-icons/go";
 import ColumnLesson from "../../components/column-lesson";
-import { getLessonById } from "@/helpers/lesson.helper";
+import { getLessonById, getLessons } from "@/helpers/lesson.helper";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { ILesson } from "@/app/types";
 import Link from "next/link";
+import {
+  ContentTitle,
+  ContentSubTitle,
+  ContentText,
+  ContentImage,
+  ContentVideo,
+} from "@/app/components/content-lesson";
 
-const Lesson = ({ params }: { params: { slug: string } }) => {
+const Lesson: React.FC<{ params: { slug: string } }> = ({
+  params,
+}: {
+  params: { slug: string };
+}): JSX.Element => {
   const [lesson, setLesson] = useState<ILesson>({
     id: "",
     title: "",
@@ -27,6 +38,8 @@ const Lesson = ({ params }: { params: { slug: string } }) => {
     },
     contents: [""],
   });
+  const [allLessons, setAllLessons] = useState<ILesson[]>([]);
+
   const { slug } = params;
   const { token } = useAuth();
 
@@ -43,29 +56,109 @@ const Lesson = ({ params }: { params: { slug: string } }) => {
   }, [slug, token]);
 
   const moduleId = lesson.module.id;
-  console.log(lesson);
+
+  useEffect(() => {
+    const getLesson = async () => {
+      try {
+        const getAllLessons = await getLessons(token);
+        const filteredLessons = getAllLessons.filter(
+          (lessons) => lessons.module.id === moduleId
+        );
+        setAllLessons(filteredLessons);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getLesson();
+  }, [token, moduleId]);
+
+  const getPreviousLessonById = (
+    allLessons: ILesson[],
+    currentLessonId: string
+  ) => {
+    const currentIndex = allLessons.findIndex(
+      (lesson) => lesson.id === currentLessonId
+    );
+    if (currentIndex > 0) {
+      return allLessons[currentIndex - 1].id;
+    } else {
+      return `/module/${moduleId}`;
+    }
+  };
+
+  const getNextLessonById = (
+    allLessons: ILesson[],
+    currentLessonId: string
+  ) => {
+    const currentIndex = allLessons.findIndex(
+      (lesson) => lesson.id === currentLessonId
+    );
+    if (currentIndex < allLessons.length - 1) {
+      return allLessons[currentIndex + 1].id;
+    } else {
+      return `/module/${moduleId}`;
+    }
+  };
 
   return token ? (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
         <ColumnLesson moduleid={moduleId} />
       </div>
+
       <div className="ml-10 w-full flex flex-col justify-center items-center">
-        <button className="bg-yellowMain rounded-full w-12 h-12 mt-8 mb-6 hover:w-18 h-18 flex justify-center items-center sticky top-6">
-          <GoArrowUp className="w-8 h-8" />
-        </button>
+        <Link
+          href={getPreviousLessonById(allLessons, lesson.id)}
+          className="bg-yellowMain rounded-full w-12 h-12 p-2 mt-8 mb-6 flex justify-center items-center sticky top-6"
+        >
+          <GoArrowUp className="w-8 h-8 text-purpleMain" />
+        </Link>
 
-        <h1 className="text-5xl mt-18 ">{lesson.title}</h1>
+        <div className="flex flex-col justify-center items-center w-full h-auto mt-8 mb-2 text-center">
+          <h1 className="text-5xl font-bold underline underline-offset-1">
+            {lesson.title}
+          </h1>
+        </div>
 
-        {/* <div>
-      lessonId.content.map((conten, index) =>(
-        <div key{}>{content}</div>
-      ))
-      </div> */}
+        {lesson.contents.map((content:any, index: number) => (
+          <div
+            key={index}
+            className="flex justify-center items-center w-full h-auto"
+          >
+            {content.type === "title" && (
+              <ContentTitle title={content.content.title} />
+            )}
+            {content.type === "subtitle" && (
+              <ContentSubTitle subtitle={content.content.subtitle} />
+            )}
+            {content.type === "text" && (
+              <ContentText text={content.content.text} />
+            )}
+            {content.type === "image" && (
+              <ContentImage
+                image={content.content.image_url}
+                description={content.content.description}
+              />
+            )}
+            {content.type === "video" && (
+              <ContentVideo
+                video={content.content.video_url}
+                description={content.content.description}
+              />
+            )}
+          </div>
+        ))}
 
-        <button className="bg-yellowMain  text-lg w-25 h-15 mt-8 mb-8 pl-4 pr-4">
-          Siguiente Lección
-        </button>
+        <Link
+          href={getNextLessonById(allLessons, lesson.id)}
+          className="bg-yellowMain my-10 px-4 py-2 rounded-lg"
+        >
+          <p className="text-purpleMain text-lg font-normal">
+            {lesson.order + 1 <= allLessons.length
+              ? "Siguiente Lección"
+              : "Finalizar"}
+          </p>
+        </Link>
       </div>
     </div>
   ) : (
@@ -89,4 +182,4 @@ const Lesson = ({ params }: { params: { slug: string } }) => {
   );
 };
 
-export default Lesson;
+export default Lesson; 

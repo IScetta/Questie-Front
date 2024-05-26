@@ -9,7 +9,7 @@ export const formCreateCourse = [
       label: "Imagen Principal",
       name: "image",
       type: "file",
-      placeholder: "Ingresa la imagen del curso",
+      placeholder: "Ingresa la imagen principal del curso",
     },
     {
       label: "Imagen de Fondo:",
