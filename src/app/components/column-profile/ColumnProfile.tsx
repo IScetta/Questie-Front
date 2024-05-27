@@ -8,21 +8,21 @@ import { useEffect, useState } from "react";
 const ColumnProfile = ({ userInfo }: { userInfo: IUser }): JSX.Element => {
   const { payload } = useAuth();
 
-  const [payloadParse, setPayloadParse] = useState<IPayload>({
-    id: "",
-    email: "",
-    isAdmin: "",
-    sub: "",
-    iat: 0,
-    exp: 0,
-  });
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
   useEffect(() => {
     const payloadParse = () => {
-      if (payload === Object(payload)) {
-        setPayloadParse(payload);
-      } else {
-        setPayloadParse(JSON.parse(payload));
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
       }
     };
     payloadParse();

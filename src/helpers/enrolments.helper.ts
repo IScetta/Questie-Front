@@ -1,4 +1,4 @@
-import { ICourse, IEnrolment } from "@/app/types";
+import { IEnrolment } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -71,7 +71,7 @@ export const getEnrolmentsByUser = async (
   }
 
   const response: AxiosResponse<IEnrolment[]> = await axios.get(
-    `${API_URL}enrolments`,
+    `${API_URL}enrolments/user/${userId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
