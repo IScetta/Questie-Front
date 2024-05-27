@@ -16,7 +16,7 @@ const AdimDashborad: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     const getCourses = async () => {
-      const courses: ICourse[] = await getCoursesDB();
+      const courses: ICourse[] = await getCoursesDB(false);
       setCourses(courses);
     };
     getCourses();
