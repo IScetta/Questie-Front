@@ -3,7 +3,7 @@
 import { useState } from "react";
 import CreateLessonForm from "../../create-lesson-form";
 
-const CreateLessonButton = ({moduleId}:{moduleId:string}) => {
+const CreateLessonButton = ({moduleId,order_n}:{moduleId:string,order_n:number}) => {
   const [showAlert, setShowAlert] = useState(false);
 
   const handleShowAlert = () => {
@@ -27,7 +27,7 @@ const CreateLessonButton = ({moduleId}:{moduleId:string}) => {
         <div className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
           <div className=" bg-white p-10 rounded-xl w-[25%] border-2 border-purpleMain">
             <h2 className="text-[23px] mb-5 leading-6 ">Crear Nuevo Modulo</h2>
-            <CreateLessonForm moduleId={moduleId} onClose={handleCloseAlert} />
+            <CreateLessonForm module_id={moduleId} order={order_n} onClose={handleCloseAlert} />
           </div>
         </div>
       ) : (
