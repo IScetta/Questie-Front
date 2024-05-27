@@ -27,6 +27,7 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
     description: "",
     image: "",
     bg_image: "",
+    status: "",
     create_at: "",
     updated_at: "",
     deleted_at: "" || null,
@@ -106,7 +107,7 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
                     <h3 className="mb-2 p-2 text-[20px]">{module.title}</h3>
                   </div>
                   <div className="flex flex-row items-center">
-                    <CreateLessonButton moduleId={module.id} />
+                    <CreateLessonButton order_n={module.lessons.length} moduleId={module.id} />
                     <button className=" mx-2 p-2 border-2 rounded-md border-gray-600 bg-blue-gray-200 hover:bg-blue-gray-100">
                       Editar Modulo
                     </button>
