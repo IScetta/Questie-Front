@@ -29,6 +29,9 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   });
 
   const [userCourses, setUserCourses] = useState<ICourse[]>([]);
+  const [userCoursesEnrolments, setUserCoursesEnrolments] = useState<
+    IEnrolment[]
+  >([]);
 
   useEffect(() => {
     if (!token || !payload) return;
@@ -63,6 +66,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
           userEnrolments?.some((enrolment) => enrolment.course === course.id)
         );
 
+        setUserCoursesEnrolments(userEnrolments);
         setUserCourses(userCourses);
       } catch (error: any) {
         console.log(error);
@@ -70,7 +74,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
     };
 
     fetchUser();
-  }, [token, slug, payload]);
+  }, [token, payload]);
 
   if (!token || !payload) {
     return (
@@ -97,7 +101,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   return (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div>
-        <ColumnProfile userInfo={user} />
+        <ColumnProfile userInfo={user} userCourses={userCoursesEnrolments} />
       </div>
       <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full">
         <h1 className="text-4xl mt-18 font-bold">Continuar con los cursos</h1>

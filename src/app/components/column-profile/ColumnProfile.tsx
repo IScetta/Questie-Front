@@ -1,12 +1,23 @@
 "use client";
 
-import { IPayload, IUser } from "@/app/types";
+import { IEnrolment, IPayload, IUser } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
+import { useUserContext } from "@/context/UserContext";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ColumnProfile = ({ userInfo }: { userInfo: IUser }): JSX.Element => {
+const ColumnProfile: React.FC<{
+  userInfo: IUser;
+  userCourses: IEnrolment[];
+}> = ({
+  userInfo,
+  userCourses,
+}: {
+  userInfo: IUser;
+  userCourses: IEnrolment[];
+}): JSX.Element => {
   const { payload } = useAuth();
+  const { userStats } = useUserContext();
 
   const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
@@ -49,10 +60,10 @@ const ColumnProfile = ({ userInfo }: { userInfo: IUser }): JSX.Element => {
           {userInfo.firstName} {userInfo.lastName}
         </p>
         <div className="flex flex-col text-center gap-2">
-          <p>Puntos Totales: 0</p>
-          <p>Cursos finalizados: 0</p>
-          <p>Cursos pendientes: 0</p>
-          <p>Experiencia: 0</p>
+          <p>Cursos finalizados: ?</p>
+          <p>Cursos pendientes: {userCourses.length}</p>
+          <p>Puntos Totales: {userStats?.coins || 0}</p>
+          <p>Experiencia: {userStats?.xp || 0}</p>
         </div>
       </div>
     </div>

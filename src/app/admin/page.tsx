@@ -6,12 +6,10 @@ import { getCoursesDB } from "@/helpers/course.helpers";
 import AdminCourses from "../components/dashboard-admin/admin-courses";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const AdimDashborad: React.FC = (): JSX.Element => {
   const { token, payload } = useAuth();
-  const route = useRouter();
 
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
@@ -42,7 +40,8 @@ const AdimDashborad: React.FC = (): JSX.Element => {
     payloadParse();
   }, [payload]);
 
-  return token && payloadParsed?.isAdmin === "admin" ? (
+  return (token && payloadParsed?.isAdmin === "admin") ||
+    payloadParsed?.role === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
         <ColumnAdmin />
@@ -63,8 +62,16 @@ const AdimDashborad: React.FC = (): JSX.Element => {
     </div>
   ) : (
     <div className=" flex flex-col justify-center items-center">
-      <h1 className=" text-xl"> No tiene las Credenciales para Acceder al sitio.</h1>
-      <Link className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5" href={"/"}>Volver</Link>
+      <h1 className=" text-xl">
+        {" "}
+        No tiene las Credenciales para Acceder al sitio.
+      </h1>
+      <Link
+        className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5"
+        href={"/"}
+      >
+        Volver
+      </Link>
     </div>
   );
 };
