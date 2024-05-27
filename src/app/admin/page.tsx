@@ -13,14 +13,7 @@ const AdimDashborad: React.FC = (): JSX.Element => {
   const route = useRouter();
 
   const [courses, setCourses] = useState<ICourse[]>([]);
-  const [payloadParsed, setPayloadParse] = useState<IPayload>({
-    id: "",
-    email: "",
-    isAdmin: "",
-    sub: "",
-    iat: 0,
-    exp: 0,
-  });
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
   useEffect(() => {
     const getCourses = async () => {
@@ -31,11 +24,18 @@ const AdimDashborad: React.FC = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    const payloadParse = async () => {
-      if (payload === Object(payload)) {
-        setPayloadParse(payload);
-      } else {
-        setPayloadParse(JSON.parse(payload));
+    const payloadParse = () => {
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
       }
     };
     payloadParse();

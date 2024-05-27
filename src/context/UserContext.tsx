@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getUserById } from "@/helpers/user.helper";
-import { IUser, IStats } from "@/app/types";
+import { IUser, IStats, IPayload } from "@/app/types";
 import { useAuth } from "./AuthContext";
 
 interface UserContextProps {
@@ -28,11 +28,17 @@ export const UserProvider: React.FC<IUserProviderProps> = ({ children }) => {
 
   const fetchUserStats = async () => {
     if (payload) {
-      let parsedPayload = payload;
+      let parsedPayload: IPayload | null;
 
-      if (typeof payload !== "object") {
-        parsedPayload = JSON.parse(payload);
+      try {
+        parsedPayload =
+          typeof payload === "string" ? JSON.parse(payload) : payload;
+      } catch (error) {
+        console.error("Error parsing payload:", error);
+        return;
       }
+
+      if (parsedPayload === null) return;
 
       const user: IUser = await getUserById(parsedPayload.id, token);
       setUserStats(user.stats);

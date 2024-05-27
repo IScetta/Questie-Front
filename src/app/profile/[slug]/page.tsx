@@ -104,12 +104,14 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
         {userCourses.length > 0 ? (
           userCourses.map((course) => (
             <div
-              key={course.id}
+              key={course?.id}
               className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded"
             >
-              <p className="text-xl font-semibold text-start">{course.title}</p>
+              <p className="text-xl font-semibold text-start">
+                {course?.title}
+              </p>
               <Link
-                href={`/course-review/${course.id}`}
+                href={`/course-review/${course?.id}`}
                 className="bg-yellowMain text-purpleMain rounded-md px-4 py-2 text-xl text-end font-semibold"
               >
                 Continuar
