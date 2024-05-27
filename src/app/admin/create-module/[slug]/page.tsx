@@ -8,7 +8,6 @@ import { ICourse, IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCourseByIdDB } from "@/helpers/course.helpers";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const CreateCourse: React.FC<{ params: { slug: string } }> = ({
@@ -17,7 +16,6 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
   params: { slug: string };
 }): JSX.Element => {
   const { token, payload } = useAuth();
-  const route = useRouter();
   const { slug } = params;
 
   const [course, setCourses] = useState<ICourse>({
@@ -79,7 +77,8 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
     payloadParse();
   }, [payload]);
 
-  return token && payloadParsed?.isAdmin === "admin" ? (
+  return (token && payloadParsed?.isAdmin === "admin") ||
+    payloadParsed?.role === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
         <CreateCourseColumn />
@@ -108,7 +107,10 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
                     <h3 className="mb-2 p-2 text-[20px]">{module.title}</h3>
                   </div>
                   <div className="flex flex-row items-center">
-                    <CreateLessonButton order_n={module.lessons.length} moduleId={module.id} />
+                    <CreateLessonButton
+                      order_n={module.lessons.length}
+                      moduleId={module.id}
+                    />
                     <button className=" mx-2 p-2 border-2 rounded-md border-gray-600 bg-blue-gray-200 hover:bg-blue-gray-100">
                       Editar Modulo
                     </button>
@@ -125,8 +127,16 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
     </div>
   ) : (
     <div className=" flex flex-col justify-center items-center">
-      <h1 className=" text-xl"> No tiene las Credenciales para Acceder al sitio.</h1>
-      <Link className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5" href={"/"}>Volver</Link>
+      <h1 className=" text-xl">
+        {" "}
+        No tiene las Credenciales para Acceder al sitio.
+      </h1>
+      <Link
+        className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5"
+        href={"/"}
+      >
+        Volver
+      </Link>
     </div>
   );
 };

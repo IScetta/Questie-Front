@@ -5,14 +5,12 @@ import CreateCourseForm from "@/app/components/create-course/create-course-form"
 import { IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const CreateCourse: React.FC = (): JSX.Element => {
   const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
   const { token, payload } = useAuth();
-  const route = useRouter();
 
   useEffect(() => {
     const payloadParse = () => {
@@ -32,7 +30,8 @@ const CreateCourse: React.FC = (): JSX.Element => {
     payloadParse();
   }, [payload]);
 
-  return token && payloadParsed?.isAdmin === "admin" ? (
+  return (token && payloadParsed?.isAdmin === "admin") ||
+    payloadParsed?.role === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
         <CreateCourseColumn />
@@ -48,8 +47,16 @@ const CreateCourse: React.FC = (): JSX.Element => {
     </div>
   ) : (
     <div className=" flex flex-col justify-center items-center">
-      <h1 className=" text-xl"> No tiene las Credenciales para Acceder al sitio.</h1>
-      <Link className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5" href={"/"}>Volver</Link>
+      <h1 className=" text-xl">
+        {" "}
+        No tiene las Credenciales para Acceder al sitio.
+      </h1>
+      <Link
+        className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5"
+        href={"/"}
+      >
+        Volver
+      </Link>
     </div>
   );
 };
