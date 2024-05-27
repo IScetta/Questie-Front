@@ -8,24 +8,24 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const CreateCourse: React.FC = (): JSX.Element => {
-  const [payloadParsed, setPayloadParse] = useState<IPayload>({
-    id: "",
-    email: "",
-    isAdmin: "",
-    sub: "",
-    iat: 0,
-    exp: 0,
-  });
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
   const { token, payload } = useAuth();
   const route = useRouter();
 
   useEffect(() => {
-    const payloadParse = async () => {
-      if (payload === Object(payload)) {
-        setPayloadParse(payload);
-      } else {
-        setPayloadParse(JSON.parse(payload));
+    const payloadParse = () => {
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
       }
     };
     payloadParse();
