@@ -1,16 +1,52 @@
-import { FaCaretDown } from "react-icons/fa";
-import ColumnAdmin from "../components/column-admin";
+"use client";
 
-const adimDashborad = () => {
-  return (
+import ColumnAdmin from "../components/column-admin";
+import { ICourse, IPayload } from "../types";
+import { getCoursesDB } from "@/helpers/course.helpers";
+import AdminCourses from "../components/dashboard-admin/admin-courses";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
+
+const AdimDashborad: React.FC = (): JSX.Element => {
+  const { token, payload } = useAuth();
+
+  const [courses, setCourses] = useState<ICourse[]>([]);
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
+
+  useEffect(() => {
+    const getCourses = async () => {
+      const courses: ICourse[] = await getCoursesDB(false);
+      setCourses(courses);
+    };
+    getCourses();
+  }, []);
+
+  useEffect(() => {
+    const payloadParse = () => {
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
+      }
+    };
+    payloadParse();
+  }, [payload]);
+
+  return (token && payloadParsed?.isAdmin === "admin") ||
+    payloadParsed?.role === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
         <ColumnAdmin />
       </div>
       <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full mb-8">
-       
-        
-
         <div className="flex justify-evenly ">
           <button className="bg-yellowMain text-purpleMain h-10 w-52 ml-7 text-lg mt-5">
             <p>Categorias </p>
@@ -21,37 +57,23 @@ const adimDashborad = () => {
           </button>
         </div>
 
-        <div className="w-full bg-blue-gray-50 mt-8 text-start p-8">
-          <p className="text-xl font-semibold">Titulo del curso</p>
-
-          <div className="flex flex-grow justify-between">
-            <p className="text-sm mt-2">Cantidad de alumnos:</p>
-            <button className="bg-yellowMain text-purpleMain h-10 w-44 ml-7 text-lg">
-              edit curso
-            </button>
-          </div>
-        </div>
-        <div className="w-full bg-blue-gray-50 mt-8 text-start p-8">
-          <p className="text-xl font-semibold">Titulo del curso</p>
-          <div className="flex flex-grow justify-between">
-            <p className="text-sm mt-2">Cantidad de alumnos:</p>
-            <button className="bg-yellowMain text-purpleMain h-10 w-44 ml-7 text-lg">
-              edit curso
-            </button>
-          </div>
-        </div>
-        <div className="w-full bg-blue-gray-50 mt-8 text-start p-8">
-          <p className="text-xl font-semibold">Titulo del curso</p>
-          <div className="flex flex-grow justify-between">
-            <p className="text-sm mt-2">Cantidad de alumnos:</p>
-            <button className="bg-yellowMain text-purpleMain h-10 w-44 ml-7 text-lg">
-              edit curso
-            </button>
-          </div>
-        </div>
+        <AdminCourses courses={courses} />
       </div>
+    </div>
+  ) : (
+    <div className=" flex flex-col justify-center items-center">
+      <h1 className=" text-xl">
+        {" "}
+        No tiene las Credenciales para Acceder al sitio.
+      </h1>
+      <Link
+        className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5"
+        href={"/"}
+      >
+        Volver
+      </Link>
     </div>
   );
 };
 
-export default adimDashborad;
+export default AdimDashborad;

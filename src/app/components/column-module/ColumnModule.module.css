@@ -1,0 +1,78 @@
+.ColumnModuleContainer{
+    & .ColumnModule, .ColumnModuleMobile{
+        color: white;
+        & .CourseTitle {
+            background-color: rgb(86 48 115);
+            border-radius: .5rem;
+            text-align: center;
+        }
+        & .ModuleButton {
+            background-color: rgb(132, 80, 172);
+            border-radius: .5rem;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+        & .ModuleButton:hover{
+            background-color: rgb(255 215 0);
+            color: rgb(86 48 115);
+            box-shadow: .35rem .35rem 2px 0px rgb(163, 139, 0);
+        }
+    }
+    & .ColumnModuleContainerMobile{
+        position: fixed;
+        display: none;
+        z-index: 98;
+        top: 8vh;
+        left: 0;
+        /* max-width: 80vw; */
+        & .MyVisible{
+            display: block;
+        }
+        
+        & .MyHidden{
+            display: none;
+        }
+        & .ColumnModuleMobileNotch{
+            width: 3rem;
+            height: 3rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            top: 10vh;
+            position: relative;
+            background-color: white;
+            background-size: cover;
+            border-radius: 0 2rem 2rem 0;
+            border-top: 2px solid blue;
+            border-right: 2px solid blue;
+            border-bottom: 2px solid blue;
+            & .ColumnModuleMobileButton{
+                background-image: url('../../../../public/arrow-angle-right-circle.svg');
+                background-size: cover;
+                width: 100%;
+                height: 100%;
+                padding: 1.5rem;
+                transition: transform 0.3s ease-in-out;
+            }
+            & .ColumnModuleMobileButtonActive{
+                transform: rotateY(180deg);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .ColumnModuleContainer{
+        & .ColumnModule{
+            display: none;
+            overflow-y: scroll;
+        }
+        & .ColumnModuleContainerMobile{
+            display: flex;
+            /* align-items: start; */
+            height: 100vh;
+            & .ColumnModuleMobile{
+                height: 100vh;
+            }
+        }
+    }
+}

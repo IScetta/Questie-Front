@@ -18,49 +18,56 @@ const ModuleCourseCard = ({ course }: any) => {
             height={50}
           />
           <h2 className="text-[22px] leading-6 p-2 cursor-pointer">
-            {course.modules[0].title}
+            {course?.modules[0]?.title}
           </h2>
         </div>
         <div className="flex flex-wrap w-[80%]">
-          {course.modules[0].lessons.map((lesson: any, index: any) => (
-            <h3 className="p-2 mx-8 text-[18px]" key={index}>
-              {lesson.title}
-            </h3>
-          ))}
+          {course?.modules[0]?.lessons?.length >= 1
+            ? course?.modules[0]?.lessons?.map((lesson: any, index: any) => (
+                <h3 className="p-2 mx-8 text-[18px]" key={index}>
+                  {lesson.title}
+                </h3>
+              ))
+            : null}
         </div>
       </div>
 
       <div>
         {isOpen ? (
           <div className=" bg-white shadow-md  w-full">
-            {course.modules.map((module: any, index: any) => (
-              <div key={index} className="">
-                {index !== 0 &&
-                <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
-                  <div className="flex items-center p-8 border-b-2 border-gray-700">
-                    <Image
-                      className=" rounded-full"
-                      src={course.image}
-                      alt="program"
-                      width={50}
-                      height={50}
-                    />
-                    <h2 className="text-[22px] leading-6 p-2 cursor-pointer">
-                      {module.title}
-                    </h2>
-                  </div>
-                  <div className="flex flex-wrap w-[80%]">
-                    {module.lessons.map((lesson: any, index: any) => (
-                      <h3 className="p-2 mx-8 text-[18px]" key={index}>
-                        {lesson.title}
-                      </h3>
-                    ))}
-                  </div>
+            {course?.modules >= 1 ? (
+              course?.modules?.map((module: any, index: any) => (
+                <div key={index} className="">
+                  {index !== 0 && (
+                    <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
+                      <div className="flex items-center p-8 border-b-2 border-gray-700">
+                        <Image
+                          className=" rounded-full"
+                          src={course.image}
+                          alt="program"
+                          width={50}
+                          height={50}
+                        />
+                        <h2 className="text-[22px] leading-6 p-2 cursor-pointer">
+                          {module.title}
+                        </h2>
+                      </div>
+                      <div className="flex flex-wrap w-[80%]">
+                        {module?.lessons?.map((lesson: any, index: any) => (
+                          <h3 className="p-2 mx-8 text-[18px]" key={index}>
+                            {lesson.title}
+                          </h3>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-
-                }
+              ))
+            ) : (
+              <div>
+                <h1>No hay modulos</h1>
               </div>
-            ))}
+            )}
           </div>
         ) : (
           <></>
