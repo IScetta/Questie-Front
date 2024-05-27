@@ -7,9 +7,8 @@ import { FaUserCircle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { IPayload, IStats, IUser } from "@/app/types";
+import { IPayload } from "@/app/types";
 import { GiTwoCoins } from "react-icons/gi";
-import { getUserById } from "@/helpers/user.helper";
 import { useUserContext } from "@/context/UserContext";
 
 const adminOptions = ["Perfil", "Crear Curso", "Cerrar Sesión"];
@@ -21,28 +20,27 @@ const ProfileButton: React.FC = (): JSX.Element => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [profileOptions, setProfileOptions] = useState(userOptions);
-  const [payloadParsed, setPayloadParse] = useState<IPayload>({
-    id: "",
-    email: "",
-    isAdmin: "",
-    sub: "",
-    iat: 0,
-    exp: 0,
-  });
-
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
   const { token, setToken, payload } = useAuth();
   const { user } = useUser();
 
   useEffect(() => {
-    const payloadParse = async () => {
-      if (payload === Object(payload)) {
-        setPayloadParse(payload);
-      } else {
-        setPayloadParse(JSON.parse(payload));
+    const payloadParse = () => {
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
       }
     };
     payloadParse();
-  }, [payload, token]);
+  }, [payload]);
 
   useEffect(() => {
     token || user ? setProfileOptions(userOptions) : setProfileOptions([]);
