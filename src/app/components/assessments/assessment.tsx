@@ -5,7 +5,8 @@ import { FaStar } from "react-icons/fa";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface AssessmentProps {
-  courseId: string;
+  courseId: string | undefined;
+  userId: string;
   initialAssessment?: number;
   onAssessmentChange?: (assessment: number) => void;
 }
@@ -19,6 +20,7 @@ interface CourseScore {
 
 const Assessment = ({
   courseId,
+  userId,
   initialAssessment = 0,
   onAssessmentChange,
 }: AssessmentProps) => {
@@ -27,10 +29,20 @@ const Assessment = ({
   const [totalRatings, setTotalRatings] = useState<number>(0);
   const [filledStars, setFilledStars] = useState<number>(0);
 
-  const handleAssessment = (rate: number) => {
+  const handleAssessment = async (rate: number) => {
     setAssessment(rate);
     if (onAssessmentChange) {
       onAssessmentChange(rate);
+    }
+
+    try {
+      await axios.post(`${API_URL}assessment`, {
+        userId,
+        courseId,
+        rating: rate,
+      });
+    } catch (error) {
+      console.error("Error submitting assessment:", error);
     }
   };
 
@@ -50,7 +62,9 @@ const Assessment = ({
   };
 
   useEffect(() => {
-    fetchCourseRating(courseId);
+    if (courseId) {
+      fetchCourseRating(courseId);
+    }
   }, [courseId]);
 
   return (

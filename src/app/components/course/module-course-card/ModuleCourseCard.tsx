@@ -1,10 +1,11 @@
 "use client";
 
+import { ICourse } from "@/app/types";
 import Image from "next/image";
 import { useState } from "react";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 
-const ModuleCourseCard = ({ course }: any) => {
+const ModuleCourseCard = ({ course }: { course: ICourse }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="relative ">
@@ -35,7 +36,7 @@ const ModuleCourseCard = ({ course }: any) => {
       <div>
         {isOpen ? (
           <div className=" bg-white shadow-md  w-full">
-            {course?.modules >= 1 ? (
+            {course?.modules.length >= 1 ? (
               course?.modules?.map((module: any, index: any) => (
                 <div key={index} className="">
                   {index !== 0 && (

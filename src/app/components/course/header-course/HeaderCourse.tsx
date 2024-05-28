@@ -97,6 +97,7 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
           <Assessment
             courseId={course.id}
             initialAssessment={courseAssessment}
+            userId={""}
           />
           {!enrolmentExists ? (
             <button
