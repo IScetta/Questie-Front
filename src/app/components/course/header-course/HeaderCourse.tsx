@@ -53,11 +53,6 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
     userAlreadyEnrolled();
   }, [course.id, payloadParsed, token]);
 
-  const handleAssessmentChange = (newAssessment: number) => {
-    setCourseAssessment(newAssessment);
-    // Aquí puedes agregar lógica para guardar la valoración en la base de datos si es necesario
-  };
-
   async function enrolStudent(courseId: string) {
     if (enrolmentExists) {
       alert("Ya estás inscrito");
@@ -102,7 +97,6 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
           <Assessment
             courseId={course.id}
             initialAssessment={courseAssessment}
-            onAssessmentChange={handleAssessmentChange}
           />
           {!enrolmentExists ? (
             <button
