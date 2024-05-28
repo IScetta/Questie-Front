@@ -5,8 +5,8 @@ import { useAuth } from "@/context/AuthContext";
 import { getCoursesDB } from "@/helpers/course.helpers";
 import { getAllUsers, getUserById } from "@/helpers/user.helper";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import ButtonAdminColumn from "../buttons/button-admin-column";
 
 const ColumnAdmin = () => {
   const { token, payload } = useAuth();
@@ -73,9 +73,7 @@ const ColumnAdmin = () => {
         )}
       </div>
 
-      <button className="bg-yellowMain text-purpleMain h-10 w-52 text-lg font-semibold">
-        <Link href={"/admin/create-course"}>Agregar Curso</Link>
-      </button>
+      <ButtonAdminColumn />
 
       <div className="text-lg text-center my-5">
         <p className="text-2xl font-semibold mb-4">
