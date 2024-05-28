@@ -32,10 +32,10 @@ export interface IRegisterErrorForm {
   [key: string?]: string;
 }
 
-export interface ICreateModule{
+export interface ICreateModule {
   title: string;
   description: string;
-  course_id: string
+  course_id: string;
 }
 
 export interface ICategory {
@@ -43,7 +43,6 @@ export interface ICategory {
   name: string;
   image: string;
 }
-
 
 export interface IModule {
   id: string;
@@ -92,6 +91,7 @@ export interface ICourse {
   description: string;
   image: string;
   bg_image: string;
+  assessment: number;
   create_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -198,9 +198,9 @@ export interface ICategory {
   deleted_at: string | null;
 }
 
-export interface ICreateLessonModule{
+export interface ICreateLessonModule {
   title: string;
-  id:string;
+  id: string;
 }
 
 export interface IEnrolment {
