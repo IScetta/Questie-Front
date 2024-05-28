@@ -42,4 +42,20 @@ const getLessonById = async (
   }
 };
 
+const getLessonsFinishedByUser = async (
+  userId: string
+): Promise<true | null> => {
+  try {
+    const res: AxiosResponse<true | null> = await axios.get(
+      `${API_URL}lessons/finished/${userId}`
+    );
+    if (res.status !== 200) {
+      console.log(`Error status: ${res.status}`);
+    }
+    return res.data;
+  } catch (error) {
+    throw new Error("Error al obtener el módulo");
+  }
+};
+
 export { getLessonById, getLessons };

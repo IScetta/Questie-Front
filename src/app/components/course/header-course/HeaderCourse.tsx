@@ -14,30 +14,62 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
   const [openModal, setOpenModal] = useState(false);
   const [enrolmentExists, setEnrolmentExists] = useState(true);
   const [courseAssessment, setCourseAssessment] = useState(0);
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
+
   let { payload, token } = useAuth();
   const route = useRouter();
 
+  useEffect(() => {
+    const payloadParse = () => {
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
+      }
+    };
+    payloadParse();
+  }, [payload]);
+
+  useEffect(() => {
+    const payloadParse = () => {
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
+      }
+    };
+    payloadParse();
+  }, [payload]);
+
   // CHECK IF USER ALREADY ENROLLED
   useEffect(() => {
-    if (!token || !payload) return;
-
-    let parsedPayload: IPayload;
-
-    if (typeof payload !== "object") {
-      parsedPayload = JSON.parse(payload);
-    }
+    if (!token || !payloadParsed) return;
 
     const userAlreadyEnrolled = async () => {
       const enrolment = await checkEnrolment(
         token,
         course.id,
-        parsedPayload.id
+        payloadParsed.id
       );
       setEnrolmentExists(enrolment);
     };
 
     userAlreadyEnrolled();
-  }, [course.id, payload, token]);
+  }, [course.id, payloadParsed, token]);
 
   const handleAssessmentChange = (newAssessment: number) => {
     setCourseAssessment(newAssessment);
@@ -52,7 +84,7 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
 
     setOpenModal(false);
 
-    if (!token || !payload) {
+    if (!token || !payloadParsed) {
       alert("Debe iniciar sesión para continuar");
       return;
     }
@@ -64,7 +96,7 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
     const enrolmentId: string | null = await createEnrolment(
       token,
       courseId,
-      payload.id
+      payloadParsed.id
     );
 
     if (enrolmentId) {
@@ -81,6 +113,9 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
     <div className="">
       <div className="flex flex-col md:flex-row bg-gray-900 justify-center w-screen md:w-full">
         <div className="flex flex-col m-2 md:m-4 text-white">
+          <h1 className="text-2xl md:text-5xl m-4 backdrop-blur-sm">
+            {course.title}
+          </h1>
           <h1 className="text-2xl md:text-5xl m-4 backdrop-blur-sm">
             {course.title}
           </h1>

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { createInvoice } from "@/helpers/invoices.helper";
+import { MercadoPagoButton } from "../mercadopago/mercadopago";
 import { addCoins } from "@/helpers/user.helper";
 import { IProduct } from "@/app/types";
 import { useUserContext } from "@/context/UserContext";
@@ -171,6 +172,7 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
         ) : paypal ? (
           <div className="flex w-full justify-center h-full">
             <div id="paypal-button-container"></div>
+            <MercadoPagoButton product={product}/>
           </div>
         ) : (
           <div>Cargando PayPal...</div>

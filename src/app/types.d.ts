@@ -33,6 +33,7 @@ export interface IRegisterErrorForm {
 }
 
 export interface ICreateModule {
+export interface ICreateModule {
   title: string;
   description: string;
   course_id: string;
@@ -83,6 +84,12 @@ export interface ILesson {
   contents: [string];
 }
 
+export interface ICreateLesson {
+  title: string;
+  xp: number;
+  coins: number;
+}
+
 export interface ICourse {
   id: string;
   title: string;
@@ -92,6 +99,7 @@ export interface ICourse {
   image: string;
   bg_image: string;
   assessment: number;
+  status: string;
   create_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -148,10 +156,14 @@ export interface IInvoice {
 interface IPayload {
   id: string;
   email: string;
-  isAdmin: string;
-  sub: string;
-  iat: number;
-  exp: number;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  role?: string;
+  isAdmin?: string;
+  sub?: string;
+  iat?: number;
+  exp?: number;
 }
 
 export interface ICreateCourseForm {
@@ -198,6 +210,7 @@ export interface ICategory {
   deleted_at: string | null;
 }
 
+export interface ICreateLessonModule {
 export interface ICreateLessonModule {
   title: string;
   id: string;
