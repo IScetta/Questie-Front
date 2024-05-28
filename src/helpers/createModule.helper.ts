@@ -10,11 +10,11 @@ export const postCreateModule = async(
 )=>{
     try {
         const newModule = await axios.post(`${API_URL}modules`,
-            {
-                title,
+            [
+             {   title,
                 description,
-                course_id,
-            },
+                course_id,}
+            ],
             {
                 headers:{
                     Authorization: `Bearer ${token}`

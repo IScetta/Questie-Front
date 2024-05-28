@@ -211,6 +211,13 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
         >
           Filtrar
         </button>
+
+        <button
+          onClick={()=>setCoursesList(courses)}
+          className="m-2 p-4 justify-center items-center bg-gray-200 rounded-xl text-lg font-semibold text-gray-900 hover:bg-yellowMain"
+        >
+          Mostrar Todo
+        </button>
       </div>
 
       {coursesList.map((course: ICourse) => (
