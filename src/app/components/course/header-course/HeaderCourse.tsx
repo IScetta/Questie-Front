@@ -37,25 +37,7 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
     payloadParse();
   }, [payload]);
 
-  useEffect(() => {
-    const payloadParse = () => {
-      if (payload) {
-        if (typeof payload === "string") {
-          try {
-            const parsedPayload = JSON.parse(payload);
-            setPayloadParsed(parsedPayload);
-          } catch (error) {
-            console.error("Error parsing payload:", error);
-          }
-        } else {
-          setPayloadParsed(payload);
-        }
-      }
-    };
-    payloadParse();
-  }, [payload]);
-
-  // CHECK IF USER ALREADY ENROLLED
+  //CHECK IF USER ALREADY ENROLLED
   useEffect(() => {
     if (!token || !payloadParsed) return;
 
@@ -116,11 +98,9 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
           <h1 className="text-2xl md:text-5xl m-4 backdrop-blur-sm">
             {course.title}
           </h1>
-          <h1 className="text-2xl md:text-5xl m-4 backdrop-blur-sm">
-            {course.title}
-          </h1>
           <p className="text-base md:text-lg my-2 ml-4">{course.headline}</p>
           <Assessment
+            courseId={course.id}
             initialAssessment={courseAssessment}
             onAssessmentChange={handleAssessmentChange}
           />
