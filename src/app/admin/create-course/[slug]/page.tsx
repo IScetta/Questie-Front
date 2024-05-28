@@ -1,7 +1,6 @@
 "use client";
 
-import CreateCourseColumn from "@/app/components/create-course/create-course-column";
-import CreateCourseForm from "@/app/components/create-course/create-course-form";
+import ColumnAdmin from "@/app/components/column-admin";
 import EditCourseForm from "@/app/components/dashboard-admin/edit-course/EditCourseForm";
 import { ICourse, IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
@@ -9,17 +8,18 @@ import { getCourseByIdDB } from "@/helpers/course.helpers";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const CreateCourse: React.FC<{ params: { slug: string } }>  = ({ params }): JSX.Element => {
+const CreateCourse: React.FC<{ params: { slug: string } }> = ({
+  params,
+}): JSX.Element => {
   const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
   const [course, setCourse] = useState<ICourse | null>();
   const { token, payload } = useAuth();
-    const {slug} = params;
+  const { slug } = params;
   useEffect(() => {
     const fetchCourse = async () => {
       try {
         const course: ICourse = await getCourseByIdDB(slug);
         setCourse(course);
-        
       } catch (error) {
         console.error("Error fetching course:", error);
       }
@@ -43,23 +43,22 @@ const CreateCourse: React.FC<{ params: { slug: string } }>  = ({ params }): JSX.
       }
     };
     payloadParse();
-}, [payload]);
+  }, [payload]);
 
-console.log(course);
-
+  console.log(course);
 
   return (token && payloadParsed?.isAdmin === "admin" && course != null) ||
     payloadParsed?.role === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
-        <CreateCourseColumn />
+        <ColumnAdmin />
       </div>
       <div className="mt-10 w-full flex flex-col justify-center h-full mb-8">
         <h1 className="text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
           Editar El Curso
         </h1>
         <div className=" flex flex-col w-[50%] ml-[25%] p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
-          <EditCourseForm course = {course!}/>
+          <EditCourseForm course={course!} />
         </div>
       </div>
     </div>

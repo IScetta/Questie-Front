@@ -1,6 +1,6 @@
 "use client";
 
-import CreateCourseColumn from "@/app/components/create-course/create-course-column";
+import ColumnAdmin from "@/app/components/column-admin";
 import CreateCourseForm from "@/app/components/create-course/create-course-form";
 import { IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
@@ -34,7 +34,7 @@ const CreateCourse: React.FC = (): JSX.Element => {
     payloadParsed?.role === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
-        <CreateCourseColumn />
+        <ColumnAdmin />
       </div>
       <div className="mt-10 w-full flex flex-col justify-center h-full mb-8">
         <h1 className="text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
