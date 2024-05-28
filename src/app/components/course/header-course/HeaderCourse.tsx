@@ -8,10 +8,12 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { checkEnrolment, createEnrolment } from "@/helpers/enrolments.helper";
 import { getCourseModules } from "@/helpers/course.helpers";
+import Assessment from "../../assessments/assessment";
 
 const HeaderCourse = ({ course }: { course: ICourse }) => {
   const [openModal, setOpenModal] = useState(false);
   const [enrolmentExists, setEnrolmentExists] = useState(true);
+  const [courseAssessment, setCourseAssessment] = useState(0);
   const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
   let { payload, token } = useAuth();
@@ -86,12 +88,16 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
 
   return (
     <div className="">
-      <div className="flex flex-col md:flex-row bg-gray-900  justify-center w-screen md:w-full">
+      <div className="flex flex-col md:flex-row bg-gray-900 justify-center w-screen md:w-full">
         <div className="flex flex-col m-2 md:m-4 text-white">
           <h1 className="text-2xl md:text-5xl m-4 backdrop-blur-sm">
             {course.title}
           </h1>
           <p className="text-base md:text-lg my-2 ml-4">{course.headline}</p>
+          <Assessment
+            courseId={course.id}
+            initialAssessment={courseAssessment}
+          />
           {!enrolmentExists ? (
             <button
               className="flex justify-center bg-yellowMain text-purpleMain text-base font-semibold cursor-pointer md:px-4 md:py-2 rounded-lg"
@@ -136,9 +142,9 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
             )}
           </Modal>
         </div>
-        <div className="flex justify-center md:items-center p-4 ">
+        <div className="flex justify-center md:items-center p-4">
           <Image
-            className=" rounded-2xl border-2 border-yellowMain "
+            className="rounded-2xl border-2 border-yellowMain"
             src={course.image}
             alt="video"
             width={200}

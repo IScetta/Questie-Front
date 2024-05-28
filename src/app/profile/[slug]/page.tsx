@@ -1,6 +1,7 @@
 "use client";
 
 import ColumnProfile from "@/app/components/column-profile";
+import Progress from "@/app/components/progress/Progress";
 import { ICourse, IEnrolment, IPayload, IUser } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCoursesDB } from "@/helpers/course.helpers";
@@ -114,12 +115,15 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
               <p className="text-xl font-semibold text-start">
                 {course?.title}
               </p>
-              <Link
-                href={`/course-review/${course?.id}`}
-                className="bg-yellowMain text-purpleMain rounded-md px-4 py-2 text-xl text-end font-semibold"
-              >
-                Continuar
-              </Link>
+              <div className="flex items-center">
+                <Progress courseId={course.id} userId={user.id} />
+                <Link
+                  href={`/course-review/${course?.id}`}
+                  className="bg-yellowMain text-purpleMain rounded-md px-4 py-2 text-xl font-semibold ml-4"
+                >
+                  Continuar
+                </Link>
+              </div>
             </div>
           ))
         ) : (

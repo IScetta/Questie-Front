@@ -97,6 +97,7 @@ export interface ICourse {
   description: string;
   image: string;
   bg_image: string;
+  assessment: number;
   status: string;
   create_at: string;
   updated_at: string;
@@ -226,4 +227,16 @@ export interface IStats {
   coins: number;
   xp: number;
   user: string;
+}
+
+interface Question {
+  id: string;
+  text: string;
+  options: Option[];
+}
+
+interface Option {
+  id: string;
+  text: string;
+  correct: boolean;
 }
