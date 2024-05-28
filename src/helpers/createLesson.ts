@@ -13,13 +13,13 @@ export const postCreateLesson = async(
     console.log(coins)
     try {
         const newLesson = await axios.post(`${API_URL}lessons`,
-            {
+            [{
                 title,
                 order:Number(order),
                 xp:Number(xp),
                 coins:Number(coins),
                 module_id,
-            },
+            }],
             {
                 headers:{
                     Authorization: `Bearer ${token}`
