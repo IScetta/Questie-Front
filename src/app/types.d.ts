@@ -33,7 +33,6 @@ export interface IRegisterErrorForm {
 }
 
 export interface ICreateModule {
-export interface ICreateModule {
   title: string;
   description: string;
   course_id: string;
@@ -210,7 +209,6 @@ export interface ICategory {
   deleted_at: string | null;
 }
 
-export interface ICreateLessonModule {
 export interface ICreateLessonModule {
   title: string;
   id: string;
