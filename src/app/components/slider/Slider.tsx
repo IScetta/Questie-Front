@@ -35,12 +35,13 @@ const Slider = ({
             title={course.title}
             imgUrl={course.image}
             buttonLink={`${cardButtonLink}/${course.id}`}
-            buttonLabel={"Ver Curso"}
+            buttonLabel={cardButtonLabel}
             style={{
               width: `calc((100%/${elementsPerSlide}) - 1rem)`,
               height: "100%",
               margin: "1rem 0",
             }}
+            courseId={course.id} 
           >
             <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
               {course.description}
