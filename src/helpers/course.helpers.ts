@@ -18,13 +18,19 @@ export const getCourseByIdDB = async (id: string): Promise<ICourse> => {
   }
 };
 
-export const getCoursesDB = async (): Promise<ICourse[]> => {
+export const getCoursesDB = async (
+  onlyComplete: boolean = true
+): Promise<ICourse[]> => {
   try {
     const res: AxiosResponse<ICourse[]> = await axios.get(`${API_URL}courses`);
     if (res.status !== 200) {
       console.log("Error al traer los cursos");
     }
-    return res.data;
+    let courses = res.data;
+    if (onlyComplete) {
+      courses = courses.filter((course) => course.status === "complete");
+    }
+    return courses;
   } catch (error) {
     console.log(error);
     throw new Error("Error al obtener todos los cursos");

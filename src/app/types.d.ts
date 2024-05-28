@@ -32,10 +32,10 @@ export interface IRegisterErrorForm {
   [key: string?]: string;
 }
 
-export interface ICreateModule{
+export interface ICreateModule {
   title: string;
   description: string;
-  course_id: string
+  course_id: string;
 }
 
 export interface ICategory {
@@ -43,7 +43,6 @@ export interface ICategory {
   name: string;
   image: string;
 }
-
 
 export interface IModule {
   id: string;
@@ -84,6 +83,12 @@ export interface ILesson {
   contents: [string];
 }
 
+export interface ICreateLesson {
+  title: string;
+  xp: number;
+  coins: number;
+}
+
 export interface ICourse {
   id: string;
   title: string;
@@ -92,6 +97,7 @@ export interface ICourse {
   description: string;
   image: string;
   bg_image: string;
+  status: string;
   create_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -119,6 +125,10 @@ export interface IProduct {
   id: string;
   name: string;
   order: number;
+  data?: {
+    type?: string;
+    qty?: number;
+  };
   price: number;
   imgUrl: string;
   currency: string;
@@ -144,10 +154,14 @@ export interface IInvoice {
 interface IPayload {
   id: string;
   email: string;
-  isAdmin: string;
-  sub: string;
-  iat: number;
-  exp: number;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  role?: string;
+  isAdmin?: string;
+  sub?: string;
+  iat?: number;
+  exp?: number;
 }
 
 export interface ICreateCourseForm {
@@ -178,6 +192,7 @@ export interface IUser {
   lastName: string;
   birthdate: string;
   role: string;
+  stats?: IStats;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -193,9 +208,9 @@ export interface ICategory {
   deleted_at: string | null;
 }
 
-export interface ICreateLessonModule{
+export interface ICreateLessonModule {
   title: string;
-  id:string;
+  id: string;
 }
 
 export interface IEnrolment {
@@ -205,4 +220,10 @@ export interface IEnrolment {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+}
+
+export interface IStats {
+  coins: number;
+  xp: number;
+  user: string;
 }

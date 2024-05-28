@@ -83,8 +83,7 @@ const ButtonCategoryNavBar: React.FC = (): JSX.Element => {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <div className="relative text-left items-center hidden xl:flex xl:space-x-4">
         <button
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onClick={() => setIsOpen(!isOpen)}
           className="flex flex-row justify-center items-center text-white text-base font-medium hover:text-yellowMain cursor-pointer"
         >
           Cursos
@@ -100,15 +99,15 @@ const ButtonCategoryNavBar: React.FC = (): JSX.Element => {
             Comunidad
           </button>
           <Link href={`/shop/`}>
-          <button className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
-            Tienda
-          </button>
+            <button className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
+              Tienda
+            </button>
           </Link>
         </div>
       </div>
       {isOpen && (
         <div
-          className="bg-white origin-top-right absolute right-0 mt-8 w-[220px] sm:w-[240px] md:w-[260px] lg:w-[280px] xl:w-[300px] h-auto rounded-md bg-text border-2 border-terciary ring-1 ring-white ring-opacity-5 focus:outline-none z-10 shadow-[0_5px_15px_0px_#00000042] px-2"
+          className="bg-purpleMainLight origin-top-right absolute right-12 mt-8 w-[220px] sm:w-[240px] md:w-[260px] lg:w-[280px] xl:w-[300px] h-auto rounded-md bg-text text-center ring-1 ring-white ring-opacity-5 focus:outline-none z-10 shadow-[0_5px_15px_0px_#00000042] px-2"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="options-menu"
@@ -121,7 +120,7 @@ const ButtonCategoryNavBar: React.FC = (): JSX.Element => {
               Todos los cursos
             </h3>
           </Link>
-          <div className="w-full h-[1px] bg-gray-400"></div>
+          <div className="w-full h-1 bg-yellowMain rounded"></div>
 
           {categories.map((item: ICategory, index: number) => (
             <Link
@@ -130,7 +129,7 @@ const ButtonCategoryNavBar: React.FC = (): JSX.Element => {
               key={item.id}
             >
               <h3
-                className={`m-4 p-2 rounded-lg hover:bg-purpleMainLighter ${
+                className={`m-4 p-2 rounded-lg hover:bg-purpleMainLighter transition-colors duration-200 ${
                   highlightedIndex === index ? "bg-purpleMainLighter" : ""
                 }`}
               >
