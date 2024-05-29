@@ -44,6 +44,29 @@ export interface ICategory {
   image: string;
 }
 
+export interface ICourse {
+  id: string;
+  title: string;
+  slug: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  assessment: number;
+  status: string;
+  isProduct: boolean;
+  create_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  modules: [IModule];
+  categories: [
+    {
+      name: string;
+      id: string;
+    }
+  ];
+}
+
 export interface IModule {
   id: string;
   title: string;
@@ -53,12 +76,7 @@ export interface IModule {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
-  lessons: [
-    {
-      id: string;
-      title: string;
-    }
-  ];
+  lessons: [ILesson];
   course: {
     id: string;
   };
@@ -99,6 +117,7 @@ export interface ICourse {
   bg_image: string;
   assessment: number;
   status: string;
+  isProduct: boolean;
   create_at: string;
   updated_at: string;
   deleted_at: string | null;

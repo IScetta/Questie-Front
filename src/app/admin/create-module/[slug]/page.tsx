@@ -7,8 +7,10 @@ import CreateModuleButton from "@/app/components/create-course/create-module/cre
 import { ICourse, IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCourseByIdDB } from "@/helpers/course.helpers";
+import { deleteModuleBD } from "@/helpers/createModule.helper";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 
 const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
   const { token, payload } = useAuth();
@@ -17,17 +19,18 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
   const [course, setCourse] = useState<ICourse | null>(null);
   const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const course: ICourse = await getCourseByIdDB(slug);
-        setCourse(course);
-      } catch (error) {
-        console.error("Error fetching course:", error);
-      }
-    };
-    fetchCourse();
+  const fetchCourse = useCallback(async () => {
+    try {
+      const course: ICourse = await getCourseByIdDB(slug);
+      setCourse(course);
+    } catch (error) {
+      console.error("Error fetching course:", error);
+    }
   }, [slug]);
+
+  useEffect(() => {
+    fetchCourse();
+  }, [fetchCourse]);
 
   useEffect(() => {
     const parsePayload = () => {
@@ -64,6 +67,15 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
     );
   }
 
+  const deleteModule = async (module_id: string) => {
+    try {
+      await deleteModuleBD(module_id, token!);
+      fetchCourse(); // Refresca la lista de módulos después de eliminar
+    } catch (error) {
+      console.error("Error deleting module:", error);
+    }
+  };
+
   return (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
@@ -88,16 +100,30 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
                     <h3 className="mb-2 p-2 text-[20px]">{module.title}</h3>
                   </div>
                   <div className="flex flex-row items-center">
+                    <div className="flex-row m-2 relative group inline-block">
+                      <button
+                        onClick={() => deleteModule(module.id)}
+                        className="p-1 m-4 w-fit hover:bg-red-500 rounded-lg"
+                      >
+                        <FaTrashAlt className="text-[30px]" />
+                      </button>
+                      <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                        Eliminar Modulo
+                      </div>
+                    </div>
+
                     <CreateLessonButton
                       order_n={module.lessons.length}
                       moduleId={module.id}
+                      fetchCourses={fetchCourse}
                     />
+
                     <button className="mx-2 p-2 border-2 rounded-md border-gray-600 bg-blue-gray-200 hover:bg-blue-gray-100">
                       Editar Modulo
                     </button>
                   </div>
                 </div>
-                <CreateLessonModule id={module.id} content={module.lessons} />
+                <CreateLessonModule id={module.id} content={module.lessons} fetchCourses={fetchCourse}/>
               </div>
             ))}
           </div>

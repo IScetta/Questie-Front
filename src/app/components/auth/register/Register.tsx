@@ -50,12 +50,12 @@ const Register: React.FC = (): JSX.Element => {
     try {
       event.preventDefault();
       const response = await signup(input);
+      console.log(response)
       if (!response) throw new Error(`Error al intentar registrar usuario`);
       alert(`Registro exitoso, Bienvenido/a ${input.firstName}`);
       router.push("/sign-in");
     } catch (error: any) {
-      alert("Error al registrar usuario: " + error.message);
-      throw new Error("Error desconocido: " + error.message);
+      console.log(error)
     }
   };
 

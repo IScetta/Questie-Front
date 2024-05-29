@@ -1,5 +1,6 @@
 import { IInvoice, IPayload } from "@/app/types";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const createInvoice = async (
   userId: string,
@@ -20,8 +21,13 @@ export const createInvoice = async (
       }
     );
     return invoice.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating invoice", error);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
   }
 };
 
@@ -54,8 +60,13 @@ export const getUserInvoices = async (payload: IPayload, token: string) => {
     });
 
     return formattedInvoices;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error getting invoices", error);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
   }
 };
 
@@ -70,7 +81,12 @@ export const getInvoiceById = async (invoiceId: string, token: string) => {
       }
     );
     return invoice.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error getting invoice", error);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
   }
 };
