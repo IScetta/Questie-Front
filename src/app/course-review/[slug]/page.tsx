@@ -4,7 +4,6 @@ import { FaCoins } from "react-icons/fa6";
 import { IoIosPhonePortrait } from "react-icons/io";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import ColumnModule from "../../components/column-module";
-import { DatoNuevoCurso } from "@/helpers/categoriesPreLoad";
 import { getCourseByIdDB, getCoursesDB } from "@/helpers/course.helpers";
 import HeaderCourse from "@/app/components/course/header-course";
 import ModuleCourseCard from "@/app/components/course/module-course-card";
@@ -15,7 +14,6 @@ const CurseReview = async ({ params }: { params: any }) => {
   const { slug } = params;
   const courses: ICourse[] = await getCoursesDB();
   const course: ICourse = await getCourseByIdDB(slug);
-  const curso = DatoNuevoCurso;
 
   const totalCoins = course.modules.reduce((acc: number, module: IModule) => {
     const moduleCoins = module.lessons.reduce(

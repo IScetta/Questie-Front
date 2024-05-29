@@ -30,7 +30,7 @@ const Module = async ({
           <p className="text-xl font-semibold">Sobre este módulo</p>
           <p className="text-sm mt-2">{moduleById?.description}</p>
         </div>
-        <h2 className="text-3xl font-semibold mt-4">Contenido</h2>
+        <h2 className="text-3xl font-semibold mt-4">Lecciones</h2>
         <div className="">
           {lessonInModule.length > 0 ? (
             lessonInModule.map((lesson: any, index: number) => (
