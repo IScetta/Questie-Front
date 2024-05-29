@@ -100,6 +100,11 @@ export interface ILesson {
   };
   contents: [string];
 }
+export interface IProgress {
+  id: string;
+  userId: string;
+  lessonId: string;
+}
 
 export interface ICreateLesson {
   title: string;

@@ -1,11 +1,15 @@
 "use client";
 
-import { ICourse, ILesson, IModule } from "@/app/types";
+import { ICourse, ILesson, IModule, IPayload, IProgress } from "@/app/types";
+import { useAuth } from "@/context/AuthContext";
 import { getCourseByIdDB } from "@/helpers/course.helpers";
+import { getLessonsFinishedByUser } from "@/helpers/lesson.helper";
 import { getModuleById } from "@/helpers/module.helper";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+const initialProgressState: IProgress = { id: "", userId: "", lessonId: "" };
 
 const ColumnLesson: React.FC<{
   moduleid: string;
@@ -19,22 +23,47 @@ const ColumnLesson: React.FC<{
 }): JSX.Element => {
   const [moduleById, setModuleById] = useState<IModule>();
   const [courseById, setCourseById] = useState<ICourse>();
+  const [finishedLessons, setFinishedLessons] = useState<string[] | null>(null);
+  const { payload } = useAuth();
+
+  console.log(finishedLessons);
 
   useEffect(() => {
-    const getModule = async () => {
-      const getOneModuleById = await getModuleById(moduleid);
-      setModuleById(getOneModuleById);
-      if (moduleById?.course?.id) {
-        const courseById = await getCourseByIdDB(moduleById?.course?.id);
-        setCourseById(courseById);
+    const getModuleAndCourse = async () => {
+      try {
+        const moduleData = await getModuleById(moduleid);
+        setModuleById(moduleData);
+
+        const parsedPayload: IPayload | undefined = payload
+          ? JSON.parse(payload)
+          : undefined;
+
+        if (!parsedPayload) {
+          console.log("El payload está indefinido.");
+          return;
+        }
+
+        const finishedLessonsResponse = await getLessonsFinishedByUser(
+          parsedPayload.id
+        );
+
+        if (finishedLessonsResponse) {
+          setFinishedLessons([finishedLessonsResponse.lessonId]);
+        }
+
+        if (moduleData?.course?.id) {
+          const courseData = await getCourseByIdDB(moduleData.course.id);
+          setCourseById(courseData);
+        }
+      } catch (error) {
+        console.error("Error al obtener el módulo o curso:", error);
       }
     };
-    getModule();
-  }, [moduleById, moduleid]);
 
-  const totalXP = allLessons.reduce((acc: number, lesson: ILesson) => {
-    return acc + lesson.xp;
-  }, 0);
+    getModuleAndCourse();
+  }, [moduleid, payload]);
+
+  
   let numberLesson = 1;
 
   return (
@@ -56,8 +85,8 @@ const ColumnLesson: React.FC<{
                 {moduleById?.title}
               </p>
               <p className="text-xs font-light">
-                Lecciones: {moduleById?.lessons?.length} - Experiencia:{" "}
-                {totalXP}
+                Lecciones: {moduleById?.lessons?.length || 0} - Experiencia:{" "}
+                {allLessons.reduce((acc, lesson) => acc + lesson.xp, 0)}
               </p>
             </div>
           </div>
@@ -66,7 +95,13 @@ const ColumnLesson: React.FC<{
         {moduleById?.lessons?.length && moduleById?.lessons?.length > 0 ? (
           moduleById?.lessons?.map((lesson: any, index: any) => (
             <Link href={`/lesson/${lesson.id}`} key={index}>
-              <div className="bg-purpleMainMedium mb-4 hover:bg-yellowMain pl-5 pr-5 py-3 w-full h-[4.5rem] content-center cursor-pointer text-white hover:text-purpleMain transition-colors duration-200 rounded-lg">
+              <div
+                className={`bg-purpleMainMedium mb-4 hover:bg-yellowMain pl-5 pr-5 py-3 w-full h-[4.5rem] content-center cursor-pointer text-white hover:text-purpleMain transition-colors duration-200 rounded-lg ${
+                  finishedLessons && finishedLessons.includes(lesson.id)
+                    ? "bg-yellowMain "
+                    : ""
+                }`}
+              >
                 <p className="text-xs font-light">Lección {numberLesson++}</p>
                 <p className="text-base font-semibold line-clamp-1">
                   {lesson.title}

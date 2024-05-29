@@ -9,6 +9,7 @@ import { getEnrolmentsByUser } from "@/helpers/enrolments.helper";
 import { getUserById } from "@/helpers/user.helper";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   const { slug } = params;
@@ -37,15 +38,27 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   useEffect(() => {
     if (!token || !payload) return;
 
-    let parsedPayload: IPayload;
+    let parsedPayload: IPayload | undefined;
 
     const fetchUser = async () => {
       try {
+        parsedPayload =
+          typeof payload === "string" ? JSON.parse(payload) : payload;
+        if (!parsedPayload) {
+          // Manejo de error si payload es undefined o null
+          console.log("parece que es undefined jeje");
+          return;
+        }
         const user = await getUserById(parsedPayload.id, token);
         setUser(user);
         fetchUserCourses(user.id);
       } catch (error: any) {
-        console.log(error);
+        console.error(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Ocurrió un problema al cargar los datos del usuario. Por favor, inténtalo de nuevo más tarde.",
+        });
       }
     };
 

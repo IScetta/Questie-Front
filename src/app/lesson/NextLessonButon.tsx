@@ -24,14 +24,25 @@ interface Question {
 
 const questions: Question[] = [
   {
-    question: "¿Cuál es la capital de Francia?",
-    options: ["Madrid", "París", "Berlín", "Roma"],
-    answer: "París",
+    question: "¿Cuál es el comando para instalar express?",
+    options: [
+      "npn install express framework",
+      "npm install express",
+      "install express",
+      "express",
+    ],
+    answer: "npm install express",
   },
   {
-    question: "¿Cuál es la capital de España?",
-    options: ["Madrid", "París", "Berlín", "Roma"],
-    answer: "Madrid",
+    question:
+      "¿como se requiere el módulo de Express en un archivo JavaScript?",
+    options: [
+      "const express = require('express');",
+      "require('express');",
+      "express = require('express');",
+      "const express = require('expressjs');",
+    ],
+    answer: "const express = require('express');",
   },
   // Agrega más preguntas aquí
 ];
