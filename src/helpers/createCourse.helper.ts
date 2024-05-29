@@ -1,5 +1,6 @@
 import { ICourse, ICreateCourseForm } from "@/app/types";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -15,9 +16,14 @@ export const postCreateCourse = async (formData:any, token: string) => {
             }
         );
         return response.data;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error creating course:", error)
-        throw error;
+        Swal.fire({
+            title: 'Oops...',
+            text: error.response.data.message,
+            icon: 'error'
+          })
+        throw new Error(error)
     }
 };
 
@@ -34,8 +40,13 @@ export const putCourse = async (formData:any, course_id:string, token:string) =>
             }
         );
         return response.data;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error Update course:", error)
-        throw error;
+        Swal.fire({
+            title: 'Oops...',
+            text: error.response.data.message,
+            icon: 'error'
+          })
+        throw new Error(error);
     }
 };

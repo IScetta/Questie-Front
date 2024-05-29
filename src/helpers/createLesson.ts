@@ -1,4 +1,5 @@
 import axios from "axios"
+import Swal from "sweetalert2"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -27,7 +28,12 @@ export const postCreateLesson = async(
             }
         )
         return newLesson.data;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error creating lesson", error)
+        Swal.fire({
+            title: 'Oops...',
+            text: error.response.data.message,
+            icon: 'error'
+        })
     }
 }

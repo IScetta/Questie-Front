@@ -1,5 +1,6 @@
 import { IUser } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,6 +17,11 @@ export const getAllUsers = async (token: string | null): Promise<IUser[]> => {
     return res.data;
   } catch (error: any) {
     console.log(error.message);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
     throw new Error(error);
   }
 };
@@ -39,6 +45,11 @@ export const getUserById = async (
     return res.data;
   } catch (error: any) {
     console.log(error.message);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
     throw new Error(error);
   }
 };
@@ -68,6 +79,11 @@ export const addCoins = async (
     return res.data;
   } catch (error: any) {
     console.log(error.message);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
     throw new Error(error);
   }
 };
