@@ -19,10 +19,10 @@ export const getAllUsers = async (token: string | null): Promise<IUser[]> => {
   } catch (error: any) {
     console.log(error.message);
     Swal.fire({
-      title: 'Oops...',
+      title: "Oops...",
       text: error.response.data.message,
-      icon: 'error'
-    })
+      icon: "error",
+    });
     throw new Error(error);
   }
 };
@@ -44,10 +44,10 @@ export const getUserById = async (
   } catch (error: any) {
     console.log(error.message);
     Swal.fire({
-      title: 'Oops...',
+      title: "Oops...",
       text: error.response.data.message,
-      icon: 'error'
-    })
+      icon: "error",
+    });
     throw new Error(error);
   }
 };
@@ -64,7 +64,9 @@ export const addCoins = async (
 
     const alg = "HS256";
 
-    const purchaseTransactionSecret = await new jose.SignJWT()
+    const purchaseTransactionSecret = await new jose.SignJWT({
+      secret: "secret",
+    })
       .setProtectedHeader({ alg })
       .setExpirationTime("2h")
       .sign(secret);
@@ -91,10 +93,10 @@ export const addCoins = async (
   } catch (error: any) {
     console.log(error.message);
     Swal.fire({
-      title: 'Oops...',
+      title: "Oops...",
       text: error.response.data.message,
-      icon: 'error'
-    })
+      icon: "error",
+    });
     throw new Error(error);
   }
 };
