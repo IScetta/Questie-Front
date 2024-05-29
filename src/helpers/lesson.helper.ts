@@ -74,4 +74,35 @@ const getLessonsFinishedByUser = async (
   }
 };
 
-export { getLessonById, getLessons };
+const putLessonById = async (
+  title:string,
+  xp:number,
+  coins:number,
+  id: string,
+  token: string | null
+): Promise<ILesson> => {
+  try {
+    const res: AxiosResponse<ILesson> = await axios.put(
+      `${API_URL}lessons/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status !== 200) {
+      console.log(`Error status: ${res.status}`);
+    }
+
+    return res.data;
+  } catch (error: any) {
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
+    throw new Error("Error al obtener el módulo");
+  }
+};
+
+export { getLessonById, getLessons, putLessonById };

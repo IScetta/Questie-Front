@@ -34,7 +34,7 @@ const CreateLessonButton = ({
       {showAlert ? (
         <div className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex z-10 justify-center items-center">
           <div className=" bg-white p-10 rounded-xl w-[25%] border-2 border-purpleMain">
-            <h2 className="text-[23px] mb-5 leading-6 ">Crear Nueva Leccion</h2>
+            <h2 className="flex justify-center text-[23px] mb-5 leading-6 ">Crear Nueva Leccion</h2>
             <CreateLessonForm
               module_id={moduleId}
               order={order_n}
