@@ -40,4 +40,32 @@ const getModuleById = async (id: string): Promise<IModule> => {
   }
 };
 
-export { getModules, getModuleById };
+const putModuleById = async (title:string,description:string, id: string, token:string): Promise<IModule> => {
+  try {
+    const res: AxiosResponse<IModule> = await axios.put(
+      `${API_URL}modules/${id}`,
+     [{
+        title,
+        description  
+      }],
+      {
+        headers: {
+          Authorization: `Bearer ${token} `,
+        },
+      }
+    );
+    if (res.status !== 200) {
+      console.log("Error al traer el módulo");
+    }
+    return res.data;
+  } catch (error: any) {
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
+    throw new Error("Error al actualizar el módulo");
+  }
+};
+
+export { getModules, getModuleById, putModuleById };

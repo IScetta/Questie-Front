@@ -6,9 +6,8 @@ import { getCategoriesDB } from "@/helpers/categories.helper";
 import { putCourse } from "@/helpers/createCourse.helper";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { RiMoneyDollarCircleFill, RiMoneyDollarCircleLine } from "react-icons/ri";
 import { FaCaretDown, FaCaretUp, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import CreateProductModal from "../create-product-modal";
+import EditProductModal from "../Edit-product-modal/EditProductModal";
 
 const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
   const [open, setOpen] = useState(false);
@@ -18,7 +17,6 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
   const [status , setStatus] = useState("Todos")
   const [statusFilter, setStatusFilter] = useState("Todos");
   const [checkboxStates, setCheckboxStates] = useState<boolean[]>([]);
-  const [isProduct, setIsProduct] = useState<boolean>(false)
 
   const [coursesList, setCoursesList] = useState<ICourse[]>([]);
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -233,19 +231,16 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
           <div className="flex justify-center items-center ">
           {!course.isProduct ? (
               <div className="flex-row m-2 relative group inline-block">
-                <CreateProductModal course ={course}/>
+                <EditProductModal course ={course}/>
                 <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
                  Es Gratuito
                 </div>
               </div>
             ) : (
               <div className="flex-row m-2 relative group inline-block">
-                <button
-                  onClick={() => statusCourse(course)}
-                  className="p-1 m-4 w-fit bg-yellowMain rounded-lg"
-                >
-                <RiMoneyDollarCircleLine className="text-[30px]" />
-                </button>
+                
+
+              <EditProductModal course={course}/>
                 <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
                  Es Monetizado
                 </div>

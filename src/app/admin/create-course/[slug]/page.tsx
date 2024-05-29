@@ -45,7 +45,7 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
     payloadParse();
   }, [payload]);
 
-  console.log(course);
+  // console.log(course);
 
   return (token && payloadParsed?.isAdmin === "admin" && course != null) ||
     payloadParsed?.role === "admin" ? (
