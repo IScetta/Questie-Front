@@ -6,7 +6,9 @@ import { getCategoriesDB } from "@/helpers/categories.helper";
 import { putCourse } from "@/helpers/createCourse.helper";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { RiMoneyDollarCircleFill, RiMoneyDollarCircleLine } from "react-icons/ri";
 import { FaCaretDown, FaCaretUp, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import CreateProductModal from "../create-product-modal";
 
 const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
   const [open, setOpen] = useState(false);
@@ -16,6 +18,7 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
   const [status , setStatus] = useState("Todos")
   const [statusFilter, setStatusFilter] = useState("Todos");
   const [checkboxStates, setCheckboxStates] = useState<boolean[]>([]);
+  const [isProduct, setIsProduct] = useState<boolean>(false)
 
   const [coursesList, setCoursesList] = useState<ICourse[]>([]);
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -88,11 +91,8 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
 
   const statusCourse = async (course: ICourse) => {
     const status = course.status === "pending" ? "complete" : "pending";
-    const { id: course_id, description, title, headline } = course;
+    const { id: course_id } = course;
     const formData = {
-      description,
-      title,
-      headline,
       status,
     };
     try {
@@ -123,7 +123,7 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
           </button>
           {open && (
             <div className="bg-white absolute  w-auto h-auto rounded-md bg-text border-2 border-terciary ring-1 ring-white ring-opacity-5 focus:outline-none z-10 shadow-[0_5px_15px_0px_#00000042] px-2">
-              <div className="h-fit w-fit bg-white col-start-2 col-span-4 pl-10 pr-10">
+              <div className="h-fit w-fit bg-white col-start-2 col-span-4 ">
                 <h2 className="my-2 p-2 border-b-2 border-black text-[16px] font-semibold text-gray-900 dark:text-white">
                   Categorias:
                 </h2>
@@ -154,7 +154,7 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
           </button>
           {isSorted ? (
             <div className="bg-white absolute w-auto h-auto rounded-md bg-text border-2 border-terciary ring-1 ring-white ring-opacity-5 focus:outline-none z-10 shadow-[0_5px_15px_0px_#00000042] px-2">
-              <div className="h-fit w-fit bg-white col-start-2 col-span-4 pl-10 pr-10">
+              <div className="h-fit w-fit bg-white col-start-2 col-span-4 ">
                 {filter.orden.map((option, index) => (
                   <div key={index} className="m-2 p-2 hover:bg-blue-gray-50">
                     <button
@@ -185,7 +185,7 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
 
           {isStatus && (
             <div className="bg-white absolute w-fit h-auto rounded-md bg-text border-2 border-terciary ring-1 ring-white ring-opacity-5 focus:outline-none z-20 shadow-[0_5px_15px_0px_#00000042] px-2">
-              <div className="h-fit w-fit bg-white col-start-2 col-span-4 pl-10 pr-10">
+              <div className="h-fit w-fit bg-white col-start-2 col-span-4 ">
                 {filter.status.map((status, index) => (
                   <div key={index} className="m-2 p-2 hover:bg-blue-gray-50">
                     <button
@@ -231,13 +231,33 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
           </div>
 
           <div className="flex justify-center items-center ">
+          {!course.isProduct ? (
+              <div className="flex-row m-2 relative group inline-block">
+                <CreateProductModal course ={course}/>
+                <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                 Es Gratuito
+                </div>
+              </div>
+            ) : (
+              <div className="flex-row m-2 relative group inline-block">
+                <button
+                  onClick={() => statusCourse(course)}
+                  className="p-1 m-4 w-fit bg-yellowMain rounded-lg"
+                >
+                <RiMoneyDollarCircleLine className="text-[30px]" />
+                </button>
+                <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                 Es Monetizado
+                </div>
+              </div>
+            )}
             {course.status === "pending" ? (
               <div className="flex-row m-2 relative group inline-block">
                 <button
                   onClick={() => statusCourse(course)}
-                  className="p-2 m-4 w-fit text-[20px] bg-red-500 rounded-lg"
+                  className="p-[6px] m-4 w-fit text-[20px] bg-red-500 rounded-lg"
                 >
-                  <FaTimesCircle className="text-[20px]" />
+                  <FaTimesCircle className="text-[25px]" />
                 </button>
                 <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   En Proceso
@@ -247,9 +267,9 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
               <div className="flex-row m-2 relative group inline-block">
                 <button
                   onClick={() => statusCourse(course)}
-                  className="p-2 m-4 w-fit bg-light-green-500 rounded-lg"
+                  className="p-[6px] m-4 w-fit bg-light-green-500 rounded-lg"
                 >
-                  <FaCheckCircle className="text-[20px]" />
+                  <FaCheckCircle className="text-[25px]" />
                 </button>
                 <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   Finalizado
@@ -270,6 +290,7 @@ const AdminCourses = ({ courses }: { courses: ICourse[] }) => {
               Editar Contenido
             </Link>
           </div>
+          
         </div>
       ))}
     </div>

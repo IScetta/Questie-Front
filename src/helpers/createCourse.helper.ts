@@ -39,3 +39,24 @@ export const putCourse = async (formData:any, course_id:string, token:string) =>
         throw error;
     }
 };
+
+
+export const putProductCourse = async ( course_id:string, token:string) => {
+    try {
+        // const status = course.status
+        const isProduct: boolean = true 
+        const response = await axios.put(
+            `${API_URL}courses/${course_id}`,
+            isProduct,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error Update course:", error)
+        throw error;
+    }
+};
