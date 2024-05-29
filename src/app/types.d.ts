@@ -100,6 +100,11 @@ export interface ILesson {
   };
   contents: [string];
 }
+export interface IProgress {
+  id: string;
+  userId: string;
+  lessonId: string;
+}
 
 export interface ICreateLesson {
   title: string;
@@ -246,16 +251,4 @@ export interface IStats {
   coins: number;
   xp: number;
   user: string;
-}
-
-interface Question {
-  id: string;
-  text: string;
-  options: Option[];
-}
-
-interface Option {
-  id: string;
-  text: string;
-  correct: boolean;
 }

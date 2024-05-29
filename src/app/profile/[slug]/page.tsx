@@ -10,6 +10,7 @@ import { getUserById } from "@/helpers/user.helper";
 import { Spinner } from "flowbite-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   const { slug } = params;
@@ -39,19 +40,27 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   useEffect(() => {
     if (!token || !payload) return;
 
-    let parsedPayload: IPayload;
-
-    if (typeof payload !== "object") {
-      parsedPayload = JSON.parse(payload);
-    }
+    let parsedPayload: IPayload | undefined;
 
     const fetchUser = async () => {
       try {
+        parsedPayload =
+          typeof payload === "string" ? JSON.parse(payload) : payload;
+        if (!parsedPayload) {
+          // Manejo de error si payload es undefined o null
+          console.log("parece que es undefined jeje");
+          return;
+        }
         const user = await getUserById(parsedPayload.id, token);
         setUser(user);
         fetchUserCourses(user.id);
       } catch (error: any) {
-        console.log(error);
+        console.error(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Ocurrió un problema al cargar los datos del usuario. Por favor, inténtalo de nuevo más tarde.",
+        });
       }
     };
 
@@ -83,7 +92,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   if (!token || !payload) {
     return (
       <div className="flex flex-col justify-center items-center">
-        <h1>Debe registrarse e iniciar sesion para ver su perfil</h1>
+        <h1>Debe registrarse e iniciar sesión para ver su perfil</h1>
         <div className="flex flex-row justify-center items-center mt-2 gap-2">
           <Link
             href="/sign-up"

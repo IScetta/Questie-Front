@@ -1,3 +1,4 @@
+// components/lesson/Lesson.tsx
 "use client";
 
 import ColumnLesson from "../../components/column-lesson";
@@ -13,6 +14,7 @@ import {
   ContentImage,
   ContentVideo,
 } from "@/app/components/content-lesson";
+import NextLessonButton from "../NextLessonButon";
 
 const Lesson: React.FC<{ params: { slug: string } }> = ({
   params,
@@ -97,7 +99,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
   return token ? (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
-        <ColumnLesson moduleid={moduleId} allLessons={allLessons} />
+        <ColumnLesson moduleId={moduleId} allLessons={allLessons} />
       </div>
 
       <div className="ml-10 w-full flex flex-col justify-center items-center">
@@ -146,17 +148,11 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
             )}
           </div>
         ))}
-
-        <Link
-          href={getNextLessonById(allLessons, lesson.id)}
-          className="bg-yellowMain my-10 px-4 py-2 rounded-lg"
-        >
-          <p className="text-purpleMain text-lg font-normal">
-            {lesson.order + 1 <= allLessons.length
-              ? "Siguiente Lección"
-              : "Finalizar"}
-          </p>
-        </Link>
+        <NextLessonButton
+          allLessons={allLessons}
+          lesson={lesson}
+          getNextLessonById={getNextLessonById}
+        />
       </div>
     </div>
   ) : (
