@@ -68,8 +68,8 @@ const Assessment = ({
   }, [courseId]);
 
   return (
-    <div className="my-2 ml-4">
-      <div className="flex space-x-1">
+    <div className="my-2 w-full">
+      <div className="flex space-x-1 justify-start w-full">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
@@ -78,10 +78,10 @@ const Assessment = ({
           />
         ))}
       </div>
-      <div className="text-xs text-gray-500">
+      {/* <div className="text-xs text-gray-500">
         Valoración media: {averageRating.toFixed(1)} ({totalRatings}{" "}
         valoraciones)
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -93,7 +93,7 @@ interface StarProps {
 
 const Star = ({ filled, onClick }: StarProps) => (
   <FaStar
-    className={`w-8 h-8 cursor-pointer ${
+    className={`w-5 h-5 cursor-pointer ${
       filled ? "text-yellow-400" : "text-gray-400"
     }`}
     onClick={onClick}

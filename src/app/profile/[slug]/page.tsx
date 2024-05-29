@@ -7,12 +7,14 @@ import { useAuth } from "@/context/AuthContext";
 import { getCoursesDB } from "@/helpers/course.helpers";
 import { getEnrolmentsByUser } from "@/helpers/enrolments.helper";
 import { getUserById } from "@/helpers/user.helper";
+import { Spinner } from "flowbite-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   const { slug } = params;
   const { token, payload } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   const [user, setUser] = useState<IUser>({
     id: "",
@@ -69,6 +71,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
 
         setUserCoursesEnrolments(userEnrolments);
         setUserCourses(userCourses);
+        setLoading(false);
       } catch (error: any) {
         console.log(error);
       }
@@ -105,33 +108,66 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
         <ColumnProfile userInfo={user} userCourses={userCoursesEnrolments} />
       </div>
       <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full">
-        <h1 className="text-4xl mt-18 font-bold">Continuar con los cursos</h1>
-        {userCourses.length > 0 ? (
-          userCourses.map((course) => (
-            <div
-              key={course?.id}
-              className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded"
-            >
-              <p className="text-xl font-semibold text-start">
-                {course?.title}
-              </p>
+        {loading ? (
+          <div className="animate-pulse">
+            <h1 className="text-4xl mt-18 h-8 bg-gray-300 rounded"></h1>
+            <div className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded">
+              <p className="h-6 bg-gray-300 rounded w-1/4"></p>
               <div className="flex items-center">
-                <Progress courseId={course.id} userId={user.id} />
-                <Link
-                  href={`/course-review/${course?.id}`}
-                  className="bg-yellowMain text-purpleMain rounded-md px-4 py-2 text-xl font-semibold ml-4"
-                >
-                  Continuar
-                </Link>
+                <div className="h-4 bg-gray-300 rounded w-16"></div>
+                <div className="bg-yellowMain h-6 rounded-md px-4 py-2 text-xl font-semibold ml-4 w-16"></div>
               </div>
             </div>
-          ))
-        ) : (
-          <div className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded">
-            <p className="text-xl font-semibold text-start">
-              No tienes cursos en este momento
-            </p>
+            <div className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded">
+              <p className="h-6 bg-gray-300 rounded w-1/4"></p>
+              <div className="flex items-center">
+                <div className="h-4 bg-gray-300 rounded w-16"></div>
+                <div className="bg-yellowMain h-6 rounded-md px-4 py-2 text-xl font-semibold ml-4 w-16"></div>
+              </div>
+            </div>
+            <div className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded">
+              <p className="h-6 bg-gray-300 rounded w-1/4"></p>
+              <div className="flex items-center">
+                <div className="h-4 bg-gray-300 rounded w-16"></div>
+                <div className="bg-yellowMain h-6 rounded-md px-4 py-2 text-xl font-semibold ml-4 w-16"></div>
+              </div>
+            </div>
           </div>
+        ) : (
+          <>
+            <h1 className="text-4xl mt-18 font-bold">
+              Continuar con los cursos
+            </h1>
+            {userCourses.length > 0 ? (
+              userCourses.map((course) => (
+                <div
+                  key={course?.id}
+                  className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded"
+                >
+                  <div className="flex flex-col w-full space-y-3">
+                    <p className="text-xl font-semibold text-start">
+                      {course?.title}
+                    </p>
+                    <Progress courseId={course.id} userId={user.id} />
+                  </div>
+                  <div className="flex items-center">
+                    <Link
+                      href={`/course-review/${course?.id}`}
+                      className="bg-yellowMain text-purpleMain rounded-md px-4 py-2 text-xl font-semibold ml-4"
+                    >
+                      Continuar
+                    </Link>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded">
+                <p className="text-xl font-semibold text-start">
+                  No tienes cursos en este momento
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
