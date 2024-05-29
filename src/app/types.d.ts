@@ -107,6 +107,40 @@ export interface ICreateLesson {
   coins: number;
 }
 
+export interface ICourse {
+  id: string;
+  title: string;
+  slug: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  assessment: number;
+  status: string;
+  isProduct: boolean;
+  create_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  modules: [
+    {
+      id: string;
+      title: string;
+      lessons: [
+        {
+          id: string;
+          title: string;
+        }
+      ];
+    }
+  ];
+  categories: [
+    {
+      name: string;
+      id: string;
+    }
+  ];
+}
+
 export interface IProduct {
   id: string;
   name: string;
