@@ -81,38 +81,26 @@ export const createEnrolment = async (
 export const getEnrolmentsByUser = async (
   token: string | null,
   userId: string
-): Promise<IEnrolment[] | null | undefined> => {
-  try {
-    if (!token || !userId) {
-      return null;
-    }
-  
-    const response: AxiosResponse<IEnrolment[]> = await axios.get(
-      `${API_URL}enrolments/user/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  
-    const userEnrolments: IEnrolment[] = response.data.filter(
-      (enrolment: IEnrolment) => enrolment.user === userId
-    );
-  
-    if (response.status === 200) {
-      return userEnrolments;
-    } else {
-      return null;
-    }
-  } catch (error: any) {
-    console.log(error)
-    Swal.fire({
-      title: 'Oops...',
-      text: error.response.data.message,
-      icon: 'error'
-    })
+): Promise<IEnrolment[] | null> => {
+  if (!token || !userId) {
+    return null;
   }
+
+  const response: AxiosResponse<IEnrolment[]> = await axios.get(
+    `${API_URL}enrolments/user/${userId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const userEnrolments: IEnrolment[] = response.data.filter(
+    (enrolment: IEnrolment) => enrolment.user === userId
+  );
+
+  if (response.status === 200) return userEnrolments;
+  return null;
 };
 
 export const getEnrolmentById = async (
