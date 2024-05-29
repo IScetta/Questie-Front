@@ -1,3 +1,4 @@
+import { IProduct } from '@/app/types';
 import { useAuth } from '@/context/AuthContext';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import axios from 'axios';
@@ -8,14 +9,16 @@ export const MercadoPagoButton = (product: any) => {
     initMercadoPago(mercadopagoPublicKey, {
         locale: 'es-AR'
     })
-    // product = {...product, quantity: 1, unit_price: Math.trunc(Number(product.price))}
-    product = {...product, quantity: 1, unit_price: 1000}
+    console.log(product)
+    const productMP = {...product, quantity: 1, unit_price: Math.trunc(Number(product.price))}
+    // product = {...product, quantity: 1, unit_price: 1000}
     const { payload, token } = useAuth()
     const [preferenceId, setPreferenceId] = useState('')
     useEffect(() => {
         const createPreference = async() => {
             try {
-                const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}payments/mercado-pago`, product, {
+                // console.log(product)
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}payments/mercado-pago`, productMP, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-Idempotency-Key': '123',

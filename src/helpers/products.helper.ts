@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const getAllProducts = async () => {
   try {
@@ -11,8 +12,13 @@ export const getAllProducts = async () => {
       }
     );
     return products.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error getting products", error);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
   }
 };
 
@@ -27,8 +33,13 @@ export const getProductById = async (productId: string) => {
       }
     );
     return product.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error getting product", error);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
   }
 };
 

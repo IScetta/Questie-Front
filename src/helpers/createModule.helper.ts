@@ -1,4 +1,5 @@
 import axios from "axios"
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -22,8 +23,13 @@ export const postCreateModule = async(
             }
         )
         return newModule.data;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error creating module", error)
+        Swal.fire({
+            title: 'Oops...',
+            text: error.response.data.message,
+            icon: 'error'
+          })
     }
 }
 
