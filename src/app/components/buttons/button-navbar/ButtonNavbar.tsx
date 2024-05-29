@@ -10,18 +10,18 @@ import saveUserDB from "@/helpers/saveUserDB.helper";
 const ButtonNavbar: React.FC = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const { user: auth0User } = useUser();
-  const { token } = useAuth();
-  const { setToken } = useAuth();
+  const { token, setToken } = useAuth();
 
   useEffect(() => {
     const loadUser = async () => {
       if (auth0User) {
         try {
           const res = await saveUserDB(auth0User);
-          setLoading(false);
           setToken(res?.data.token, res?.data.user);
         } catch (error) {
           console.error("Error saving user:", error);
+        } finally {
+          setLoading(false);
         }
       } else {
         setLoading(false);

@@ -228,15 +228,3 @@ export interface IStats {
   xp: number;
   user: string;
 }
-
-interface Question {
-  id: string;
-  text: string;
-  options: Option[];
-}
-
-interface Option {
-  id: string;
-  text: string;
-  correct: boolean;
-}

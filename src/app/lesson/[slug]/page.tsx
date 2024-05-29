@@ -1,3 +1,4 @@
+// components/lesson/Lesson.tsx
 "use client";
 
 import { GoArrowUp } from "react-icons/go";
@@ -14,6 +15,7 @@ import {
   ContentImage,
   ContentVideo,
 } from "@/app/components/content-lesson";
+import NextLessonButton from "../NextLessonButon";
 
 const Lesson: React.FC<{ params: { slug: string } }> = ({
   params,
@@ -120,7 +122,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
           </h1>
         </div>
 
-        {lesson.contents.map((content:any, index: number) => (
+        {lesson.contents.map((content: any, index: number) => (
           <div
             key={index}
             className="flex justify-center items-center w-full h-auto"
@@ -148,17 +150,11 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
             )}
           </div>
         ))}
-
-        <Link
-          href={getNextLessonById(allLessons, lesson.id)}
-          className="bg-yellowMain my-10 px-4 py-2 rounded-lg"
-        >
-          <p className="text-purpleMain text-lg font-normal">
-            {lesson.order + 1 <= allLessons.length
-              ? "Siguiente Lección"
-              : "Finalizar"}
-          </p>
-        </Link>
+        <NextLessonButton
+          allLessons={allLessons}
+          lesson={lesson}
+          getNextLessonById={getNextLessonById}
+        />
       </div>
     </div>
   ) : (
@@ -182,4 +178,4 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
   );
 };
 
-export default Lesson; 
+export default Lesson;

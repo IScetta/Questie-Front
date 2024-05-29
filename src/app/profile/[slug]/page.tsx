@@ -39,10 +39,6 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
 
     let parsedPayload: IPayload;
 
-    if (typeof payload !== "object") {
-      parsedPayload = JSON.parse(payload);
-    }
-
     const fetchUser = async () => {
       try {
         const user = await getUserById(parsedPayload.id, token);
@@ -80,7 +76,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   if (!token || !payload) {
     return (
       <div className="flex flex-col justify-center items-center">
-        <h1>Debe registrarse e iniciar sesion para ver su perfil</h1>
+        <h1>Debe registrarse e iniciar sesión para ver su perfil</h1>
         <div className="flex flex-row justify-center items-center mt-2 gap-2">
           <Link
             href="/sign-up"
