@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
-const Lesson = () => {
+const Profile = () => {
   return redirect("/");
 };
 
-export default Lesson;
+export default Profile;
