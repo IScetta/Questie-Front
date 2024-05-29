@@ -6,8 +6,6 @@ const Shop = async () => {
   //GET ALL PRODUCTS FROM API
   const products = await getAllProducts();
 
-  console.log(products);
-
   //SORT PRODUCTS BY ORDER
   products.sort((a: IProduct, b: IProduct) => a.order - b.order);
 
