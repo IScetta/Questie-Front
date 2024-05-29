@@ -42,12 +42,11 @@ const Progress = ({ courseId, userId }: ProgressProps) => {
       : (progress.completedLessons / progress.totalLessons) * 100;
 
   return (
-    <div className="flex justify-end w-full max-w-md mr-6">
-      <div className="progress-container">
-        <h3 className="text-lg mb-2">Progreso del curso</h3>
-        <div className="bg-gray-200 rounded-full h-6">
+    <div className="flex w-full">
+      <div className="progress-container w-full">
+        <div className="bg-gray-300 rounded-full h-2 w-full">
           <div
-            className={`bg-green-500 rounded-full h-6 ${
+            className={`bg-green-500 rounded-full h-2 ${
               progressPercentage === 0 && "w-0"
             }`}
             style={{ width: `${progressPercentage}%` }}
