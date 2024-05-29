@@ -99,6 +99,7 @@ export interface ICourse {
   bg_image: string;
   assessment: number;
   status: string;
+  isProduct: boolean;
   create_at: string;
   updated_at: string;
   deleted_at: string | null;

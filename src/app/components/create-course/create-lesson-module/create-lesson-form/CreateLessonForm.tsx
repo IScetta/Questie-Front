@@ -9,10 +9,12 @@ const CreateLessonForm = ({
   module_id,
   order,
   onClose,
+  fetchCourses
 }: {
   module_id: string;
   order: number;
-  onClose: any;
+  onClose: () => void;
+  fetchCourses:() => void
 }): JSX.Element => {
   const initialState: ICreateLesson = {
     title: "",
@@ -40,7 +42,7 @@ const CreateLessonForm = ({
     event.preventDefault();
 
     try {
-      console.log(input.coins)
+      // console.log(input.coins)
       
       const response = await postCreateLesson(
         input.title,
@@ -51,6 +53,8 @@ const CreateLessonForm = ({
         token!
       );
       if (!response) throw new Error("Error al intentar crear leccion");
+      // fetchCourses
+      // onClose
       window.location.reload();
     } catch (error: any) {
       console.error(error);

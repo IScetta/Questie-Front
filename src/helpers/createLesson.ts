@@ -31,3 +31,19 @@ export const postCreateLesson = async(
         console.error("Error creating lesson", error)
     }
 }
+
+
+export const deleteLessonBD = async(lesson_id:string , token:string)=>{
+    try {
+        const deleteLesson = await axios.delete(`${API_URL}lessons/${lesson_id}`,
+            {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return deleteLesson.data;
+    } catch (error) {
+        console.error("Error creating module", error)
+    }
+}

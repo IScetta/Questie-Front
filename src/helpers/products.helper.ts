@@ -31,3 +31,29 @@ export const getProductById = async (productId: string) => {
     console.error("Error getting product", error);
   }
 };
+
+export const postProductByCourse = async (name:string,description:string,price:number,courseId:string,token:string) => {
+  const currency ="qty"
+  try {
+    const product = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}products`,
+      {name,
+      description,
+      price:Number(price),
+      currency,
+      polymorphicEntityId: courseId ,
+      polymorphicEntityType:"Course",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token} `,
+        },
+      }
+    );
+    return product.data;
+  } catch (error) {
+    console.error("Error create product", error);
+  }
+};
+
+

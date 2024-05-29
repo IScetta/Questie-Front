@@ -3,7 +3,15 @@
 import { useState } from "react";
 import CreateLessonForm from "../../create-lesson-form";
 
-const CreateLessonButton = ({moduleId,order_n}:{moduleId:string,order_n:number}) => {
+const CreateLessonButton = ({
+  moduleId,
+  order_n,
+  fetchCourses,
+}: {
+  moduleId: string;
+  order_n: number;
+  fetchCourses: () => void;
+}) => {
   const [showAlert, setShowAlert] = useState(false);
 
   const handleShowAlert = () => {
@@ -24,10 +32,15 @@ const CreateLessonButton = ({moduleId,order_n}:{moduleId:string,order_n:number})
       </button>
 
       {showAlert ? (
-        <div className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
+        <div className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex z-10 justify-center items-center">
           <div className=" bg-white p-10 rounded-xl w-[25%] border-2 border-purpleMain">
-            <h2 className="text-[23px] mb-5 leading-6 ">Crear Nuevo Modulo</h2>
-            <CreateLessonForm module_id={moduleId} order={order_n} onClose={handleCloseAlert} />
+            <h2 className="text-[23px] mb-5 leading-6 ">Crear Nueva Leccion</h2>
+            <CreateLessonForm
+              module_id={moduleId}
+              order={order_n}
+              onClose={handleCloseAlert}
+              fetchCourses={fetchCourses}
+            />
           </div>
         </div>
       ) : (
