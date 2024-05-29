@@ -99,7 +99,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
   return token ? (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
-        <ColumnLesson moduleid={moduleId} allLessons={allLessons} />
+        <ColumnLesson moduleId={moduleId} allLessons={allLessons} />
       </div>
 
       <div className="ml-10 w-full flex flex-col justify-center items-center">

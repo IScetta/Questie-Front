@@ -9,16 +9,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const initialProgressState: IProgress = { id: "", userId: "", lessonId: "" };
-
 const ColumnLesson: React.FC<{
-  moduleid: string;
+  moduleId: string;
   allLessons: ILesson[];
 }> = ({
-  moduleid,
+  moduleId,
   allLessons,
 }: {
-  moduleid: string;
+  moduleId: string;
   allLessons: ILesson[];
 }): JSX.Element => {
   const [moduleById, setModuleById] = useState<IModule>();
@@ -26,17 +24,19 @@ const ColumnLesson: React.FC<{
   const [finishedLessons, setFinishedLessons] = useState<string[] | null>(null);
   const { payload } = useAuth();
 
-  console.log(finishedLessons);
-
   useEffect(() => {
     const getModuleAndCourse = async () => {
       try {
-        const moduleData = await getModuleById(moduleid);
+        const moduleData = await getModuleById(moduleId);
         setModuleById(moduleData);
 
-        const parsedPayload: IPayload | undefined = payload
-          ? JSON.parse(payload)
-          : undefined;
+        if (moduleData?.course?.id) {
+          const courseData = await getCourseByIdDB(moduleData.course.id);
+          setCourseById(courseData);
+        }
+
+        const parsedPayload: IPayload | undefined =
+          typeof payload === "string" ? JSON.parse(payload) : payload;
 
         if (!parsedPayload) {
           console.log("El payload está indefinido.");
@@ -48,22 +48,18 @@ const ColumnLesson: React.FC<{
         );
 
         if (finishedLessonsResponse) {
-          setFinishedLessons([finishedLessonsResponse.lessonId]);
-        }
-
-        if (moduleData?.course?.id) {
-          const courseData = await getCourseByIdDB(moduleData.course.id);
-          setCourseById(courseData);
+          const mapFinishLesson: string[] = finishedLessonsResponse.map(
+            (progress: IProgress) => progress.lessonId
+          );
+          setFinishedLessons(mapFinishLesson);
         }
       } catch (error) {
         console.error("Error al obtener el módulo o curso:", error);
       }
     };
+    if (!finishedLessons) getModuleAndCourse();
+  }, [moduleId, payload, finishedLessons]);
 
-    getModuleAndCourse();
-  }, [moduleid, payload]);
-
-  
   let numberLesson = 1;
 
   return (
@@ -96,10 +92,10 @@ const ColumnLesson: React.FC<{
           moduleById?.lessons?.map((lesson: any, index: any) => (
             <Link href={`/lesson/${lesson.id}`} key={index}>
               <div
-                className={`bg-purpleMainMedium mb-4 hover:bg-yellowMain pl-5 pr-5 py-3 w-full h-[4.5rem] content-center cursor-pointer text-white hover:text-purpleMain transition-colors duration-200 rounded-lg ${
+                className={`mb-4 pl-5 pr-5 py-3 w-full h-[4.5rem] content-center cursor-pointer transition-colors duration-200 rounded-lg ${
                   finishedLessons && finishedLessons.includes(lesson.id)
-                    ? "bg-yellowMain "
-                    : ""
+                    ? "bg-yellowMain text-purpleMain"
+                    : "bg-purpleMainMedium  hover:bg-yellowMain text-white  hover:text-purpleMain"
                 }`}
               >
                 <p className="text-xs font-light">Lección {numberLesson++}</p>
