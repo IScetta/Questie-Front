@@ -1,5 +1,6 @@
 import { IUser } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
+import * as jose from "jose";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -25,14 +26,11 @@ export const getUserById = async (
   token: string | null
 ): Promise<IUser> => {
   try {
-    const res: AxiosResponse<IUser> = await axios.get(
-      `${API_URL}users/${id}`,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res: AxiosResponse<IUser> = await axios.get(`${API_URL}users/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
     if (res.status !== 200) {
       console.log("Error al traer el usuario");
     }
@@ -49,6 +47,17 @@ export const addCoins = async (
   coins: number
 ): Promise<IUser> => {
   try {
+    const secret = new TextEncoder().encode(
+      process.env.NEXT_PUBLIC_PURCHASE_TRANSACTION_SECRET
+    );
+
+    const alg = "HS256";
+
+    const purchaseTransactionSecret = await new jose.SignJWT()
+      .setProtectedHeader({ alg })
+      .setExpirationTime("2h")
+      .sign(secret);
+
     const res: AxiosResponse<IUser> = await axios.post(
       `${API_URL}stats/coins/${userId}`,
       {
@@ -57,6 +66,8 @@ export const addCoins = async (
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "x-purchase-transaction-secret": purchaseTransactionSecret,
         },
       }
     );
