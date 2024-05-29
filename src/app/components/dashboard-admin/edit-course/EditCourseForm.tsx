@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ICourse, ICreateCourseErrorForm, ICreateCourseForm } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
-import { postCreateCourse } from "@/helpers/createCourse.helper";
+import { postCreateCourse, putEditCourse } from "@/helpers/createCourse.helper";
 
 const EditCourseForm = ({ course }: { course: ICourse })=> {
   const { token } = useAuth();
   const router = useRouter();
 
-  console.log(course)
+  // console.log(course)
   const initialState = {
     title: course.title,
     headline: course.headline,
@@ -59,7 +59,7 @@ const EditCourseForm = ({ course }: { course: ICourse })=> {
       formData.append('title', title);
       formData.append('headline', headline);
 
-      const response = await postCreateCourse(formData, token!);
+      const response = await putEditCourse(formData,course.id, token!);
       if (!response) throw new Error("Error al intentar crear curso");
 
       router.push(`/admin/create-module/${response.id}`);

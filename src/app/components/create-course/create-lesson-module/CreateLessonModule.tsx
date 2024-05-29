@@ -12,6 +12,7 @@ import { FaCaretDown, FaCaretUp, FaCheckCircle, FaEdit, FaTimesCircle, FaTrashAl
 import ListLesson from "./order-lesson/list-lesson/ListLesson";
 import { deleteLessonBD } from "@/helpers/createLesson";
 import { useAuth } from "@/context/AuthContext";
+import EditLessonModal from "../edit-lesson-modal";
 
 
 const CreateLessonModule = ({
@@ -122,9 +123,7 @@ const CreateLessonModule = ({
                       </div>
                     </div>
                           <div className=" flex-row m-2 relative group inline-block">
-                            <button className="p-2 m-4  w-fit text-[18px]  bg-white rounded-lg hover:bg-yellowMain">
-                              <FaEdit />
-                            </button>
+                            <EditLessonModal lesson_id={lesson.id}/>
                             <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1  bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
                               Editar Informacion
                             </div>

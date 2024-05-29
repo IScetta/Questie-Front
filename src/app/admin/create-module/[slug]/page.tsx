@@ -4,6 +4,7 @@ import ColumnAdmin from "@/app/components/column-admin";
 import CreateLessonModule from "@/app/components/create-course/create-lesson-module/CreateLessonModule";
 import CreateLessonButton from "@/app/components/create-course/create-lesson-module/order-lesson/create-lesson-button";
 import CreateModuleButton from "@/app/components/create-course/create-module/create-module-button";
+import EditModule from "@/app/components/create-course/edit-module-modal";
 import { ICourse, IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCourseByIdDB } from "@/helpers/course.helpers";
@@ -70,7 +71,7 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
   const deleteModule = async (module_id: string) => {
     try {
       await deleteModuleBD(module_id, token!);
-      fetchCourse(); // Refresca la lista de módulos después de eliminar
+      fetchCourse(); 
     } catch (error) {
       console.error("Error deleting module:", error);
     }
@@ -118,9 +119,8 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
                       fetchCourses={fetchCourse}
                     />
 
-                    <button className="mx-2 p-2 border-2 rounded-md border-gray-600 bg-blue-gray-200 hover:bg-blue-gray-100">
-                      Editar Modulo
-                    </button>
+                      <EditModule module={module}/>
+
                   </div>
                 </div>
                 <CreateLessonModule id={module.id} content={module.lessons} fetchCourses={fetchCourse}/>

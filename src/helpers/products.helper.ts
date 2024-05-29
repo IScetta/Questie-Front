@@ -92,3 +92,52 @@ export const postProductByCourse = async (
     console.error("Error create product", error);
   }
 };
+
+export const putProductByCourse = async (
+  name: string,
+  description: string,
+  price: number,
+  product_id:string,
+  token: string
+) => {
+  try {
+    const product = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}products/${product_id}`,
+      {
+        name,
+        description,
+        price: Number(price),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token} `,
+        },
+      }
+    );
+    return product.data;
+  } catch (error) {
+    console.error("Error update product", error);
+  }
+};
+
+
+export const deleteProductByCourse = async (
+  product_id:string,
+  token: string
+) => {
+  try {
+    const product = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}products/${product_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token} `,
+        },
+      }
+    );
+    return product.data;
+  } catch (error) {
+    console.error("Error delete product", error);
+  }
+};
+
+
