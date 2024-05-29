@@ -1,5 +1,6 @@
 import { IModule } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -10,7 +11,12 @@ const getModules = async (): Promise<IModule[]> => {
       console.log("Error al traer los módulos");
     }
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
     throw new Error("Error al obtener los módulos");
   }
 };
@@ -24,7 +30,12 @@ const getModuleById = async (id: string): Promise<IModule> => {
       console.log("Error al traer el módulo");
     }
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
     throw new Error("Error al obtener el módulo");
   }
 };

@@ -1,101 +1,95 @@
 "use client";
 
-import CreateCourseColumn from "@/app/components/create-course/create-course-column";
+import ColumnAdmin from "@/app/components/column-admin";
 import CreateLessonModule from "@/app/components/create-course/create-lesson-module/CreateLessonModule";
 import CreateLessonButton from "@/app/components/create-course/create-lesson-module/order-lesson/create-lesson-button";
 import CreateModuleButton from "@/app/components/create-course/create-module/create-module-button";
 import { ICourse, IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCourseByIdDB } from "@/helpers/course.helpers";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { deleteModuleBD } from "@/helpers/createModule.helper";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 
-const CreateCourse: React.FC<{ params: { slug: string } }> = ({
-  params,
-}: {
-  params: { slug: string };
-}): JSX.Element => {
+const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
   const { token, payload } = useAuth();
-  const route = useRouter();
   const { slug } = params;
 
-  const [course, setCourses] = useState<ICourse>({
-    id: "",
-    title: "",
-    slug: "",
-    headline: "",
-    description: "",
-    image: "",
-    bg_image: "",
-    create_at: "",
-    updated_at: "",
-    deleted_at: "" || null,
-    modules: [
-      {
-        id: "",
-        title: "",
-        lessons: [
-          {
-            id: "",
-            title: "",
-          },
-        ],
-      },
-    ],
-    categories: [
-      {
-        name: "",
-        id: "",
-      },
-    ],
-  });
-  const [payloadParsed, setPayloadParse] = useState<IPayload>({
-    id: "",
-    email: "",
-    isAdmin: "",
-    sub: "",
-    iat: 0,
-    exp: 0,
-  });
+  const [course, setCourse] = useState<ICourse | null>(null);
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
-  useEffect(() => {
-    const getCourses = async () => {
+  const fetchCourse = useCallback(async () => {
+    try {
       const course: ICourse = await getCourseByIdDB(slug);
-      setCourses(course);
-    };
-    getCourses();
+      setCourse(course);
+    } catch (error) {
+      console.error("Error fetching course:", error);
+    }
   }, [slug]);
 
   useEffect(() => {
-    const payloadParse = async () => {
-      if (payload === Object(payload)) {
-        setPayloadParse(payload);
-      } else {
-        setPayloadParse(JSON.parse(payload));
+    fetchCourse();
+  }, [fetchCourse]);
+
+  useEffect(() => {
+    const parsePayload = () => {
+      if (payload) {
+        try {
+          const parsedPayload =
+            typeof payload === "string" ? JSON.parse(payload) : payload;
+          setPayloadParsed(parsedPayload);
+        } catch (error) {
+          console.error("Error parsing payload:", error);
+        }
       }
     };
-    payloadParse();
+    parsePayload();
   }, [payload]);
 
-  return token && payloadParsed?.isAdmin === "admin" ? (
+  const hasAccess =
+    token &&
+    (payloadParsed?.isAdmin === "admin" || payloadParsed?.role === "admin");
+
+  if (!hasAccess) {
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="text-xl">
+          No tiene las Credenciales para Acceder al sitio.
+        </h1>
+        <Link
+          className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5"
+          href="/"
+        >
+          Volver
+        </Link>
+      </div>
+    );
+  }
+
+  const deleteModule = async (module_id: string) => {
+    try {
+      await deleteModuleBD(module_id, token!);
+      fetchCourse(); // Refresca la lista de módulos después de eliminar
+    } catch (error) {
+      console.error("Error deleting module:", error);
+    }
+  };
+
+  return (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
-        <CreateCourseColumn />
+        <ColumnAdmin />
       </div>
       <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full mb-8">
         <h1 className="text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
-          Crear Modulos para el curso: {course.title}
+          Crear Modulos para el curso: {course?.title}
         </h1>
-        <div className="flex flex-col ">
-          <CreateModuleButton course={course} />
-          {/* <div className=" w-[50%] m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
-          <h2 className="text-[23px] mb-5 leading-6 ">Crear Nuevo Modulo</h2>
-            <CreateModuleForm courseId={course.id}/>
-          </div> */}
-
+        <div className="flex flex-col">
+          <CreateModuleButton course={course!} />
           <div className="w-full m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
-            <h2 className="text-[22px] leading-6 ">Este curso incluye:</h2>
-            {course.modules.map((module, index: number) => (
+            <h2 className="text-[22px] leading-6">Este curso incluye:</h2>
+            {course?.modules.map((module, index) => (
               <div
                 className="flex flex-col bg-purpleMainLighter rounded-xl border-2 border-purpleMain m-2 p-2"
                 key={index}
@@ -106,23 +100,36 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
                     <h3 className="mb-2 p-2 text-[20px]">{module.title}</h3>
                   </div>
                   <div className="flex flex-row items-center">
-                    <CreateLessonButton moduleId={module.id} />
-                    <button className=" mx-2 p-2 border-2 rounded-md border-gray-600 bg-blue-gray-200 hover:bg-blue-gray-100">
+                    <div className="flex-row m-2 relative group inline-block">
+                      <button
+                        onClick={() => deleteModule(module.id)}
+                        className="p-1 m-4 w-fit hover:bg-red-500 rounded-lg"
+                      >
+                        <FaTrashAlt className="text-[30px]" />
+                      </button>
+                      <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                        Eliminar Modulo
+                      </div>
+                    </div>
+
+                    <CreateLessonButton
+                      order_n={module.lessons.length}
+                      moduleId={module.id}
+                      fetchCourses={fetchCourse}
+                    />
+
+                    <button className="mx-2 p-2 border-2 rounded-md border-gray-600 bg-blue-gray-200 hover:bg-blue-gray-100">
                       Editar Modulo
                     </button>
                   </div>
                 </div>
-                <div>
-                  <CreateLessonModule id={module.id} content={module.lessons} />
-                </div>
+                <CreateLessonModule id={module.id} content={module.lessons} fetchCourses={fetchCourse}/>
               </div>
             ))}
           </div>
         </div>
       </div>
     </div>
-  ) : (
-    <>{route.push("/")}</>
   );
 };
 

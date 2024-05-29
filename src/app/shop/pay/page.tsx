@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { createInvoice } from "@/helpers/invoices.helper";
+import { MercadoPagoButton } from "../mercadopago/mercadopago";
 import { addCoins } from "@/helpers/user.helper";
 import { IProduct } from "@/app/types";
 import { useUserContext } from "@/context/UserContext";
@@ -15,18 +16,7 @@ import { useUserContext } from "@/context/UserContext";
 const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   const [paypal, setPaypal] = useState<PayPalNamespace | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [product, setProduct] = useState<IProduct>({
-    id: "",
-    name: "",
-    order: 0,
-    data: undefined,
-    price: 0,
-    imgUrl: "",
-    currency: "",
-    description: "",
-    polymorphicEntityType: "",
-    polymorphicEntityId: "",
-  });
+  const [product, setProduct] = useState<IProduct|null>(null);
   const { payload, token } = useAuth();
   const parsedPayloadRef = useRef<any>(null);
   const route = useRouter();
@@ -43,13 +33,14 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const product = await getProductById(searchParams.productId);
-        setProduct(product);
+        const productData = await getProductById(searchParams.productId);
+        setProduct(productData);
       } catch (error) {
         console.error("Error getting product", error);
         setError("Failed to get product. Please try again later.");
       }
     };
+    if(searchParams.productId)
     getProduct();
   }, [searchParams.productId]);
 
@@ -171,6 +162,7 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
         ) : paypal ? (
           <div className="flex w-full justify-center h-full">
             <div id="paypal-button-container"></div>
+            <MercadoPagoButton product={product}/>
           </div>
         ) : (
           <div>Cargando PayPal...</div>

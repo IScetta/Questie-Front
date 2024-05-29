@@ -1,6 +1,7 @@
 "use client";
 
 import ColumnProfile from "@/app/components/column-profile";
+import Progress from "@/app/components/progress/Progress";
 import { ICourse, IEnrolment, IPayload, IUser } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCoursesDB } from "@/helpers/course.helpers";
@@ -29,6 +30,9 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   });
 
   const [userCourses, setUserCourses] = useState<ICourse[]>([]);
+  const [userCoursesEnrolments, setUserCoursesEnrolments] = useState<
+    IEnrolment[]
+  >([]);
 
   useEffect(() => {
     if (!token || !payload) return;
@@ -63,6 +67,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
           userEnrolments?.some((enrolment) => enrolment.course === course.id)
         );
 
+        setUserCoursesEnrolments(userEnrolments);
         setUserCourses(userCourses);
       } catch (error: any) {
         console.log(error);
@@ -70,7 +75,7 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
     };
 
     fetchUser();
-  }, [token, slug, payload]);
+  }, [token, payload]);
 
   if (!token || !payload) {
     return (
@@ -97,23 +102,28 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
   return (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div>
-        <ColumnProfile userInfo={user} />
+        <ColumnProfile userInfo={user} userCourses={userCoursesEnrolments} />
       </div>
       <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full">
         <h1 className="text-4xl mt-18 font-bold">Continuar con los cursos</h1>
         {userCourses.length > 0 ? (
           userCourses.map((course) => (
             <div
-              key={course.id}
+              key={course?.id}
               className="flex flex-row w-full bg-blue-gray-50 mt-8 p-8 justify-between items-center rounded"
             >
-              <p className="text-xl font-semibold text-start">{course.title}</p>
-              <Link
-                href={`/course-review/${course.id}`}
-                className="bg-yellowMain text-purpleMain rounded-md px-4 py-2 text-xl text-end font-semibold"
-              >
-                Continuar
-              </Link>
+              <p className="text-xl font-semibold text-start">
+                {course?.title}
+              </p>
+              <div className="flex items-center">
+                <Progress courseId={course.id} userId={user.id} />
+                <Link
+                  href={`/course-review/${course?.id}`}
+                  className="bg-yellowMain text-purpleMain rounded-md px-4 py-2 text-xl font-semibold ml-4"
+                >
+                  Continuar
+                </Link>
+              </div>
             </div>
           ))
         ) : (

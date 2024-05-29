@@ -7,6 +7,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { UserProvider as UserProviderClient } from "@/context/UserContext";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import Sidebar from "./components/side-bar";
+import Chat from "./components/chat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,8 +35,11 @@ export default function RootLayout({
               <div className="flex sm:hidden md:hidden z-50 mb-10">
                 {/* <Sidebar /> */}
               </div>
+              
+              <Chat />
 
               {children}
+
               <Footer />
             </UserProviderClient>
           </AuthProvider>

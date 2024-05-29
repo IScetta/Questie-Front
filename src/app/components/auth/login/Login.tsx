@@ -55,8 +55,7 @@ const Login: React.FC = (): JSX.Element => {
       resetForm();
       router.push("/");
     } catch (error: any) {
-      console.error(error);
-      throw new Error("Error desconocido: " + error.message);
+      console.log(error);
     }
   };
 

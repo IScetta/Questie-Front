@@ -1,40 +1,40 @@
 "use client";
 
-import CreateCourseColumn from "@/app/components/create-course/create-course-column";
+import ColumnAdmin from "@/app/components/column-admin";
 import CreateCourseForm from "@/app/components/create-course/create-course-form";
 import { IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const CreateCourse: React.FC = (): JSX.Element => {
-  const [payloadParsed, setPayloadParse] = useState<IPayload>({
-    id: "",
-    email: "",
-    isAdmin: "",
-    sub: "",
-    iat: 0,
-    exp: 0,
-  });
+  const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
 
   const { token, payload } = useAuth();
-  const route = useRouter();
 
   useEffect(() => {
-    const payloadParse = async () => {
-      if (payload === Object(payload)) {
-        setPayloadParse(payload);
-      } else {
-        setPayloadParse(JSON.parse(payload));
+    const payloadParse = () => {
+      if (payload) {
+        if (typeof payload === "string") {
+          try {
+            const parsedPayload = JSON.parse(payload);
+            setPayloadParsed(parsedPayload);
+          } catch (error) {
+            console.error("Error parsing payload:", error);
+          }
+        } else {
+          setPayloadParsed(payload);
+        }
       }
     };
     payloadParse();
   }, [payload]);
 
-  return token && payloadParsed?.isAdmin === "admin" ? (
+  return (token && payloadParsed?.isAdmin === "admin") ||
+    payloadParsed?.role === "admin" ? (
     <div className="flex mx-[11.5rem] justify-center h-full">
       <div className="flex flex-grow-0">
-        <CreateCourseColumn />
+        <ColumnAdmin />
       </div>
       <div className="mt-10 w-full flex flex-col justify-center h-full mb-8">
         <h1 className="text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
@@ -46,7 +46,18 @@ const CreateCourse: React.FC = (): JSX.Element => {
       </div>
     </div>
   ) : (
-    <>{route.push("/")}</>
+    <div className=" flex flex-col justify-center items-center">
+      <h1 className=" text-xl">
+        {" "}
+        No tiene las Credenciales para Acceder al sitio.
+      </h1>
+      <Link
+        className="flex justify-center items-center bg-yellowMain rounded-md text-purpleMain h-10 w-52 ml-7 text-lg mt-5"
+        href={"/"}
+      >
+        Volver
+      </Link>
+    </div>
   );
 };
 

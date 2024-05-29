@@ -32,10 +32,10 @@ export interface IRegisterErrorForm {
   [key: string?]: string;
 }
 
-export interface ICreateModule{
+export interface ICreateModule {
   title: string;
   description: string;
-  course_id: string
+  course_id: string;
 }
 
 export interface ICategory {
@@ -44,6 +44,28 @@ export interface ICategory {
   image: string;
 }
 
+export interface ICourse {
+  id: string;
+  title: string;
+  slug: string;
+  headline: string;
+  description: string;
+  image: string;
+  bg_image: string;
+  assessment: number;
+  status: string;
+  isProduct: boolean;
+  create_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  modules: [IModule];
+  categories: [
+    {
+      name: string;
+      id: string;
+    }
+  ];
+}
 
 export interface IModule {
   id: string;
@@ -54,12 +76,7 @@ export interface IModule {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
-  lessons: [
-    {
-      id: string;
-      title: string;
-    }
-  ];
+  lessons: [ILesson];
   course: {
     id: string;
   };
@@ -84,6 +101,12 @@ export interface ILesson {
   contents: [string];
 }
 
+export interface ICreateLesson {
+  title: string;
+  xp: number;
+  coins: number;
+}
+
 export interface ICourse {
   id: string;
   title: string;
@@ -92,6 +115,9 @@ export interface ICourse {
   description: string;
   image: string;
   bg_image: string;
+  assessment: number;
+  status: string;
+  isProduct: boolean;
   create_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -148,10 +174,14 @@ export interface IInvoice {
 interface IPayload {
   id: string;
   email: string;
-  isAdmin: string;
-  sub: string;
-  iat: number;
-  exp: number;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  role?: string;
+  isAdmin?: string;
+  sub?: string;
+  iat?: number;
+  exp?: number;
 }
 
 export interface ICreateCourseForm {
@@ -198,9 +228,9 @@ export interface ICategory {
   deleted_at: string | null;
 }
 
-export interface ICreateLessonModule{
+export interface ICreateLessonModule {
   title: string;
-  id:string;
+  id: string;
 }
 
 export interface IEnrolment {
@@ -216,4 +246,16 @@ export interface IStats {
   coins: number;
   xp: number;
   user: string;
+}
+
+interface Question {
+  id: string;
+  text: string;
+  options: Option[];
+}
+
+interface Option {
+  id: string;
+  text: string;
+  correct: boolean;
 }

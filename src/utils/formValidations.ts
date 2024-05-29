@@ -22,8 +22,8 @@ const loginValidation = (input: ILoginForm): ILoginErrorForm => {
   if (!input.password) errors.password = "";
   else {
     if (!input.password) errors.password = "Debe ingresar una contraseña.";
-    if (input.password.length < 6)
-      errors.password = "La contraseña debe tener al menos 6 carácteres.";
+    if (input.password.length < 8)
+      errors.password = "La contraseña debe tener al menos 8 carácteres.";
   }
 
   return errors;
@@ -40,15 +40,15 @@ const registerValidation = (input: IRegisterForm): IRegisterErrorForm => {
   //* FIRSTNAME
   if (!input.firstName) errors.firstName = "Debe ingresar su nombre.";
   else {
-    if (input.firstName.length < 3)
-      errors.firstName = "El nombre debe tener al menos 3 carácteres.";
+    if (input.firstName.length < 5)
+      errors.firstName = "El nombre debe tener al menos 5 carácteres.";
   }
 
   //* LASTNAME
   if (!input.lastName) errors.lastName = "Debe ingresar su apellido.";
   else {
-    if (input.lastName.length < 3)
-      errors.lastName = "El apellido debe tener al menos 3 carácteres.";
+    if (input.lastName.length < 5)
+      errors.lastName = "El apellido debe tener al menos 5 carácteres.";
   }
 
   //* BIRTHDATE
@@ -84,7 +84,7 @@ const registerValidation = (input: IRegisterForm): IRegisterErrorForm => {
       !passNumRegExp.test(input.password)
     ) {
       errors.password =
-        "La contraseña debe tener al menos una minúscula, una mayúscula y un número.";
+        "La contraseña debe tener al menos una mayúscula, una minúscula y un número.";
     } else {
       if (!passSpecialCharRegExp.test(input.password)) {
         errors.password =

@@ -19,7 +19,7 @@ const ButtonNavbar: React.FC = (): JSX.Element => {
         try {
           const res = await saveUserDB(auth0User);
           setLoading(false);
-          setToken(res?.data.token, res?.data.userExists);
+          setToken(res?.data.token, res?.data.user);
         } catch (error) {
           console.error("Error saving user:", error);
         }
