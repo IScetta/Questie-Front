@@ -12,7 +12,7 @@ const CategoryCard = ({ name, image }: ICategory) => {
             alt={name}
             width={1000}
             height={1000}
-            className="w-full h-full"
+            className="w-full h-full object-cover"
           />
         </div>
         <div className="bg-purpleMain w-full h-6 flex items-end px-1 content-center">
