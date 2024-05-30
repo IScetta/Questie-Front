@@ -68,6 +68,8 @@ const ProfileButton: React.FC = (): JSX.Element => {
     router.push("/api/auth/logout");
   };
 
+  console.log(userStats);
+
   return (
     <div className="flex items-center justify-center space-x-6">
       <div className="text-yellowMain p-1 rounded-full relative select-none">

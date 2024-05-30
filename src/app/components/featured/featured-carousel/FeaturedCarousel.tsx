@@ -1,5 +1,5 @@
 "use client";
-// Import Swiper React components
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination, Zoom } from "swiper/modules";
 import FeaturedCard from "../featured-card";
@@ -8,8 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const FeaturedCarousel = ({courses}:any) => {
-  
+const FeaturedCarousel = ({ courses }: any) => {
   return (
     <div className="flex flex-col justify-center w-full h-auto border-2 shadow-[0_5px_15px_0px_#00000042] my-4">
       <h1 className="p-[20px] text-[20px] font-bold bg-purpleMainLighter">
@@ -58,15 +57,11 @@ const FeaturedCarousel = ({courses}:any) => {
               },
             }}
           >
-            
-            {courses.map((course:any,index:any)=>(
+            {courses.map((course: any, index: any) => (
               <SwiperSlide key={index}>
-              <FeaturedCard course={course}/>{" "}
-            </SwiperSlide>
+                <FeaturedCard course={course} />{" "}
+              </SwiperSlide>
             ))}
-
-            
-            
           </Swiper>
         </div>
         <div className="pagination flex justify-center items-center m-2" />

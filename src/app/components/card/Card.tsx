@@ -34,6 +34,7 @@ const Card = ({
           width={300}
           height={300}
         />
+        {courseId ? <Assessment courseId={courseId} userId={""} /> : <></>}
         <h5 className="text-xl font-bold tracking-tight text-gray-900 truncate line-clamp-1 text-pretty">
           {title}
         </h5>
@@ -41,13 +42,12 @@ const Card = ({
       {children && <div className="w-full h-1/2">{children}</div>}
       <div
         id="card-footer"
-        className="w-full flex justify-between items-center"
+        className="w-full flex flex-col justify-between items-center"
       >
         {/* Condicionamos la renderización del Assessment */}
-        {courseId ? <Assessment courseId={courseId} userId={""} /> : <></>}
         {buttonLink && buttonLabel && (
-          <Link href={buttonLink}>
-            <button className="bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg font-semibold">
+          <Link href={buttonLink} className="w-full">
+            <button className="w-full bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg font-semibold">
               {buttonLabel}
             </button>
           </Link>

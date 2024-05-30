@@ -27,7 +27,7 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
         <Slider
           data={courses}
           cardButtonLink="/course-review"
-          cardButtonLabel="View Course"
+          cardButtonLabel="Ver Curso"
           elementsPerSlide={1}
         />
       </div>
@@ -41,7 +41,7 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
         <Slider
           data={courses}
           cardButtonLink="/course-review"
-          cardButtonLabel="View Course"
+          cardButtonLabel="Ver Curso"
           elementsPerSlide={2}
         />
       </div>
@@ -55,7 +55,7 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
         <Slider
           data={courses}
           cardButtonLink="/course-review"
-          cardButtonLabel="View Course"
+          cardButtonLabel="Ver Curso"
           elementsPerSlide={3}
         />
       </div>

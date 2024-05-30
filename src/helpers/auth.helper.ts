@@ -15,6 +15,7 @@ const signin = async (input: ILoginForm): Promise<ILoginForm | undefined> => {
         },
       }
     );
+
     if (res.status === 200 || res.data.message === "Login successful") {
       const token = res.data.token; // Reemplaza esto con tu token JWT
 
@@ -29,11 +30,10 @@ const signin = async (input: ILoginForm): Promise<ILoginForm | undefined> => {
     }
   } catch (error: any) {
     Swal.fire({
-      title: 'Oops...',
+      title: "Oops...",
       text: error.response.data.message,
-      icon: 'error'
-    })
-    throw new Error(error);
+      icon: "error",
+    });
   }
 };
 
@@ -57,10 +57,10 @@ const signup = async (
     }
   } catch (error: any) {
     Swal.fire({
-      title: 'Oops...',
+      title: "Oops...",
       text: error.response.data.message,
-      icon: 'error'
-    })
+      icon: "error",
+    });
     throw new Error(error);
   }
 };
