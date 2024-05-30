@@ -5,8 +5,8 @@ import Cookies from "js-cookie";
 
 interface IAuthContext {
   token: string | null;
-  payload: any | null; // Nuevo campo para almacenar el payload
-  setToken: (token: string | null, payload: any | null) => void; // Actualizado para aceptar payload
+  payload: string | null; // Nuevo campo para almacenar el payload
+  setToken: (token: string | null, payload: string | null) => void; // Actualizado para aceptar payload
 }
 
 interface IAuthProviderProps {
@@ -21,7 +21,7 @@ const AuthContext = createContext<IAuthContext>({
 
 export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const [token, setTokenState] = useState<string | null>(null);
-  const [payload, setPayload] = useState<any | null>(null); // Estado para almacenar el payload
+  const [payload, setPayload] = useState<string | null>(null); // Estado para almacenar el payload
 
   const getTokenFromCookies = () => {
     const token = Cookies.get("token");
@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     }
   };
 
-  const setToken = (token: string | null, payload: any | null) => {
+  const setToken = (token: string | null, payload: string | null) => {
     setTokenState(token);
     setPayload(payload); // Actualizar el estado del payload
   };

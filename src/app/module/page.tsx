@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 const Module = () => {
-  return redirect("/categories");
+  return redirect("/");
 };
 
 export default Module;

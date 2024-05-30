@@ -1,5 +1,6 @@
 import { ILoginForm, IRegisterForm } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -14,6 +15,7 @@ const signin = async (input: ILoginForm): Promise<ILoginForm | undefined> => {
         },
       }
     );
+
     if (res.status === 200 || res.data.message === "Login successful") {
       const token = res.data.token; // Reemplaza esto con tu token JWT
 
@@ -27,8 +29,11 @@ const signin = async (input: ILoginForm): Promise<ILoginForm | undefined> => {
       throw new Error("Failed to login");
     }
   } catch (error: any) {
-    console.log(error.message);
-    throw new Error(error);
+    Swal.fire({
+      title: "Oops...",
+      text: error.response.data.message,
+      icon: "error",
+    });
   }
 };
 
@@ -51,6 +56,11 @@ const signup = async (
       throw new Error("Failed to register");
     }
   } catch (error: any) {
+    Swal.fire({
+      title: "Oops...",
+      text: error.response.data.message,
+      icon: "error",
+    });
     throw new Error(error);
   }
 };

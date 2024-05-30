@@ -1,1 +1,1 @@
-export {default} from "./ContentSubTtitle"
+export { default } from "./ContentSubTitle";

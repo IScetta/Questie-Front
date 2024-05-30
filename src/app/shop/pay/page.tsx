@@ -8,14 +8,22 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { createInvoice } from "@/helpers/invoices.helper";
+import { MercadoPagoButton } from "../mercadopago/mercadopago";
+import { addCoins } from "@/helpers/user.helper";
+import { IProduct } from "@/app/types";
+import { useUserContext } from "@/context/UserContext";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   const [paypal, setPaypal] = useState<PayPalNamespace | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<IProduct | null>(null);
   const { payload, token } = useAuth();
   const parsedPayloadRef = useRef<any>(null);
   const route = useRouter();
+  const { fetchUserStats } = useUserContext();
+  const [showPaypal, setShowPaypal] = useState(false);
+  const [showMercadoPago, setShowMercadoPago] = useState(false);
 
   useEffect(() => {
     if (typeof payload === "string") {
@@ -28,14 +36,14 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const product = await getProductById(searchParams.productId);
-        setProduct(product);
+        const productData = await getProductById(searchParams.productId);
+        setProduct(productData);
       } catch (error) {
         console.error("Error getting product", error);
         setError("Failed to get product. Please try again later.");
       }
     };
-    getProduct();
+    if (searchParams.productId) getProduct();
   }, [searchParams.productId]);
 
   useEffect(() => {
@@ -62,6 +70,7 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
       paypal &&
       paypal.Buttons &&
       product &&
+      product.price > 0 &&
       token &&
       parsedPayloadRef.current
     ) {
@@ -93,20 +102,30 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
                 token!
               );
 
+              if (product.data?.type === "coins") {
+                const response = await addCoins(
+                  token!,
+                  parsedPayloadRef.current.id,
+                  product.data?.qty!
+                );
+              }
+
+              fetchUserStats();
+
               route.push(`/invoices?id=${invoice}`);
             },
           })
           .render("#paypal-button-container");
       }
     }
-  }, [paypal, product, token, route]);
+  }, [paypal, product, token, route, fetchUserStats]);
 
   if (error) {
     return <div>{error}</div>;
   }
 
   return (
-    <div className="flex justify-center my-8 items-center">
+    <div className="flex justify-center my-8 items-center select-none">
       <div className="flex flex-col w-1/4 justify-between border shadow-xl rounded-lg p-4">
         {product ? (
           <div className="flex flex-col justify-start items-left mb-4 space-y-4 border-b pb-4">
@@ -142,12 +161,81 @@ const Payment = ({ searchParams }: { searchParams: { productId: string } }) => {
               Iniciar sesión
             </button>
           </div>
-        ) : paypal ? (
-          <div className="flex w-full justify-center h-full">
-            <div id="paypal-button-container"></div>
-          </div>
         ) : (
-          <div>Cargando PayPal...</div>
+          <>
+            <div className="flex flex-col w-full justify-center items-center h-full select-none">
+              <div
+                onClick={() => {
+                  if (showPaypal) setShowPaypal(false);
+                  else {
+                    setShowPaypal(true);
+                    setShowMercadoPago(false);
+                  }
+                }}
+                className="hover:bg-gray-200 flex w-full p-4 m-1 cursor-pointer rounded-lg justify-between items-center"
+              >
+                <p>Paypal</p>
+                {showPaypal ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </div>
+              <div>
+                {paypal ? (
+                  <div
+                    className={
+                      `flex-col w-full justify-center items-center h-full transition-opacity ease-in-out delay-150 duration-300` +
+                      (showPaypal ? " flex opacity-100" : "hidden opacity-0")
+                    }
+                  >
+                    <div
+                      id="paypal-button-container"
+                      className={showPaypal ? " flex" : "hidden"}
+                    ></div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col w-full justify-center items-center h-full animate-pulse">
+                    <div className="h-12 w-32 bg-gray-200"></div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-col w-full justify-center items-center h-full select-none">
+              <div
+                onClick={() => {
+                  if (showMercadoPago) setShowMercadoPago(false);
+                  else {
+                    setShowMercadoPago(true);
+                    setShowPaypal(false);
+                  }
+                }}
+                className="hover:bg-gray-200 flex w-full p-4 m-1 cursor-pointer rounded-lg justify-between items-center"
+              >
+                <p>MercadoPago</p>
+                {showMercadoPago ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </div>
+              <div>
+                {paypal ? (
+                  <div
+                    className={
+                      `flex-col w-full justify-center items-center h-full transition-opacity ease-in-out delay-150 duration-300` +
+                      (showMercadoPago
+                        ? " flex opacity-100"
+                        : "hidden opacity-0")
+                    }
+                  >
+                    <div className="flex flex-col w-full justify-center items-center h-full">
+                      <div className={showMercadoPago ? " flex" : "hidden"}>
+                        <MercadoPagoButton product={product} />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col w-full justify-center items-center h-full animate-pulse">
+                    <div className="h-12 w-32 bg-gray-200"></div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>

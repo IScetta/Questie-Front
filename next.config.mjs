@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       { hostname: "19604448.fs1.hubspotusercontent-na1.net" },
       { hostname: "bairesdev.mo.cloudinary.net" },
@@ -13,6 +14,7 @@ const nextConfig = {
       { hostname: "placehold.co" },
       { hostname: "avatars.githubusercontent.com" },
       { hostname: "s.gravatar.com" },
+      { hostname: "lh3.googleusercontent.com" },
     ],
   },
 };

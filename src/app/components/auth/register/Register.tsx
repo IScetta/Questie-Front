@@ -54,8 +54,7 @@ const Register: React.FC = (): JSX.Element => {
       alert(`Registro exitoso, Bienvenido/a ${input.firstName}`);
       router.push("/sign-in");
     } catch (error: any) {
-      alert("Error al registrar usuario: " + error.message);
-      throw new Error("Error desconocido: " + error.message);
+      console.log(error)
     }
   };
 
