@@ -30,12 +30,11 @@ const CreateLessonModule = ({
 }: {
   content:any;
   id: string;
-  fetchCourses: any;
+  fetchCourses: ()=>void;
 }) => {
   const { token } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isOrder, setIsOrder] = useState(false);
-  const [isReady, setIsReady] = useState(false);
   const [lessonOrder, setLessonOrder] = useState<ILesson[]>(content);
   const [allLessons, setAllLessons] = useState<ILesson[]>([]);
   const [lessons, setLessons] = useState<ILesson[]>([]);
@@ -90,7 +89,7 @@ const CreateLessonModule = ({
           icon: "success"
         });
         fetchCourses(); 
-        window.location.reload();
+        // window.location.reload();
         if (!response) throw new Error("Error al eliminar la lección");
       }
       
@@ -111,6 +110,11 @@ const CreateLessonModule = ({
 
     try {
       const response = await putLessonOrder(listLesson, token!)
+      Swal.fire({
+        title: "¡Leccion Actualizada!",
+        text: "La leccion fue actualizada con exito.",
+        icon: "success"
+      });
       if (!response) throw new Error("Error al actualizar la lección");
       setIsOrder(!isOrder)
     } catch (error) {
@@ -135,6 +139,11 @@ const CreateLessonModule = ({
     
     try {
       const response = await putLessonOrder(listLesson, token!)
+      Swal.fire({
+        title: "¡Lecciones Ordenadas!",
+        text: "Las lecciones fue ordenadas con exito.",
+        icon: "success"
+      });
       if (!response) throw new Error("Error al actualizar la lección");
       window.location.reload();
     } catch (error) {

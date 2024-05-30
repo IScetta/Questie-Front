@@ -10,12 +10,12 @@ const CreateLessonForm = ({
   module_id,
   order,
   onClose,
-  fetchCourses
+  fetchCourse
 }: {
   module_id: string;
   order: number;
   onClose: () => void;
-  fetchCourses:() => void
+  fetchCourse:() => void
 }): JSX.Element => {
   const initialState: ICreateLesson = {
     title: "",
@@ -45,8 +45,8 @@ const CreateLessonForm = ({
     try {
       // console.log(input.coins)
       Swal.fire({
-        title: "Leccion Creada!",
-        text: "La leccion fue creada con exito!",
+        title: "¡Leccion Creada!",
+        text: "La leccion fue creada con exito.",
         icon: "success"
       });
       const response = await postCreateLesson(
@@ -58,9 +58,9 @@ const CreateLessonForm = ({
         token!
       );
       if (!response) throw new Error("Error al intentar crear leccion");
-      // fetchCourses
-      // onClose
-      window.location.reload();
+      fetchCourse()
+      onClose()
+      // window.location.reload();
     } catch (error: any) {
       console.error(error);
     }
