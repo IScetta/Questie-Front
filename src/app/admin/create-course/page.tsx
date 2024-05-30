@@ -37,7 +37,7 @@ const CreateCourse: React.FC = (): JSX.Element => {
         <ColumnAdmin />
       </div>
       <div className="mt-10 w-full flex flex-col justify-center h-full mb-8">
-        <h1 className="text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
+        <h1 className="flex justify-center text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
           Crear Nuevo Curso
         </h1>
         <div className=" flex flex-col w-[50%] ml-[25%] p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">

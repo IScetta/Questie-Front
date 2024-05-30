@@ -71,7 +71,7 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
   const deleteModule = async (module_id: string) => {
     try {
       await deleteModuleBD(module_id, token!);
-      fetchCourse(); 
+      fetchCourse();
     } catch (error) {
       console.error("Error deleting module:", error);
     }
@@ -83,11 +83,27 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
         <ColumnAdmin />
       </div>
       <div className="ml-10 mt-10 w-full flex flex-col justify-start h-full mb-8">
-        <h1 className="text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
-          Crear Modulos para el curso: {course?.title}
+        <h1 className="flex justify-center text-[24px] m-4 p-2 bg-purpleMainLighter rounded-xl">
+          Editar Contenido para el curso: {course?.title}
         </h1>
         <div className="flex flex-col">
-          <CreateModuleButton course={course!} />
+          <div className="flex flex-row justify-around">
+            <CreateModuleButton course={course!} />
+
+            <div className="flex-row m-2 relative group inline-block">
+              <Link
+                href={`/admin/edit-categories/${course?.id}`}
+                className="flex w-fit p-2 m-2 rounded-md border-2 border-purpleMain bg-yellowMain hover:bg-yellowMainLight text-[20px] "
+              >
+                Editar Categorias
+              </Link>
+              <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 shadow-[0_5px_15px_0px_#00000042] bg-white text-xl rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                <h3 className="border-b-2 border-gray-400 p-2 m-2">Categorias:</h3>{course?.categories.map((category,index)=>(
+                  <div className="text-[18px] p-2 m-2" key={index}>{category.name}</div>
+                ))}
+              </div>
+            </div>
+          </div>
           <div className="w-full m-6 p-4 bg-white rounded-xl border-2 shadow-[0_5px_15px_0px_#00000042]">
             <h2 className="text-[22px] leading-6">Este curso incluye:</h2>
             {course?.modules.map((module, index) => (
@@ -119,11 +135,14 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
                       fetchCourses={fetchCourse}
                     />
 
-                      <EditModule module={module}/>
-
+                    <EditModule module={module} />
                   </div>
                 </div>
-                <CreateLessonModule id={module.id} content={module.lessons} fetchCourses={fetchCourse}/>
+                <CreateLessonModule
+                  id={module.id}
+                  content={module.lessons}
+                  fetchCourses={fetchCourse}
+                />
               </div>
             ))}
           </div>
