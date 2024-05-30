@@ -19,12 +19,18 @@ const ModuleCourseCard = ({ course }: { course: ICourse }) => {
             width={1000}
             height={1000}
           />
-          <Link
-            href={`/module/${course.modules[0].id}`}
-            className="text-[22px] font-semibold leading-6 p-2 cursor-pointer hover:underline"
-          >
-            {course?.modules[0]?.title}
-          </Link>
+          {course.modules.length > 0 ? (
+            <Link
+              href={`/module/${course.modules[0].id}`}
+              className="text-[22px] font-semibold leading-6 p-2 cursor-pointer hover:underline"
+            >
+              {course?.modules[0]?.title}
+            </Link>
+          ) : (
+            <div className="text-[22px] font-semibold leading-6 p-2 cursor-pointer hover:underline">
+              No hay módulos
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-3 w-full text-start">
           {course?.modules[0]?.lessons?.length >= 1
