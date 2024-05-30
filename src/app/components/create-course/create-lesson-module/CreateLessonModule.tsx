@@ -261,7 +261,7 @@ const CreateLessonModule = ({
                           )}
                         </div>
                         <Link
-                          href={`admin/create-lesson/${lesson.id}`}
+                          href={`/admin/create-lesson/${lesson.id}`}
                           className="p-2 m-4 w-fit text-[18px] bg-yellowMain rounded-lg"
                         >
                           Editar contenido

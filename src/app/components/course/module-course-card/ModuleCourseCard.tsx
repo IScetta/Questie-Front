@@ -11,6 +11,7 @@ const ModuleCourseCard = ({ course }: { course: ICourse }) => {
   return (
     <div className="relative ">
       <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
+        
         <div className="flex items-center p-8 border-b-2 border-gray-700">
           <Image
             className="w-12 h-12 rounded-full object-cover"
