@@ -58,9 +58,12 @@ const CreateLessonForm = ({
         token!
       );
       if (!response) throw new Error("Error al intentar crear leccion");
-      fetchCourse()
-      onClose()
-      // window.location.reload();
+      if(response){
+        onClose()
+        // fetchCourse()
+        window.location.reload();
+      }
+      // 
     } catch (error: any) {
       console.error(error);
     }

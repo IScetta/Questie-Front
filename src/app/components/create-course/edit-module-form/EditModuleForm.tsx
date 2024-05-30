@@ -24,9 +24,6 @@ const EditModuleForm = ({
     }
   }, [module.id]);
 
-  useEffect(() => {
-    fetchModule();
-  }, [fetchModule]);
 
   useEffect(() => {
     if (moduleData) {

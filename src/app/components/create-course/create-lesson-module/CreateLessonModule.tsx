@@ -59,9 +59,7 @@ const CreateLessonModule = ({
     }
   }, [token]);
 
-  useEffect(() => {
-    fetchLessons();
-  }, [fetchLessons]);
+
 
   useEffect(() => {
     const actLesson = allLessons.filter((lesson) =>
