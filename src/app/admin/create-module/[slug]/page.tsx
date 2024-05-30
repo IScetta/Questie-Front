@@ -1,5 +1,6 @@
 "use client";
 
+
 import ColumnAdmin from "@/app/components/column-admin";
 import CreateLessonModule from "@/app/components/create-course/create-lesson-module/CreateLessonModule";
 import CreateLessonButton from "@/app/components/create-course/create-lesson-module/order-lesson/create-lesson-button";
@@ -12,6 +13,7 @@ import { deleteModuleBD } from "@/helpers/createModule.helper";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
   const { token, payload } = useAuth();
@@ -70,8 +72,25 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
 
   const deleteModule = async (module_id: string) => {
     try {
-      await deleteModuleBD(module_id, token!);
-      fetchCourse();
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Sí, eliminarlo!"
+      });
+
+      if (result.isConfirmed) {
+        await deleteModuleBD(module_id, token!);
+        Swal.fire({
+          title: "¡Eliminado!",
+          text: "El Modulo ha sido eliminadas.",
+          icon: "success"
+        });
+        fetchCourse(); // Actualizar el curso después de eliminar el módulo
+      }
     } catch (error) {
       console.error("Error deleting module:", error);
     }

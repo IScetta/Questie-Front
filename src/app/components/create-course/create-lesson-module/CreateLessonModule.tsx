@@ -20,6 +20,7 @@ import { deleteLessonBD } from "@/helpers/createLesson";
 import { useAuth } from "@/context/AuthContext";
 import EditLessonModal from "../edit-lesson-modal";
 import { getLessons, putLessonOrder } from "@/helpers/lesson.helper";
+import Swal from "sweetalert2";
 
 
 const CreateLessonModule = ({
@@ -71,9 +72,29 @@ const CreateLessonModule = ({
 
   const deleteLesson = async (lesson_id: string) => {
     try {
-      const response = await deleteLessonBD(lesson_id, token!);
-      fetchCourses();
-      if (!response) throw new Error("Error al eliminar la lección");
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Sí, eliminarlo!"
+      });
+      
+      if (result.isConfirmed) {
+        const response = await deleteLessonBD(lesson_id, token!);
+        Swal.fire({
+          title: "¡Eliminado!",
+          text: "La leccion ha sido eliminada.",
+          icon: "success"
+        });
+        fetchCourses(); 
+        window.location.reload();
+        if (!response) throw new Error("Error al eliminar la lección");
+      }
+      
+      
     } catch (error) {
       console.error("Error deleting lesson:", error);
     }
