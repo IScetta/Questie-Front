@@ -1,5 +1,7 @@
-import { ICourse, IModule } from "@/app/types";
+import { ICourse, IModule, IProduct } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
+import Swal from "sweetalert2";
+import { getAllCourseProducts } from "./products.helper";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,8 +14,13 @@ export const getCourseByIdDB = async (id: string): Promise<ICourse> => {
       console.log("Error al traer los cursos");
     }
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+    Swal.fire({
+      title: "Oops...",
+      text: error.response.data.message,
+      icon: "error",
+    });
     throw new Error("Error al obtener el curso por id");
   }
 };
@@ -31,8 +38,13 @@ export const getCoursesDB = async (
       courses = courses.filter((course) => course.status === "complete");
     }
     return courses;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+    Swal.fire({
+      title: "Oops...",
+      text: error.response.data.message,
+      icon: "error",
+    });
     throw new Error("Error al obtener todos los cursos");
   }
 };
@@ -50,8 +62,35 @@ export const getCourseModules = async (
     }
 
     return res.data.modules;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+    Swal.fire({
+      title: "Oops...",
+      text: error.response.data.message,
+      icon: "error",
+    });
+    throw new Error("Error al obtener los módulos");
+  }
+};
+
+export const getCourseProductById = async (courseId: string) => {
+  try {
+    const products = await getAllCourseProducts();
+
+    const courseProduct = products.find(
+      (product: IProduct) =>
+        product.polymorphicEntityType === "Course" &&
+        product.polymorphicEntityId === courseId
+    );
+
+    return courseProduct;
+  } catch (error: any) {
+    console.log(error);
+    Swal.fire({
+      title: "Oops...",
+      text: error.response.data.message,
+      icon: "error",
+    });
     throw new Error("Error al obtener los módulos");
   }
 };

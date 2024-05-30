@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Login: React.FC = (): JSX.Element => {
   const router = useRouter();
@@ -49,14 +50,22 @@ const Login: React.FC = (): JSX.Element => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
+
       const response = await signin(input);
+
       if (!response) throw new Error(`Error al intentar iniciar sesión`);
+
       setToken(response.token, response.payload);
+
       resetForm();
+
       router.push("/");
     } catch (error: any) {
-      console.error(error);
-      throw new Error("Error desconocido: " + error.message);
+      Swal.fire({
+        title: "Oops...",
+        text: error.message,
+        icon: "error",
+      });
     }
   };
 

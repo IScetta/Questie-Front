@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { postCreateModule } from "@/helpers/createModule.helper";
 
 import { useState } from "react";
@@ -11,6 +12,8 @@ const CreateCourseForm = ({
   courseId: string;
   onClose: any;
 }): JSX.Element => {
+  const {token} = useAuth()
+
   const initialState = {
     title: "",
     description: "",
@@ -33,14 +36,12 @@ const CreateCourseForm = ({
     event.preventDefault();
 
     try {
-      const token_preload =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjZWNhMDRlLTFlZDQtNDliNy04ZTAxLTY2ZTc5ZWNlYjIzOCIsImVtYWlsIjoiam9obkRvZUBnbWFpbC5jb20iLCJpc0FkbWluIjoiYWRtaW4iLCJzdWIiOiI3Y2VjYTA0ZS0xZWQ0LTQ5YjctOGUwMS02NmU3OWVjZWIyMzgiLCJpYXQiOjE3MTYzODgyOTcsImV4cCI6MTcxNjM5NTQ5N30.OuDzjcgS0cWXVgogDsG6P9KBVAmKz-EX2p7DLqcOrdc";
-      console.log(input.title, input.description);
+
       const response = await postCreateModule(
         input.title,
         input.description,
         courseId,
-        token_preload
+        token!
       );
 
       if (!response) throw new Error("Error al intentar crear modulo");
@@ -88,13 +89,15 @@ const CreateCourseForm = ({
         />
       </div>
       <div className="flex flex-row justify-center">
-        <button 
-        className=" items-center bg-yellowMain border-2 hover:bg-yellowMainLight rounded-md border-purpleMain text-purpleMain h-10 mx-7 p-2 text-lg mt-5">
-          Crear
+      <button
+          type="submit"
+          className="items-center bg-yellowMain border-2 hover:bg-yellowMainLight border-purpleMain text-purpleMain h-fit mx-7 px-4 py-2 text-lg mt-5"
+        >
+          Guardar
         </button>
         <button
           onClick={onClose}
-          className=" items-center border-2 border-black bg-gray-500 hover:bg-gray-400 mx-7 p-2 h-10 text-lg text-white mt-5 rounded-md"
+          className="items-center border-2 border-black bg-gray-500 hover:bg-gray-400 mx-7 px-4 py-2 h-fit text-lg text-white mt-5"
         >
           Cancelar
         </button>

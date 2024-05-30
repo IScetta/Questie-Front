@@ -15,6 +15,7 @@ const config: Config = withMT({
         image: "#747474",
         whiteColumn: "#FFFFFF",
         purpleMain: "#563073",
+        purpleMainMedium: "#8450AC",
         purpleMainLight: "#C09AE6",
         purpleMainLighter: "#D8C2F0",
         yellowMain: "#FFD700",

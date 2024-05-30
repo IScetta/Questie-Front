@@ -1,5 +1,6 @@
 import { IEnrolment } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -29,6 +30,11 @@ export const checkEnrolment = async (
     return courseEnrolments.includes(courseId);
   } catch (error: any) {
     console.log(error.message);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
     throw new Error(error);
   }
 };
@@ -38,27 +44,37 @@ export const createEnrolment = async (
   courseId: string,
   userId: string
 ) => {
-  if (!token) {
-    return null;
-  }
-
-  const response = await axios.post(
-    `${API_URL}enrolments`,
-    {
-      courseId,
-      userId,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  try {
+    if (!token) {
+      return null;
     }
-  );
-
-  if (response.status === 201) {
-    return response.data.id;
-  } else {
-    return null;
+  
+    const response = await axios.post(
+      `${API_URL}enrolments`,
+      {
+        courseId,
+        userId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  
+    if (response.status === 201) {
+      return response.data.id;
+    } else {
+      return null;
+    }
+  } catch (error: any) {
+    console.log(error)
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
+    
   }
 };
 
@@ -83,30 +99,36 @@ export const getEnrolmentsByUser = async (
     (enrolment: IEnrolment) => enrolment.user === userId
   );
 
-  if (response.status === 200) {
-    return userEnrolments;
-  } else {
-    return null;
-  }
+  if (response.status === 200) return userEnrolments;
+  return null;
 };
 
 export const getEnrolmentById = async (
   token: string | null,
   enrolmentId: string
 ) => {
-  if (!token) {
-    return null;
-  }
-
-  const response = await axios.get(`${API_URL}enrolments/${enrolmentId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (response.status === 200) {
-    return response.data;
-  } else {
-    return null;
+  try {
+    if (!token) {
+      return null;
+    }
+  
+    const response = await axios.get(`${API_URL}enrolments/${enrolmentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (error: any) {
+    console.log(error)
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
   }
 };

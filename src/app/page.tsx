@@ -3,13 +3,9 @@ import Carousel from "./components/carousel";
 import CategoriesCards from "./components/categories/categories-cards/CategoriesCards";
 import Slider from "./components/slider";
 import LandingLogin from "./components/landing-login";
-import saveUserDB from "@/helpers/saveUserDB.helper";
 
-const Home: React.FC = async () => {
+const Home: React.FC = async (): Promise<JSX.Element> => {
   const courses = await getCoursesDB();
-  // const user = await saveUserDB();
-
-  // console.log("user", user);
 
   return (
     <div className="flex flex-col justify-center items-center mx-[2rem] md:mx-[5rem] lg:mx-[11.5rem]">
@@ -31,7 +27,7 @@ const Home: React.FC = async () => {
         <Slider
           data={courses}
           cardButtonLink="/course-review"
-          cardButtonLabel="View Course"
+          cardButtonLabel="Ver Curso"
           elementsPerSlide={1}
         />
       </div>
@@ -45,7 +41,7 @@ const Home: React.FC = async () => {
         <Slider
           data={courses}
           cardButtonLink="/course-review"
-          cardButtonLabel="View Course"
+          cardButtonLabel="Ver Curso"
           elementsPerSlide={2}
         />
       </div>
@@ -59,7 +55,7 @@ const Home: React.FC = async () => {
         <Slider
           data={courses}
           cardButtonLink="/course-review"
-          cardButtonLabel="View Course"
+          cardButtonLabel="Ver Curso"
           elementsPerSlide={3}
         />
       </div>

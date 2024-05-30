@@ -1,30 +1,35 @@
 "use client";
 
+import { ICourse } from "@/app/types";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 
-const ModuleCourseCard = ({ course }: any) => {
+const ModuleCourseCard = ({ course }: { course: ICourse }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="relative ">
       <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
         <div className="flex items-center p-8 border-b-2 border-gray-700">
           <Image
-            className=" rounded-full"
+            className="w-12 h-12 rounded-full"
             src={course.image}
             alt="program"
-            width={50}
-            height={50}
+            width={1000}
+            height={1000}
           />
-          <h2 className="text-[22px] leading-6 p-2 cursor-pointer">
+          <Link
+            href={`/module/${course.modules[0].id}`}
+            className="text-[22px] font-semibold leading-6 p-2 cursor-pointer hover:underline"
+          >
             {course?.modules[0]?.title}
-          </h2>
+          </Link>
         </div>
-        <div className="flex flex-wrap w-[80%]">
+        <div className="grid grid-cols-3 w-full text-start">
           {course?.modules[0]?.lessons?.length >= 1
             ? course?.modules[0]?.lessons?.map((lesson: any, index: any) => (
-                <h3 className="p-2 mx-8 text-[18px]" key={index}>
+                <h3 className="m-2 mx-8 text-[18px] line-clamp-1" key={index}>
                   {lesson.title}
                 </h3>
               ))
@@ -35,26 +40,32 @@ const ModuleCourseCard = ({ course }: any) => {
       <div>
         {isOpen ? (
           <div className=" bg-white shadow-md  w-full">
-            {course?.modules >= 1 ? (
+            {course?.modules.length >= 1 ? (
               course?.modules?.map((module: any, index: any) => (
                 <div key={index} className="">
                   {index !== 0 && (
-                    <div className="m-6 p-4  bg-purpleMainLighter rounded-xl  shadow-[0_5px_15px_0px_#00000042]">
+                    <div className="m-6 p-4 bg-purpleMainLighter rounded-xl shadow-[0_5px_15px_0px_#00000042]">
                       <div className="flex items-center p-8 border-b-2 border-gray-700">
                         <Image
-                          className=" rounded-full"
+                          className="w-12 h-12 rounded-full"
                           src={course.image}
                           alt="program"
-                          width={50}
-                          height={50}
+                          width={1000}
+                          height={1000}
                         />
-                        <h2 className="text-[22px] leading-6 p-2 cursor-pointer">
+                        <Link
+                          href={`/module/${module.id}`}
+                          className="text-[22px] font-semibold leading-6 p-2 cursor-pointer hover:underline"
+                        >
                           {module.title}
-                        </h2>
+                        </Link>
                       </div>
-                      <div className="flex flex-wrap w-[80%]">
+                      <div className="grid grid-cols-3 w-full text-start">
                         {module?.lessons?.map((lesson: any, index: any) => (
-                          <h3 className="p-2 mx-8 text-[18px]" key={index}>
+                          <h3
+                            className="m-2 mx-8 text-[18px] line-clamp-1"
+                            key={index}
+                          >
                             {lesson.title}
                           </h3>
                         ))}

@@ -8,18 +8,23 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useState } from "react";
-import { FaCaretDown, FaCaretUp, FaCheckCircle, FaEdit, FaTimesCircle } from "react-icons/fa";
+import { FaCaretDown, FaCaretUp, FaCheckCircle, FaEdit, FaTimesCircle, FaTrashAlt } from "react-icons/fa";
 import ListLesson from "./order-lesson/list-lesson/ListLesson";
+import { deleteLessonBD } from "@/helpers/createLesson";
+import { useAuth } from "@/context/AuthContext";
+import EditLessonModal from "../edit-lesson-modal";
 
 
 const CreateLessonModule = ({
   id,
   content,
+  fetchCourses
 }: {
   content: ICreateLessonModule[];
   id: string;
+  fetchCourses:any
 }) => {
-
+  const {token} = useAuth()
   const [isOpen, setIsOpen] = useState(false);
   const [isOrder, setIsOrder] = useState(false);
   const [isReady, setIsReady] = useState(false);
@@ -34,6 +39,18 @@ const CreateLessonModule = ({
     const newOrder = arrayMove(lesson, oldIndex, newIndex);
     setLesson(newOrder);
   };
+
+  const deleteLesson = async (lesson_id:string)=>{
+      try {
+       const response = await deleteLessonBD(lesson_id, token!);
+       
+       window.location.reload();
+        // fetchCourse();
+      } catch (error) {
+        console.error("Error deleting module:", error);
+      }
+  }
+
   return (
     <div>
       <button
@@ -93,11 +110,20 @@ const CreateLessonModule = ({
                     >
                       <h4 className="p-4 m-2 text-[18px]  ">{lesson.title}</h4>
                       <div className=" flex flex-row">
-                        <div>
+                        <div className=" flex flex-row justify-center items-center">
+                        <div className="flex-row m-2 relative group inline-block">
+                      <button
+                        onClick={() => deleteLesson(lesson.id)}
+                        className="p-1 m-2 w-fit hover:text-red-500 hover:bg-gray-700 rounded-lg"
+                      >
+                        <FaTrashAlt className="text-[25px]" />
+                      </button>
+                      <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1 bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                        Eliminar Leccion
+                      </div>
+                    </div>
                           <div className=" flex-row m-2 relative group inline-block">
-                            <button className="p-2 m-4  w-fit text-[18px]  bg-white rounded-lg hover:bg-yellowMain">
-                              <FaEdit />
-                            </button>
+                            <EditLessonModal lesson_id={lesson.id}/>
                             <div className="absolute left-1/2 transform -translate-x-1/2 mt-0 px-2 py-1  bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
                               Editar Informacion
                             </div>

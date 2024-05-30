@@ -1,6 +1,6 @@
+// components/lesson/Lesson.tsx
 "use client";
 
-import { GoArrowUp } from "react-icons/go";
 import ColumnLesson from "../../components/column-lesson";
 import { getLessonById, getLessons } from "@/helpers/lesson.helper";
 import { useAuth } from "@/context/AuthContext";
@@ -14,13 +14,14 @@ import {
   ContentImage,
   ContentVideo,
 } from "@/app/components/content-lesson";
+import NextLessonButton from "../NextLessonButon";
 
 const Lesson: React.FC<{ params: { slug: string } }> = ({
   params,
 }: {
   params: { slug: string };
 }): JSX.Element => {
-  const [lesson, setLesson] = useState<ILesson>({
+  const initialLessonState: ILesson = {
     id: "",
     title: "",
     order: 0,
@@ -29,7 +30,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
     slug: "",
     created_at: "",
     updated_at: "",
-    deleted_at: "",
+    deleted_at: null,
     module: {
       id: "",
       course: {
@@ -37,8 +38,11 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
       },
     },
     contents: [""],
-  });
-  const [allLessons, setAllLessons] = useState<ILesson[]>([]);
+  };
+
+  const [lesson, setLesson] = useState<ILesson>(initialLessonState);
+  const [allLessons, setAllLessons] = useState<ILesson[]>([initialLessonState]);
+  const [moduleId, setModuleId] = useState<string>("");
 
   const { slug } = params;
   const { token } = useAuth();
@@ -48,29 +52,21 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
       try {
         const lessonById = await getLessonById(slug, token);
         setLesson(lessonById);
+        setModuleId(lessonById.module.id);
+
+        if (lessonById.module.id) {
+          const getAllLessons = await getLessons(token);
+          const filteredLessons = getAllLessons?.filter(
+            (lesson: ILesson) => lesson?.module?.id === lessonById?.module?.id
+          );
+          setAllLessons(filteredLessons);
+        }
       } catch (error: any) {
         console.log(error);
       }
     };
     getLesson();
   }, [slug, token]);
-
-  const moduleId = lesson.module.id;
-
-  useEffect(() => {
-    const getLesson = async () => {
-      try {
-        const getAllLessons = await getLessons(token);
-        const filteredLessons = getAllLessons.filter(
-          (lessons) => lessons.module.id === moduleId
-        );
-        setAllLessons(filteredLessons);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getLesson();
-  }, [token, moduleId]);
 
   const getPreviousLessonById = (
     allLessons: ILesson[],
@@ -103,15 +99,19 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
   return token ? (
     <div className="flex mx-[11.5rem] justify-center">
       <div className="flex flex-grow-0">
-        <ColumnLesson moduleid={moduleId} />
+        <ColumnLesson moduleId={moduleId} allLessons={allLessons} />
       </div>
 
       <div className="ml-10 w-full flex flex-col justify-center items-center">
         <Link
           href={getPreviousLessonById(allLessons, lesson.id)}
-          className="bg-yellowMain rounded-full w-12 h-12 p-2 mt-8 mb-6 flex justify-center items-center sticky top-6"
+          className="bg-yellowMain my-10 px-4 py-2 rounded-lg"
         >
-          <GoArrowUp className="w-8 h-8 text-purpleMain" />
+          <p className="text-purpleMain text-lg font-normal">
+            {lesson.order - 1 >= allLessons.length
+              ? "Volver al Módulo"
+              : "Anterior Lección"}
+          </p>
         </Link>
 
         <div className="flex flex-col justify-center items-center w-full h-auto mt-8 mb-2 text-center">
@@ -120,7 +120,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
           </h1>
         </div>
 
-        {lesson.contents.map((content:any, index: number) => (
+        {lesson.contents.map((content: any, index: number) => (
           <div
             key={index}
             className="flex justify-center items-center w-full h-auto"
@@ -148,17 +148,11 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
             )}
           </div>
         ))}
-
-        <Link
-          href={getNextLessonById(allLessons, lesson.id)}
-          className="bg-yellowMain my-10 px-4 py-2 rounded-lg"
-        >
-          <p className="text-purpleMain text-lg font-normal">
-            {lesson.order + 1 <= allLessons.length
-              ? "Siguiente Lección"
-              : "Finalizar"}
-          </p>
-        </Link>
+        <NextLessonButton
+          allLessons={allLessons}
+          lesson={lesson}
+          getNextLessonById={getNextLessonById}
+        />
       </div>
     </div>
   ) : (
@@ -167,13 +161,13 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
       <div className="flex flex-row justify-center items-center mt-2 gap-2">
         <Link
           href="/sign-up"
-          className="bg-yellowMain hover:bg-yellowMainLight px-4 py-2 rounded font-semibold text-purpleMain"
+          className="bg-yellowMain hover:bg-yellowMainLight px-4 py-2 rounded-lg font-semibold text-purpleMain"
         >
           Registrarse
         </Link>
         <Link
           href="/sign-in"
-          className="bg-yellowMain hover:bg-yellowMainLight px-4 py-2 rounded font-semibold text-purpleMain"
+          className="bg-yellowMain hover:bg-yellowMainLight px-4 py-2 rounded-lg font-semibold text-purpleMain"
         >
           Iniciar Sesión
         </Link>
@@ -182,4 +176,4 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
   );
 };
 
-export default Lesson; 
+export default Lesson;

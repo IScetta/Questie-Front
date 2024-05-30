@@ -9,10 +9,12 @@ const CreateLessonForm = ({
   module_id,
   order,
   onClose,
+  fetchCourses
 }: {
   module_id: string;
   order: number;
-  onClose: any;
+  onClose: () => void;
+  fetchCourses:() => void
 }): JSX.Element => {
   const initialState: ICreateLesson = {
     title: "",
@@ -40,7 +42,7 @@ const CreateLessonForm = ({
     event.preventDefault();
 
     try {
-      console.log(input.coins)
+      // console.log(input.coins)
       
       const response = await postCreateLesson(
         input.title,
@@ -51,6 +53,8 @@ const CreateLessonForm = ({
         token!
       );
       if (!response) throw new Error("Error al intentar crear leccion");
+      // fetchCourses
+      // onClose
       window.location.reload();
     } catch (error: any) {
       console.error(error);
@@ -114,12 +118,15 @@ const CreateLessonForm = ({
       </div>
 
       <div className="flex flex-row justify-center">
-        <button className=" items-center bg-yellowMain border-2 hover:bg-yellowMainLight rounded-md border-purpleMain text-purpleMain h-10 mx-7 p-2 text-lg mt-5">
+      <button
+          type="submit"
+          className="items-center bg-yellowMain border-2 hover:bg-yellowMainLight border-purpleMain text-purpleMain h-fit mx-7 px-4 py-2 text-lg mt-5"
+        >
           Crear
         </button>
         <button
           onClick={onClose}
-          className=" items-center border-2 border-black bg-gray-500 hover:bg-gray-400 mx-7 p-2 h-10 text-lg text-white mt-5 rounded-md"
+          className="items-center border-2 border-black bg-gray-500 hover:bg-gray-400 mx-7 px-4 py-2 h-fit text-lg text-white mt-5"
         >
           Cancelar
         </button>

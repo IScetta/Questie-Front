@@ -1,4 +1,6 @@
-import axios from "axios";
+import { ILoginForm, IUser } from "@/app/types";
+import axios, { AxiosResponse } from "axios";
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -19,6 +21,11 @@ const saveUserDB = async (userData: any) => {
       return response;
     } catch (error: any) {
       console.error(error);
+      Swal.fire({
+        title: "Oops...",
+        text: error.response.data.message,
+        icon: "error",
+      });
       throw new Error("Error al registrar usuario en la base de datos");
     }
   }
