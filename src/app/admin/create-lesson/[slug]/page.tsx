@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { IContent } from "@/app/types";
+// import { IContent } from "@/app/types";
 
 import { title } from "process";
 import { useAuth } from "@/context/AuthContext";
-import { getLessonById, postLessonContent } from "@/helpers/lesson.helper";
+import { getLessonById } from "@/helpers/lesson.helper";
 import Image from "next/image";
 
 const Prueba03 = ({ params }: { params: { slug: string } }) => {
@@ -164,7 +164,7 @@ const Prueba03 = ({ params }: { params: { slug: string } }) => {
             Guardar Cambios
           </button>
 
-          <button
+          {/* <button
             className={`${
               hiddenButton ? "hidden" : " "
             } w-[100px] bg-yellowMain focus:outline-none text-black  hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900`}
@@ -181,7 +181,7 @@ const Prueba03 = ({ params }: { params: { slug: string } }) => {
             }}
           >
             Enviar Contenido
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
