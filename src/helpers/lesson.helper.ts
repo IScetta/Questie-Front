@@ -1,5 +1,7 @@
-import { ILesson } from "@/app/types";
+import { IContent, ILesson } from "@/app/types";
+import { useAuth } from "@/context/AuthContext";
 import axios, { AxiosResponse } from "axios";
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -41,6 +43,39 @@ const getLessonById = async (
     throw new Error("Error al obtener el módulo");
   }
 };
+const postLessonContent = async (
+  
+  lessonid: string,
+  // contents: [IContent["contents"]],
+  contents: any,
+  token: string | null
+) => {
+  
+  try {
+    
+    
+    const res = await axios.post(`${API_URL}contents`, 
+     {  
+        lesson_id:lessonid,
+        contents,
+      },
+      
+     { headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }},
+    );
+    
+    if (res.status === 201) {
+      console.log(res.data)
+      return res.data;
+    } else {
+      throw alert("Hubo un error al crear la lección");
+    }
+  } catch (error: any) {
+    console.log(error)
+  }
+};
 
 const getLessonsFinishedByUser = async (
   userId: string
@@ -58,4 +93,4 @@ const getLessonsFinishedByUser = async (
   }
 };
 
-export { getLessonById, getLessons };
+export { getLessonById, getLessons, postLessonContent };

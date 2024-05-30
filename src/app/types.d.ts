@@ -83,6 +83,28 @@ export interface ILesson {
   contents: [string];
 }
 
+export interface IContent {
+  id?: string;
+  lesson_id: string;
+  contents: [
+    type: string,
+    content: {
+      IContents
+    }
+  ];
+}
+export interface IContents{
+  type: string,
+  content: {
+    title?: string;
+      subtitle?: string;
+      text?: string;
+      description?: string;
+      image_url?: string;
+      video_url?: string;
+  }
+}
+
 export interface ICreateLesson {
   title: string;
   xp: number;
