@@ -66,7 +66,7 @@ const ColumnModule: React.FC<{ courseid: string }> = async ({
             </Link>
           ))
         ) : (
-          <div className="bg-whiteColumn mb-4 hover:bg-purpleMainLighter pl-5 pr-5 py-3 w-full h-[4.5rem] content-center cursor-pointer">
+          <div className="bg-purpleMainLighter mb-4 pl-5 pr-5 py-3 w-full h-[4.5rem] content-center cursor-pointer">
             <p>No hay módulos</p>
           </div>
         )}
