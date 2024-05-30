@@ -7,7 +7,6 @@ import { useAuth } from "@/context/AuthContext";
 import { getCoursesDB } from "@/helpers/course.helpers";
 import { getEnrolmentsByUser } from "@/helpers/enrolments.helper";
 import { getUserById } from "@/helpers/user.helper";
-import { Spinner } from "flowbite-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -47,8 +46,6 @@ const Profile = ({ params }: { params: { slug: string } }): JSX.Element => {
         parsedPayload =
           typeof payload === "string" ? JSON.parse(payload) : payload;
         if (!parsedPayload) {
-          // Manejo de error si payload es undefined o null
-          console.log("parece que es undefined jeje");
           return;
         }
         const user = await getUserById(parsedPayload.id, token);

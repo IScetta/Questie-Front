@@ -1,21 +1,45 @@
 "use client";
 
-import { ICreateLesson } from "@/app/types";
+import { ICreateLesson, ILesson } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
-import { postCreateLesson } from "@/helpers/createLesson";
-import { useState } from "react";
+import { getLessonById, putLessonById } from "@/helpers/lesson.helper";
+import { useCallback, useEffect, useState } from "react";
 
 const CreateLessonForm = ({
-  module_id,
-  order,
+  lesson_id,
   onClose,
-  fetchCourses
-}: {
-  module_id: string;
-  order: number;
+}: //   fetchCourses
+{
+  lesson_id: string;
   onClose: () => void;
-  fetchCourses:() => void
+  //   fetchCourses:() => void
 }): JSX.Element => {
+  const [lessonData, setLessonData] = useState<ILesson | null>(null);
+  const { token } = useAuth();
+
+  const fetchLesson = useCallback(async () => {
+    try {
+      const response = await getLessonById(lesson_id, token!);
+      setLessonData(response);
+    } catch (error) {
+      console.error("Error fetching module:", error);
+    }
+  }, [lesson_id, token]);
+
+  useEffect(() => {
+    fetchLesson();
+  }, [fetchLesson]);
+
+  useEffect(() => {
+    if (lessonData) {
+      setInput({
+        title: lessonData.title,
+        xp: lessonData.xp,
+        coins: lessonData.coins,
+      });
+    }
+  }, [lessonData]);
+
   const initialState: ICreateLesson = {
     title: "",
     xp: 0,
@@ -27,8 +51,6 @@ const CreateLessonForm = ({
     xp: "",
     coins: "",
   });
-
-  const {token} = useAuth()
 
   const handleChange = (event: any) => {
     const { value, name } = event.target;
@@ -43,18 +65,17 @@ const CreateLessonForm = ({
 
     try {
       // console.log(input.coins)
-      
-      const response = await postCreateLesson(
+
+      const response = await putLessonById(
         input.title,
-        order,
-        input.coins,
         input.xp,
-        module_id,
+        input.coins,
+        lessonData?.id!,
         token!
       );
       if (!response) throw new Error("Error al intentar crear leccion");
       // fetchCourses
-      // onClose
+      onClose;
       window.location.reload();
     } catch (error: any) {
       console.error(error);
@@ -118,11 +139,11 @@ const CreateLessonForm = ({
       </div>
 
       <div className="flex flex-row justify-center">
-      <button
+        <button
           type="submit"
           className="items-center bg-yellowMain border-2 hover:bg-yellowMainLight border-purpleMain text-purpleMain h-fit mx-7 px-4 py-2 text-lg mt-5"
         >
-          Crear
+          Guardar
         </button>
         <button
           onClick={onClose}
