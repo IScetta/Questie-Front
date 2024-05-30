@@ -73,7 +73,7 @@ const ColumnLesson: React.FC<{
                 alt={moduleById?.title || ""}
                 width={1000}
                 height={1000}
-                className="w-full h-full rounded-full"
+                className="w-full h-full rounded-full object-cover"
               />
             </div>
             <div className="flex flex-col ml-2 justify-center w-[12.5rem]">

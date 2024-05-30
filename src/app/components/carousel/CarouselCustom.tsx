@@ -14,7 +14,7 @@ const CarouselCustom: React.FC = (): JSX.Element => {
       autoplayDelay={5000}
       className="w-full h-full"
       navigation={({ setActiveIndex, activeIndex, length }) => (
-        <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+        <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2 rounded-lg">
           {new Array(length).fill("").map((_, i) => (
             <span
               key={i}
@@ -28,25 +28,25 @@ const CarouselCustom: React.FC = (): JSX.Element => {
       )}
     >
       <Image
-        src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-        alt="image 1"
-        width={1000}
-        height={1000}
-        className="h-full w-full object-cover"
+        src="https://res.cloudinary.com/dj279fdwd/image/upload/v1717045299/image1_meprg0.jpg"
+        alt="Questie"
+        width={1080}
+        height={1080}
+        className="h-full w-full object-cover rounded-lg"
       />
       <Image
-        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-        alt="image 2"
-        width={1000}
-        height={1000}
-        className="h-full w-full object-cover"
+        src="https://res.cloudinary.com/dj279fdwd/image/upload/v1717045306/image2_vde8t4.jpg"
+        alt="Questie"
+        width={1080}
+        height={1080}
+        className="h-full w-full object-cover rounded-lg"
       />
       <Image
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-        alt="image 3"
-        width={1000}
-        height={1000}
-        className="h-full w-full object-cover"
+        src="https://res.cloudinary.com/dj279fdwd/image/upload/v1717045327/image3_ra6ykc.jpg"
+        alt="Questie"
+        width={1080}
+        height={1080}
+        className="h-full w-full object-cover rounded-lg"
       />
     </Carousel>
   );
