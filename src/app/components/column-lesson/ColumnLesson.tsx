@@ -67,10 +67,10 @@ const ColumnLesson: React.FC<{
   let numberLesson = 1;
 
   return (
-    <div className="justify-center items-center grid grid-cols-1">
-      <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 px-7">
+    <div className="justify-center items-center grid grid-cols-1 h-full">
+      <div className="h-full w-80 bg-purpleMainLight col-start-2 col-span-4 px-7 py-10">
         <Link href={`/module/${moduleById?.id}`}>
-          <div className="bg-purpleMain hover:bg-yellowMain my-5 py-3 mt-10 flex flex-nowrap w-full h-[4.5rem] content-center text-white hover:text-purpleMain transition-colors duration-200 rounded-lg">
+          <div className="bg-purpleMain hover:bg-yellowMain my-4 py-3 flex flex-nowrap w-full h-[4.5rem] content-center text-white hover:text-purpleMain transition-colors duration-200 rounded-lg">
             <div className="bg-image w-12 h-12 rounded-full ml-2">
               <Image
                 src={courseById?.image || "/"}

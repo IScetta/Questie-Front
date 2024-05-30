@@ -27,7 +27,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
     order: 0,
     xp: 0,
     coins: 0,
-    status:"pending",
+    status: "pending",
     slug: "",
     created_at: "",
     updated_at: "",
@@ -98,8 +98,8 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
   };
 
   return token ? (
-    <div className="flex mx-[11.5rem] justify-center">
-      <div className="flex flex-grow-0">
+    <div className="flex mx-[11.5rem] h-full justify-center">
+      <div className="flex flex-grow-0 h-full">
         <ColumnLesson moduleId={moduleId} allLessons={allLessons} />
       </div>
 
