@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -29,20 +30,33 @@ const Assessment = ({
   const [totalRatings, setTotalRatings] = useState<number>(0);
   const [filledStars, setFilledStars] = useState<number>(0);
 
-  const handleAssessment = async (rate: number) => {
-    setAssessment(rate);
+  const handleAssessment = async (score: number) => {
+    setAssessment(score);
     if (onAssessmentChange) {
-      onAssessmentChange(rate);
+      onAssessmentChange(score);
     }
 
     try {
-      await axios.post(`${API_URL}assessment`, {
+      const res = await axios.post(`${API_URL}assessment`, {
         userId,
         courseId,
-        rating: rate,
+        score: score,
       });
+
+      if (res.status == 201)
+        Swal.fire({
+          title: "¡Buen trabajo!",
+          text: "¡Gracias por valorar el curso!",
+          icon: "success",
+        });
+        
+       
     } catch (error) {
-      console.error("Error submitting assessment:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Ya has valorado este curso",
+        icon: "error"
+      });
     }
   };
 
@@ -60,6 +74,8 @@ const Assessment = ({
       console.error("Error fetching course rating:", error);
     }
   };
+
+  // sscor un id y un userid
 
   useEffect(() => {
     if (courseId) {

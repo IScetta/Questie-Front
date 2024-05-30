@@ -2,6 +2,7 @@ import { ILesson, IProgress, ILessonOrder } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
 import Swal from "sweetalert2";
 
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const getLessons = async (token: string | null): Promise<ILesson[]> => {
@@ -50,6 +51,39 @@ const getLessonById = async (
       icon: "error",
     });
     throw new Error("Error al obtener el módulo");
+  }
+};
+const postLessonContent = async (
+  
+  lessonid: string,
+  // contents: [IContent["contents"]],
+  contents: any,
+  token: string | null
+) => {
+  
+  try {
+    
+    
+    const res = await axios.post(`${API_URL}contents`, 
+     {  
+        lesson_id:lessonid,
+        contents,
+      },
+      
+     { headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }},
+    );
+    
+    if (res.status === 201) {
+      console.log(res.data)
+      return res.data;
+    } else {
+      throw alert("Hubo un error al crear la lección");
+    }
+  } catch (error: any) {
+    console.log(error)
   }
 };
 

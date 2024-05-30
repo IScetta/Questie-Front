@@ -69,6 +69,7 @@ const ColumnAdmin = () => {
             alt={admin.firstName}
             width={1000}
             height={1000}
+            className="rounded-full"
           />
         )}
       </div>

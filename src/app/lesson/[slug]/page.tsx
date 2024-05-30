@@ -38,7 +38,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
         id: "",
       },
     },
-    contents: [""],
+    contents: [],
   };
 
   const [lesson, setLesson] = useState<ILesson>(initialLessonState);
@@ -66,7 +66,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
         console.log(error);
       }
     };
-    getLesson();
+    if (token && slug) getLesson();
   }, [slug, token]);
 
   const getPreviousLessonById = (
@@ -137,13 +137,13 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
             )}
             {content.type === "image" && (
               <ContentImage
-                image={content.content.image_url}
+                image={content.content.image}
                 description={content.content.description}
               />
             )}
             {content.type === "video" && (
               <ContentVideo
-                video={content.content.video_url}
+                video={content.content.video}
                 description={content.content.description}
               />
             )}

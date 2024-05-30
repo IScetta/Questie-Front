@@ -13,7 +13,7 @@ import {
 } from "@/helpers/course.helpers";
 import Assessment from "../../assessments/assessment";
 import { FaCoins, FaLock } from "react-icons/fa";
-import { addCoins } from "@/helpers/user.helper";
+import { addCoins, getUserById } from "@/helpers/user.helper";
 import { useUserContext } from "@/context/UserContext";
 
 const HeaderCourse = ({ course }: { course: ICourse }) => {
@@ -129,7 +129,7 @@ const HeaderCourse = ({ course }: { course: ICourse }) => {
           <Assessment
             courseId={course.id}
             initialAssessment={courseAssessment}
-            userId={""}
+            userId={payloadParsed?.id!}
           />
           {!enrolmentExists ? (
             <button
