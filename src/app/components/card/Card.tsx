@@ -27,13 +27,15 @@ const Card = ({
       style={style}
     >
       <div id="card-header" className="flex flex-col h-full space-y-4">
-        <Image
-          className="w-full h-1/2 object-cover rounded-md"
-          src={imgUrl}
-          alt={title}
-          width={300}
-          height={300}
-        />
+        <div className="w-full h-60">
+          <Image
+            className="w-full h-full object-cover rounded-md"
+            src={imgUrl}
+            alt={title}
+            width={500}
+            height={500}
+          />
+        </div>
         {courseId ? <Assessment courseId={courseId} userId={""} /> : <></>}
         <h5 className="text-xl font-bold tracking-tight text-gray-900 truncate line-clamp-1 text-pretty">
           {title}
@@ -44,7 +46,6 @@ const Card = ({
         id="card-footer"
         className="w-full flex flex-col justify-between items-center"
       >
-        {/* Condicionamos la renderización del Assessment */}
         {buttonLink && buttonLabel && (
           <Link href={buttonLink} className="w-full">
             <button className="w-full bg-yellowMain hover:bg-yellowMainLight text-purpleMain px-4 py-2 rounded-lg font-semibold">
