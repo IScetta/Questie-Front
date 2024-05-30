@@ -22,18 +22,21 @@ const About = () => {
         </div>
       </div>
       <div className="flex flex-row justify-around items-center w-full h-full">
-        <div className="flex flex-col justify-start items-start space-y-4 w-1/3 h-[19rem] text-start bg-blue-gray-50 p-8 rounded-lg">
+        <div className="flex flex-col justify-start items-start space-y-4 w-1/3 h-auto text-start bg-blue-gray-50 p-8 rounded-lg">
           <h1 className="text-3xl font-bold text-purpleMain text-start">
             Nuestra Historia
           </h1>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error
-            debitis quo obcaecati sed dolor id reiciendis eaque dolorum,
-            molestiae ducimus doloribus, repudiandae ab unde autem eos
-            dignissimos commodi tenetur necessitatibus!
+            CursoMaster nació de nuestra visión compartida: somos Joel Daniel
+            Blanco Lafon, Jorge Hernan Zimmermann, Luis Alberto Becerril
+            Moralez, Lucas Alexis Heredia, Isaías Scetta e Ivan Exequiel Rojas,
+            seis amigos apasionados por la educación y la tecnología. En 2018,
+            nos reunimos con una idea clara: crear una plataforma que rompiera
+            las barreras tradicionales del aprendizaje y ofreciera educación de
+            alta calidad a cualquier persona, en cualquier lugar.
           </p>
         </div>
-        <div className="flex flex-col justify-start items-start space-y-4 w-1/3 h-[19rem] text-start bg-blue-gray-50 p-8 rounded-lg">
+        <div className="flex flex-col justify-start items-start space-y-4 w-1/3 h-auto text-start bg-blue-gray-50 p-8 rounded-lg">
           <h1 className="text-3xl font-bold text-purpleMain text-start">
             Nuestra Misión
           </h1>
