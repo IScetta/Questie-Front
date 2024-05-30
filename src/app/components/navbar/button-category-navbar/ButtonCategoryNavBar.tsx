@@ -95,9 +95,11 @@ const ButtonCategoryNavBar: React.FC = (): JSX.Element => {
         </button>
 
         <div className="flex gap-2 ml-4 xl:space-x-4">
-          <button className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
-            Comunidad
-          </button>
+          <Link href="/about">
+            <button className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
+              Acerca de
+            </button>
+          </Link>
           <Link href={`/shop/`}>
             <button className="text-white text-base font-medium hover:text-yellowMain cursor-pointer">
               Tienda

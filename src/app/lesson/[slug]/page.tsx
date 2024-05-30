@@ -27,6 +27,7 @@ const Lesson: React.FC<{ params: { slug: string } }> = ({
     order: 0,
     xp: 0,
     coins: 0,
+    status:"pending",
     slug: "",
     created_at: "",
     updated_at: "",
