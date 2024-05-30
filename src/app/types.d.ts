@@ -58,7 +58,7 @@ export interface ICourse {
   create_at: string;
   updated_at: string;
   deleted_at: string | null;
-  modules: [IModule];
+  modules: IModule[];
   categories: [
     {
       name: string;
@@ -76,7 +76,7 @@ export interface IModule {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
-  lessons: [ILesson];
+  lessons: ILesson[];
   course: {
     id: string;
   };
@@ -98,7 +98,7 @@ export interface ILesson {
       id: string;
     };
   };
-  contents: [string];
+  contents: IContent[];
 }
 export interface IProgress {
   id: string;
@@ -106,26 +106,68 @@ export interface IProgress {
   lessonId: string;
 }
 
-export interface IContent {
-  id?: string;
+export interface IContentTitle {
+  id: string;
   lesson_id: string;
-  contents: [
-    type: string,
-    content: {
-      IContents
-    }
-  ];
+  type: string;
+  content: {
+    title: string;
+  };
 }
-export interface IContents{
-  type: string,
+
+export interface IContentSubtitle {
+  id: string;
+  lesson_id: string;
+  type: string;
+  content: {
+    subtitle: string;
+  };
+}
+
+export interface IContentText {
+  id: string;
+  lesson_id: string;
+  type: string;
+  content: {
+    text: string;
+  };
+}
+
+export interface IContentImage {
+  id: string;
+  lesson_id: string;
+  type: string;
+  content: {
+    image_url: string;
+  };
+}
+
+export interface IContentVideo {
+  id: string;
+  lesson_id: string;
+  type: string;
+  content: {
+    video_url: string;
+  };
+}
+
+export type IContent =
+  | IContentTitle
+  | IContentSubtitle
+  | IContentText
+  | IContentImage
+  | IContentVideo;
+
+export interface IContents {
+  type: string;
   content: {
     title?: string;
-      subtitle?: string;
-      text?: string;
-      description?: string;
-      image_url?: string;
-      video_url?: string;
-  }
+    subtitle?: string;
+    text?: string;
+    description?: string;
+    image_url?: string;
+    video_url?: string;
+  };
 }
 
 export interface ICreateLesson {
