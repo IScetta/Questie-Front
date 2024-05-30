@@ -29,11 +29,12 @@ const CreateLessonModule = ({
 }: {
   content: any;
   id: string;
-  fetchCourses: ()=>void;
+  fetchCourses: any;
 }) => {
   const { token } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isOrder, setIsOrder] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [lessonOrder, setLessonOrder] = useState<ILesson[]>(content);
   const [allLessons, setAllLessons] = useState<ILesson[]>([]);
   const [lessons, setLessons] = useState<ILesson[]>([]);
@@ -81,17 +82,15 @@ const CreateLessonModule = ({
       });
 
       if (result.isConfirmed) {
-        const res = await deleteLessonBD(lesson_id, token!);
+        const response = await deleteLessonBD(lesson_id, token!);
         Swal.fire({
           title: "¡Eliminado!",
           text: "La leccion ha sido eliminada.",
           icon: "success",
         });
-
         fetchCourses();
         window.location.reload();
-
-        if (!res) throw new Error("Error al eliminar la lección");
+        if (!response) throw new Error("Error al eliminar la lección");
       }
     } catch (error) {
       console.error("Error deleting lesson:", error);
@@ -110,16 +109,7 @@ const CreateLessonModule = ({
     });
 
     try {
-
-      const response = await putLessonOrder(listLesson, token!)
-      Swal.fire({
-        title: "¡Leccion Actualizada!",
-        text: "La leccion fue actualizada con exito.",
-        icon: "success"
-      });
-
       const response = await putLessonOrder(listLesson, token!);
-
       if (!response) throw new Error("Error al actualizar la lección");
       setIsOrder(!isOrder);
     } catch (error) {
@@ -150,16 +140,7 @@ const CreateLessonModule = ({
     }
 
     try {
-
-      const response = await putLessonOrder(listLesson, token!)
-      Swal.fire({
-        title: "¡Lecciones Ordenadas!",
-        text: "Las lecciones fue ordenadas con exito.",
-        icon: "success"
-      });
-
       const response = await putLessonOrder(listLesson, token!);
-
       if (!response) throw new Error("Error al actualizar la lección");
       window.location.reload();
     } catch (error) {
