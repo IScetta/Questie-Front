@@ -102,7 +102,7 @@ const EditProductForm = ({
         if (!response) throw new Error("Error al intentar crear producto");
         onClose();
         window.location.reload();
-      } else if (!course.isProduct && input.price == 0) {
+      } else if (!course.isProduct && input.price <= 0) {
         setAlertProduct(true);
         console.log("No create Product");
       }

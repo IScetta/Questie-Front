@@ -89,6 +89,7 @@ export interface ILesson {
   xp: number;
   coins: number;
   slug: string;
+  status: "pending" | "complete";
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -104,6 +105,15 @@ export interface IProgress {
   id: string;
   userId: string;
   lessonId: string;
+}
+
+export interface ILessonOrder{
+  id:string,
+  updateLessonDto:{
+    order?:number
+    status?:"pending" | "complete"
+  }
+
 }
 
 export interface ICreateLesson {
@@ -251,4 +261,16 @@ export interface IStats {
   coins: number;
   xp: number;
   user: string;
+}
+
+interface Question {
+  id: string;
+  text: string;
+  options: Option[];
+}
+
+interface Option {
+  id: string;
+  text: string;
+  correct: boolean;
 }
