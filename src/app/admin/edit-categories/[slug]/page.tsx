@@ -2,7 +2,6 @@
 
 import ColumnAdmin from "@/app/components/column-admin";
 import EditCategoriesForm from "@/app/components/create-course/edit-categories-form";
-import EditCourseForm from "@/app/components/dashboard-admin/edit-course/EditCourseForm";
 import { ICourse, IPayload } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { getCourseByIdDB } from "@/helpers/course.helpers";
@@ -46,7 +45,6 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({
     payloadParse();
   }, [payload]);
 
-  console.log(course);
 
   return (token && payloadParsed?.isAdmin === "admin" && course != null) ||
     payloadParsed?.role === "admin" ? (
