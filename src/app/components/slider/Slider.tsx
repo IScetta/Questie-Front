@@ -41,7 +41,7 @@ const Slider = ({
               height: "100%",
               margin: "1rem 0",
             }}
-            courseId={course.id} 
+            courseId={course.id}
           >
             <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
               {course.description}
