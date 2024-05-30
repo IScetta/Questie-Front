@@ -57,7 +57,11 @@ const ColumnLesson: React.FC<{
         console.error("Error al obtener el módulo o curso:", error);
       }
     };
-    if (!finishedLessons) getModuleAndCourse();
+    if (!finishedLessons) {
+      if (payload && moduleId) {
+        getModuleAndCourse();
+      }
+    }
   }, [moduleId, payload, finishedLessons]);
 
   let numberLesson = 1;

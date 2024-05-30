@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import CreateCategoriesModal from "../../dashboard-admin/create-categories-modal";
 
 const ButtonAdminColumn = () => {
   const pathname = usePathname();
@@ -9,9 +10,12 @@ const ButtonAdminColumn = () => {
     pathname === "/admin" ? "Crear Cursos" : "Administrar Cursos";
 
   return (
-    <button className="bg-yellowMain text-purpleMain h-10 w-52 text-lg font-semibold">
-      <Link href={linkpath}>{buttontext}</Link>
-    </button>
+    <div className="flex flex-col justify-center">
+      <button className="bg-yellowMain text-purpleMain mb-2 h-10 w-52 text-lg font-semibold">
+        <Link href={linkpath}>{buttontext}</Link>
+      </button>
+      <CreateCategoriesModal/>
+    </div>
   );
 };
 
