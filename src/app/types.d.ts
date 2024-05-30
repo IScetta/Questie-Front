@@ -107,13 +107,13 @@ export interface IProgress {
   lessonId: string;
 }
 
-export interface ILessonOrder{
-  id:string,
-  updateLessonDto:{
-    order?:number
-    status?:"pending" | "complete"
-  }
-
+export interface ILessonOrder {
+  id: string;
+  updateLessonDto: {
+    order?: number;
+    status?: "pending" | "complete";
+  };
+}
 export interface IContentTitle {
   id: string;
   lesson_id: string;

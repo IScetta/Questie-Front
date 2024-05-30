@@ -21,6 +21,7 @@ import { useAuth } from "@/context/AuthContext";
 import EditLessonModal from "../edit-lesson-modal";
 import { getLessons, putLessonOrder } from "@/helpers/lesson.helper";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 const CreateLessonModule = ({
   id,
@@ -259,7 +260,10 @@ const CreateLessonModule = ({
                             </div>
                           )}
                         </div>
-                        <button className="p-2 m-4 w-fit text-[18px] bg-yellowMain rounded-lg">
+                        <Link
+                          href={`admin/create-lesson/${lesson.id}`}
+                          className="p-2 m-4 w-fit text-[18px] bg-yellowMain rounded-lg"
+                        >
                           Editar contenido
                         </Link>
                       </div>
