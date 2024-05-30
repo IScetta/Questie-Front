@@ -82,7 +82,7 @@ const CreateLessonModule = ({
       });
       
       if (result.isConfirmed) {
-        const response = await deleteLessonBD(lesson_id, token!);
+        const res = await deleteLessonBD(lesson_id, token!);
         Swal.fire({
           title: "¡Eliminado!",
           text: "La leccion ha sido eliminada.",
@@ -90,7 +90,7 @@ const CreateLessonModule = ({
         });
         fetchCourses(); 
         // window.location.reload();
-        if (!response) throw new Error("Error al eliminar la lección");
+        if (!res) throw new Error("Error al eliminar la lección");
       }
       
       
