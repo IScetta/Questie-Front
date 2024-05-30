@@ -1,10 +1,18 @@
 "use client";
 
-import { IEnrolment, IPayload, IUser } from "@/app/types";
+import { IEnrolment, IPayload, IProgress, IUser } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { useUserContext } from "@/context/UserContext";
+import { getEnrolmentsByUser } from "@/helpers/enrolments.helper";
+import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+
+interface ProgressData {
+  totalLessons: number;
+  completedLessons: number;
+  remainingLessons: number;
+}
 
 const ColumnProfile: React.FC<{
   userInfo: IUser;
@@ -16,10 +24,10 @@ const ColumnProfile: React.FC<{
   userInfo: IUser;
   userCourses: IEnrolment[];
 }): JSX.Element => {
-  const { payload } = useAuth();
+  const { token, payload } = useAuth();
   const { userStats } = useUserContext();
-
   const [payloadParsed, setPayloadParsed] = useState<IPayload | null>(null);
+  const [finishedCourses, setFinishedCourses] = useState<number>(0);
 
   useEffect(() => {
     const payloadParse = () => {
@@ -38,6 +46,38 @@ const ColumnProfile: React.FC<{
     };
     payloadParse();
   }, [payload]);
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const userEnrolments: IEnrolment[] | null = await getEnrolmentsByUser(
+          token!,
+          payloadParsed?.id!
+        );
+
+        userEnrolments?.forEach(async (enrolments) => {
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}progress/course/${
+              enrolments.course
+            }/user/${payloadParsed?.id!}`
+          );
+
+          if (response.status === 200) {
+            const progress: ProgressData = response.data;
+            if (progress.totalLessons > 0 && progress.remainingLessons === 0) {
+              setFinishedCourses((prev) => prev + 1);
+            }
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching progress data:", error);
+      }
+    };
+
+    if (payloadParsed) fetchProgress();
+  }, [payloadParsed, token]);
+
+  console.log(userInfo.profile_pic);
 
   return (
     <div className="h-full w-80 bg-purpleMainLight p-7 flex flex-col justify-start items-center">
@@ -60,8 +100,8 @@ const ColumnProfile: React.FC<{
           {userInfo.firstName} {userInfo.lastName}
         </p>
         <div className="flex flex-col text-center gap-2">
-          <p>Cursos finalizados: ?</p>
-          <p>Cursos pendientes: {userCourses.length}</p>
+          <p>Cursos finalizados: {finishedCourses}</p>
+          <p>Cursos pendientes: {userCourses.length - finishedCourses}</p>
           <p>Puntos Totales: {userStats?.coins || 0}</p>
           <p>Experiencia: {userStats?.xp || 0}</p>
         </div>

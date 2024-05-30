@@ -38,10 +38,10 @@ export interface ICreateModule {
   course_id: string;
 }
 
-export interface ICategory {
-  id?: number;
+export interface ICategoryCourse {
+  id?: string;
   name: string;
-  image: string;
+  image?: string;
 }
 
 export interface ICourse {
@@ -114,28 +114,6 @@ export interface ILessonOrder{
     status?:"pending" | "complete"
   }
 
-}
-
-export interface IContent {
-  id?: string;
-  lesson_id: string;
-  contents: [
-    type: string,
-    content: {
-      IContents
-    }
-  ];
-}
-export interface IContents{
-  type: string,
-  content: {
-    title?: string;
-      subtitle?: string;
-      text?: string;
-      description?: string;
-      image_url?: string;
-      video_url?: string;
-  }
 }
 
 export interface ICreateLesson {

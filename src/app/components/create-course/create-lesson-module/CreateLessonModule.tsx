@@ -20,14 +20,14 @@ import { deleteLessonBD } from "@/helpers/createLesson";
 import { useAuth } from "@/context/AuthContext";
 import EditLessonModal from "../edit-lesson-modal";
 import { getLessons, putLessonOrder } from "@/helpers/lesson.helper";
-
+import Swal from "sweetalert2";
 
 const CreateLessonModule = ({
   id,
   content,
   fetchCourses,
 }: {
-  content:any;
+  content: any;
   id: string;
   fetchCourses: any;
 }) => {
@@ -64,63 +64,89 @@ const CreateLessonModule = ({
 
   useEffect(() => {
     const actLesson = allLessons.filter((lesson) =>
-      content.some((item:any) => item.id === lesson.id)
+      content.some((item: any) => item.id === lesson.id)
     );
     setLessons(actLesson);
   }, [allLessons, content]);
 
   const deleteLesson = async (lesson_id: string) => {
     try {
-      const response = await deleteLessonBD(lesson_id, token!);
-      fetchCourses();
-      if (!response) throw new Error("Error al eliminar la lección");
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Sí, eliminarlo!",
+      });
+
+      if (result.isConfirmed) {
+        const response = await deleteLessonBD(lesson_id, token!);
+        Swal.fire({
+          title: "¡Eliminado!",
+          text: "La leccion ha sido eliminada.",
+          icon: "success",
+        });
+        fetchCourses();
+        window.location.reload();
+        if (!response) throw new Error("Error al eliminar la lección");
+      }
     } catch (error) {
       console.error("Error deleting lesson:", error);
     }
   };
 
-  const ordenLesson = async ()=>{
-    const listLesson:ILessonOrder[] = []
-    const newOrderLesson = lessonOrder.map((lessonOrden,index)=>{
-      listLesson.push({id:lessonOrden.id,
-        updateLessonDto:{
-          order: index
-        }})
-    })
+  const ordenLesson = async () => {
+    const listLesson: ILessonOrder[] = [];
+    const newOrderLesson = lessonOrder.map((lessonOrden, index) => {
+      listLesson.push({
+        id: lessonOrden.id,
+        updateLessonDto: {
+          order: index,
+        },
+      });
+    });
 
     try {
-      const response = await putLessonOrder(listLesson, token!)
+      const response = await putLessonOrder(listLesson, token!);
       if (!response) throw new Error("Error al actualizar la lección");
-      setIsOrder(!isOrder)
+      setIsOrder(!isOrder);
     } catch (error) {
       console.error("Error update lesson:", error);
     }
-  }
+  };
 
-  const statusLesson = async (id:string,status:string)=>{
-    let listLesson:ILessonOrder[]=[]
-    if(status==="pending"){
-      listLesson= [{id:id,
-        updateLessonDto:{
-          status: "complete"
-        }}]
-    }else if(status === "complete"){
-      listLesson= [{id:id,
-      updateLessonDto:{
-        status: "pending"
-      }}]
+  const statusLesson = async (id: string, status: string) => {
+    let listLesson: ILessonOrder[] = [];
+    if (status === "pending") {
+      listLesson = [
+        {
+          id: id,
+          updateLessonDto: {
+            status: "complete",
+          },
+        },
+      ];
+    } else if (status === "complete") {
+      listLesson = [
+        {
+          id: id,
+          updateLessonDto: {
+            status: "pending",
+          },
+        },
+      ];
     }
 
-    
     try {
-      const response = await putLessonOrder(listLesson, token!)
+      const response = await putLessonOrder(listLesson, token!);
       if (!response) throw new Error("Error al actualizar la lección");
       window.location.reload();
     } catch (error) {
       console.error("Error update lesson:", error);
     }
-
-  }
+  };
 
   return (
     <div>
@@ -142,20 +168,23 @@ const CreateLessonModule = ({
             <div>
               {isOrder ?
                 <button
-                className={`flex flex-row items-center m-2 p-2 ${isOrder ? "bg-light-green-600" : "bg-gray-400"} text-white`}
-                onClick={ordenLesson}
-              >
-                Guardar
-              </button>
-              :
-              <button
-                className={`flex flex-row items-center m-2 p-2 ${isOrder ? "bg-light-green-600" : "bg-gray-400"} text-white`}
-                onClick={() => setIsOrder(!isOrder)}
-              >
-                Ordenar
-              </button>
-              }
-              
+                  className={`flex flex-row items-center m-2 p-2 ${
+                    isOrder ? "bg-light-green-600" : "bg-gray-400"
+                  } text-white`}
+                  onClick={ordenLesson}
+                >
+                  Guardar
+                </button>
+              ) : (
+                <button
+                  className={`flex flex-row items-center m-2 p-2 ${
+                    isOrder ? "bg-light-green-600" : "bg-gray-400"
+                  } text-white`}
+                  onClick={() => setIsOrder(!isOrder)}
+                >
+                  Ordenar
+                </button>
+              )}
 
               {isOrder ? (
                 <DndContext
@@ -203,7 +232,9 @@ const CreateLessonModule = ({
                           {lesson.status === "complete" ? (
                             <div className="flex-row m-2 relative group inline-block">
                               <button
-                                onClick={()=>statusLesson(lesson.id,lesson.status)}
+                                onClick={() =>
+                                  statusLesson(lesson.id, lesson.status)
+                                }
                                 className="p-2 m-4 w-fit bg-light-green-500 rounded-lg"
                               >
                                 <FaCheckCircle className="text-[20px]" />
@@ -215,7 +246,9 @@ const CreateLessonModule = ({
                           ) : (
                             <div className="flex-row m-2 relative group inline-block">
                               <button
-                                onClick={()=>statusLesson(lesson.id,lesson.status)}
+                                onClick={() =>
+                                  statusLesson(lesson.id, lesson.status)
+                                }
                                 className="p-2 m-4 w-fit bg-red-500 rounded-lg"
                               >
                                 <FaTimesCircle className="text-[20px]" />

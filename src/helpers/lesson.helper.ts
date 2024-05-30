@@ -1,5 +1,4 @@
-import { IContent, ILesson,IProgress ,ILessonOrder} from "@/app/types";
-import { useAuth } from "@/context/AuthContext";
+import { ILesson, IProgress, ILessonOrder } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
 import Swal from "sweetalert2";
 
@@ -93,7 +92,7 @@ const getLessonsFinishedByUser = async (
 ): Promise<IProgress[] | null> => {
   try {
     const res: AxiosResponse<IProgress[] | null> = await axios.get(
-      `http://localhost:3001/progress/user/${userId}`
+      `${API_URL}progress/user/${userId}`
     );
     if (res.status !== 200) {
       console.log(`Error status: ${res.status}`);
@@ -110,28 +109,28 @@ const getLessonsFinishedByUser = async (
   }
 };
 
-
 const putLessonById = async (
-  title:string,
-  xp:number,
-  coins:number,
+  title: string,
+  xp: number,
+  coins: number,
   id: string,
   token: string | null
 ): Promise<ILesson> => {
-  const updateLessonDto=
-    {
-    title:title,
-    xp:Number(xp),
-    coins:Number(coins)}
+  const updateLessonDto = {
+    title: title,
+    xp: Number(xp),
+    coins: Number(coins),
+  };
   try {
     const res: AxiosResponse<ILesson> = await axios.put(
       `${API_URL}lessons`,
-      
-      [{
-      id,
-      updateLessonDto
-      }]
-      ,
+
+      [
+        {
+          id,
+          updateLessonDto,
+        },
+      ],
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -145,25 +144,22 @@ const putLessonById = async (
     return res.data;
   } catch (error: any) {
     Swal.fire({
-      title: 'Oops...',
+      title: "Oops...",
       text: error.response.data.message,
-      icon: 'error'
-    })
-    throw new Error("Error al Actualizar leccion",error);
+      icon: "error",
+    });
+    throw new Error("Error al Actualizar leccion", error);
   }
 };
 
-
-const putLessonOrder= async (
-  listOrder:ILessonOrder[],
+const putLessonOrder = async (
+  listOrder: ILessonOrder[],
   token: string | null
 ): Promise<ILesson> => {
-
   try {
     const res: AxiosResponse<ILesson> = await axios.put(
       `${API_URL}lessons`,
-      listOrder
-      ,
+      listOrder,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -177,12 +173,18 @@ const putLessonOrder= async (
     return res.data;
   } catch (error: any) {
     Swal.fire({
-      title: 'Oops...',
+      title: "Oops...",
       text: error.response.data.message,
-      icon: 'error'
-    })
-    throw new Error("Error al Actualizar leccion",error);
+      icon: "error",
+    });
+    throw new Error("Error al Actualizar leccion", error);
   }
 };
 
-export { getLessonById,getLessonsFinishedByUser, getLessons, putLessonById, putLessonOrder, postLessonContent };
+export {
+  getLessonById,
+  getLessonsFinishedByUser,
+  getLessons,
+  putLessonById,
+  putLessonOrder,
+};
