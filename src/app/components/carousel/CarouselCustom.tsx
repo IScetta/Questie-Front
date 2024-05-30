@@ -33,6 +33,7 @@ const CarouselCustom: React.FC = (): JSX.Element => {
         width={1080}
         height={1080}
         className="h-full w-full object-cover rounded-lg"
+        priority={true}
       />
       <Image
         src="https://res.cloudinary.com/dj279fdwd/image/upload/v1717045306/image2_vde8t4.jpg"
@@ -40,6 +41,7 @@ const CarouselCustom: React.FC = (): JSX.Element => {
         width={1080}
         height={1080}
         className="h-full w-full object-cover rounded-lg"
+        priority={true}
       />
       <Image
         src="https://res.cloudinary.com/dj279fdwd/image/upload/v1717045327/image3_ra6ykc.jpg"
@@ -47,6 +49,7 @@ const CarouselCustom: React.FC = (): JSX.Element => {
         width={1080}
         height={1080}
         className="h-full w-full object-cover rounded-lg"
+        priority={true}
       />
     </Carousel>
   );
