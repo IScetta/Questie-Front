@@ -166,7 +166,7 @@ const CreateLessonModule = ({
         <div>
           {content.length ? (
             <div>
-              {isOrder ?
+              {isOrder ? (
                 <button
                   className={`flex flex-row items-center m-2 p-2 ${
                     isOrder ? "bg-light-green-600" : "bg-gray-400"
