@@ -38,10 +38,10 @@ export interface ICreateModule {
   course_id: string;
 }
 
-export interface ICategory {
-  id?: number;
+export interface ICategoryCourse {
+  id?: string;
   name: string;
-  image: string;
+  image?: string;
 }
 
 export interface ICourse {
