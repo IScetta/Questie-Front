@@ -58,7 +58,7 @@ const getLessonsFinishedByUser = async (
 ): Promise<IProgress[] | null> => {
   try {
     const res: AxiosResponse<IProgress[] | null> = await axios.get(
-      `http://localhost:3001/progress/user/${userId}`
+      `${API_URL}progress/user/${userId}`
     );
     if (res.status !== 200) {
       console.log(`Error status: ${res.status}`);
