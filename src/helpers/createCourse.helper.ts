@@ -72,11 +72,13 @@ export const putProductCourse = async ( course_id:string, token:string) => {
     }
 };
 
-export const putCategoriesCourseDB = async ( categories:ICategory[] , course_id:string, token:string) => {
+export const putCategoriesCourseDB = async ( categories:string[] , course_id:string, token:string) => {
     try {
         const response = await axios.put(
             `${API_URL}courses/${course_id}`,
-            categories,
+            {
+            categories:categories
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -114,4 +116,27 @@ export const putEditCourse = async (formData:any,course_id:string, token: string
     }
 };
 
+
+export const deleteCategoryCourseDB = async (categoryId: string, courseId: string, token: string) => {
+  try {
+    const response = await axios.delete(
+      `${API_URL}courses/category/${courseId}`,
+      {
+        data: { categoryId },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Error deleting category from course:", error);
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    });
+    throw new Error(error);
+  }
+};
 

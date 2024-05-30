@@ -4,6 +4,7 @@ import { ICreateLesson } from "@/app/types";
 import { useAuth } from "@/context/AuthContext";
 import { postCreateLesson } from "@/helpers/createLesson";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const CreateLessonForm = ({
   module_id,
@@ -43,7 +44,11 @@ const CreateLessonForm = ({
 
     try {
       // console.log(input.coins)
-      
+      Swal.fire({
+        title: "Leccion Creada!",
+        text: "La leccion fue creada con exito!",
+        icon: "success"
+      });
       const response = await postCreateLesson(
         input.title,
         order,
