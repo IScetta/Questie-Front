@@ -16,22 +16,22 @@ const Footer: React.FC = (): JSX.Element => {
                 Acerca de
               </p>
             </Link>
-            <Link href="/contact">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Empleo
               </p>
             </Link>
-            <Link href="/affiliate-program">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Programa de Afiliados
               </p>
             </Link>
-            <Link href="/associations">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Asociaciones
               </p>
             </Link>
-            <Link href="/blog">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer">
                 Blog
               </p>
@@ -41,17 +41,17 @@ const Footer: React.FC = (): JSX.Element => {
             <h1 className="text-yellowMain text-sm sm:text-2xl font-medium mb-6">
               Estudiantes
             </h1>
-            <Link href="/students/scholarships">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Becas
               </p>
             </Link>
-            <Link href="/students/memberships">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Membresias
               </p>
             </Link>
-            <Link href="/students/points-plans">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Planes de puntos
               </p>
@@ -61,22 +61,22 @@ const Footer: React.FC = (): JSX.Element => {
             <h1 className="text-yellowMain sm:text-2xl font-medium mb-6">
               Enseñanza
             </h1>
-            <Link href="/teaching/begin-to-teach">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Comienza a enseñar
               </p>
             </Link>
-            <Link href="/teaching/support-for-teachers">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Ayuda para profesores
               </p>
             </Link>
-            <Link href="/teaching/rules-and-requirements">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Reglas y requisitos
               </p>
             </Link>
-            <Link href="/teaching/support-center">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline cursor-pointer mb-3">
                 Centro de ayuda
               </p>
@@ -89,17 +89,17 @@ const Footer: React.FC = (): JSX.Element => {
             <p className="text-white text-sm sm:text-xs font-normal hover:underline ml-3 md:text-base">
               © Questie - 2024
             </p>
-            <Link href="/help">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline md:text-sm">
                 Ayuda
               </p>
             </Link>
-            <Link href="/privacy">
+            <Link href="/">
               <p className="text-white text-sm sm:text-base font-normal hover:underline md:text-sm">
                 Privacidad
               </p>
             </Link>
-            <Link href="/terms">
+            <Link href="/">
               <p className="text-white text-xs sm:text-base font-normal hover:underline md:text-sm">
                 Términos y Condiciones
               </p>
