@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateLessonForm from "../../create-lesson-form";
 
 const CreateLessonButton = ({
   moduleId,
   order_n,
-  fetchCourses,
+  fetchCourse,
 }: {
   moduleId: string;
   order_n: number;
-  fetchCourses: () => void;
+  fetchCourse: () => void;
 }) => {
   const [showAlert, setShowAlert] = useState(false);
 
@@ -39,7 +39,7 @@ const CreateLessonButton = ({
               module_id={moduleId}
               order={order_n}
               onClose={handleCloseAlert}
-              fetchCourses={fetchCourses}
+              fetchCourse={fetchCourse}
             />
           </div>
         </div>

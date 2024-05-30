@@ -89,7 +89,7 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
           text: "El Modulo ha sido eliminadas.",
           icon: "success"
         });
-        fetchCourse(); // Actualizar el curso después de eliminar el módulo
+        fetchCourse(); 
       }
     } catch (error) {
       console.error("Error deleting module:", error);
@@ -151,7 +151,7 @@ const CreateCourse: React.FC<{ params: { slug: string } }> = ({ params }) => {
                     <CreateLessonButton
                       order_n={module.lessons.length}
                       moduleId={module.id}
-                      fetchCourses={fetchCourse}
+                      fetchCourse={fetchCourse}
                     />
 
                     <EditModule module={module} />

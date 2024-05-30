@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
+import Swal from "sweetalert2";
 
 const EditCategoriesForm = ({ course }: { course: ICourse }): JSX.Element => {
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -41,8 +42,6 @@ const EditCategoriesForm = ({ course }: { course: ICourse }): JSX.Element => {
   const saveCategories = async () => {
     try {
       const newCategoryIds = categorySelect.map(category => category.id!);
-      console.log('Categorías nuevas:', newCategoryIds);
-      console.log('Categorías a eliminar:', Array.from(categoryToDelete));
       if(Array.from(categoryToDelete).length){
         Array.from(categoryToDelete).forEach((category_id)=>{
           deleteCategoryCourse(category_id, course.id, token!);
@@ -50,6 +49,11 @@ const EditCategoriesForm = ({ course }: { course: ICourse }): JSX.Element => {
       }
 
       const response = await putCategoriesCourseDB(newCategoryIds, course.id, token!);
+      Swal.fire({
+        title: "Categorias Actualizadas!",
+        text: "Las categorias del curso fueron actualizadas con exito!",
+        icon: "success"
+      })
       router.push(`/admin/create-module/${course.id}`);
     } catch (error) {
       console.error("Error al actualizar las categorías del curso:", error);
