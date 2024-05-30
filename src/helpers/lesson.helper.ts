@@ -1,4 +1,4 @@
-import { ILesson } from "@/app/types";
+import { ILesson, ILessonOrder } from "@/app/types";
 import axios, { AxiosResponse } from "axios";
 import Swal from "sweetalert2";
 
@@ -81,9 +81,20 @@ const putLessonById = async (
   id: string,
   token: string | null
 ): Promise<ILesson> => {
+  const updateLessonDto=
+    {
+    title:title,
+    xp:Number(xp),
+    coins:Number(coins)}
   try {
     const res: AxiosResponse<ILesson> = await axios.put(
-      `${API_URL}lessons/${id}`,
+      `${API_URL}lessons`,
+      
+      [{
+      id,
+      updateLessonDto
+      }]
+      ,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -101,8 +112,40 @@ const putLessonById = async (
       text: error.response.data.message,
       icon: 'error'
     })
-    throw new Error("Error al obtener el módulo");
+    throw new Error("Error al Actualizar leccion",error);
   }
 };
 
-export { getLessonById, getLessons, putLessonById };
+
+const putLessonOrder= async (
+  listOrder:ILessonOrder[],
+  token: string | null
+): Promise<ILesson> => {
+
+  try {
+    const res: AxiosResponse<ILesson> = await axios.put(
+      `${API_URL}lessons`,
+      listOrder
+      ,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status !== 200) {
+      console.log(`Error status: ${res.status}`);
+    }
+
+    return res.data;
+  } catch (error: any) {
+    Swal.fire({
+      title: 'Oops...',
+      text: error.response.data.message,
+      icon: 'error'
+    })
+    throw new Error("Error al Actualizar leccion",error);
+  }
+};
+
+export { getLessonById, getLessons, putLessonById,putLessonOrder };

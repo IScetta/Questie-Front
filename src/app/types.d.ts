@@ -89,6 +89,7 @@ export interface ILesson {
   xp: number;
   coins: number;
   slug: string;
+  status: "pending" | "complete";
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -99,6 +100,15 @@ export interface ILesson {
     };
   };
   contents: [string];
+}
+
+export interface ILessonOrder{
+  id:string,
+  updateLessonDto:{
+    order?:number
+    status?:"pending" | "complete"
+  }
+
 }
 
 export interface ICreateLesson {
